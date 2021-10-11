@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class ArrayIndexedCollection extends Collection {
     private int size = 0;
-    private Object[] elements = null;
+    private Object[] elements;
 
     public int size() {
         return this.size;

@@ -47,16 +47,12 @@ public class LinkedListIndexedCollection extends Collection {
 
         @Override
         public String toString() {
-            StringBuilder sb = new StringBuilder();
-            sb.append("ListNode {");
-
-            sb.append("value = ").append(value).append(", ");
-            sb.append("prev = ").append(this.getHashCode(previous)).append(", ");
-            sb.append("hash = ").append(this.getHashCode(this)).append(", ");
-            sb.append("next = ").append(this.getHashCode(next));
-
-            sb.append("}");
-            return sb.toString();
+            return "ListNode {" +
+                    "value = " + value + ", " +
+                    "prev = " + this.getHashCode(previous) + ", " +
+                    "hash = " + this.getHashCode(this) + ", " +
+                    "next = " + this.getHashCode(next) +
+                    "}";
         }
     }
 

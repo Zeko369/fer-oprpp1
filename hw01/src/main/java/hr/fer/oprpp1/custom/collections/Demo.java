@@ -5,6 +5,7 @@ import java.util.Arrays;
 public class Demo {
     public static void main(String[] args) {
         ArrayIndexedCollection col = new ArrayIndexedCollection(2);
+        //noinspection UnnecessaryBoxing
         col.add(Integer.valueOf(20));
         col.add("New York");
         col.add("San Francisco"); // here the internal array is reallocated to 4
