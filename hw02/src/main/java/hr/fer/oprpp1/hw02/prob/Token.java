@@ -19,7 +19,7 @@ public class Token {
 
     @Override
     public String toString() {
-        return String.format("(%s, %s)", this.type, this.value);
+        return String.format("(%s, |%s|)", this.type, this.value);
     }
 }
 

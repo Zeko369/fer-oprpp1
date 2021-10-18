@@ -22,37 +22,61 @@ public class Lexer {
         return this.data[this.currentIndex++];
     }
 
+    private Token setToken(Token t) {
+        this.token = t;
+        return t;
+    }
+
     // generira i vraća sljedeći token
 // baca LexerException ako dođe do pogreške
     public Token nextToken() {
         if (this.currentIndex > this.data.length) {
-            return null;
+            throw new LexerException();
+        }
+
+        while (!this.isEnd() && Character.isWhitespace(this.getCurrent())) {
+            this.currentIndex++;
         }
 
         if (this.isEnd()) {
             this.currentIndex++;
-            return new Token(TokenType.EOF, null);
-        }
-
-        while(Character.isWhitespace(this.getCurrent())) {
-            this.currentIndex++;
+            return this.setToken(new Token(TokenType.EOF, null));
         }
 
         StringBuilder tmp = new StringBuilder();
-        if (Character.isLetter(this.getCurrent())) {
-            while (!this.isEnd() && Character.isLetter(this.getCurrent())) {
+        // FIXME: Refactor double escape implementation
+        if (this.getCurrent() == '\\' || Character.isLetter(this.getCurrent())) {
+            if (this.getCurrent() == '\\') {
+                this.currentIndex++;
+
+                if (this.isEnd() || !Character.isDigit(this.getCurrent())) {
+                    throw new LexerException("Invalid escape sequence");
+                }
+
                 tmp.append(this.getCurrentNext());
             }
 
-            return new Token(TokenType.WORD, tmp);
+            while (!this.isEnd() && (Character.isLetter(this.getCurrent()) || this.getCurrent() == '\\')) {
+                if (this.getCurrent() == '\\') {
+                    this.currentIndex++;
+                }
+
+                tmp.append(this.getCurrentNext());
+            }
+
+            return this.setToken(new Token(TokenType.WORD, tmp.toString()));
         } else if (Character.isDigit(this.getCurrent())) {
             while (!this.isEnd() && Character.isDigit(this.getCurrent())) {
                 tmp.append(this.getCurrentNext());
             }
 
-            return new Token(TokenType.NUMBER, tmp);
+            try {
+                return this.setToken(new Token(TokenType.NUMBER, Long.parseLong(tmp.toString())));
+            } catch (NumberFormatException ex) {
+                throw new LexerException("Number not ok");
+            }
         } else {
-            return new Token(TokenType.SYMBOL, this.getCurrentNext());
+            return this.setToken(new Token(TokenType.SYMBOL, this.getCurrentNext()));
         }
     }
 
