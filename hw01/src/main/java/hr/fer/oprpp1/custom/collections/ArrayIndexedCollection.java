@@ -2,14 +2,42 @@ package hr.fer.oprpp1.custom.collections;
 
 import java.util.Arrays;
 
+/**
+ * Collection implementation using an array[] as a storage backend
+ *
+ * @author franzekan
+ * @version 1.0
+ */
 public class ArrayIndexedCollection extends Collection {
+    /**
+     * Count of elements stored
+     */
     private int size = 0;
+
+    /**
+     * Internal array store
+     */
     private Object[] elements;
 
-    public int size() {
-        return this.size;
+    /**
+     * DEFAULT SIZE
+     */
+    public static int DEFAULT_SIZE = 16;
+
+    /**
+     * Simple constructor without any params
+     */
+    public ArrayIndexedCollection() {
+        this(ArrayIndexedCollection.DEFAULT_SIZE);
     }
 
+
+    /**
+     * Constructor that is used to preallocate specified size
+     *
+     * @param capacity initial size of internal array
+     * @throws IllegalArgumentException if size is less than 1
+     */
     public ArrayIndexedCollection(int capacity) {
         if (capacity < 1) {
             throw new IllegalArgumentException("Size can't be less than 1");
@@ -18,11 +46,15 @@ public class ArrayIndexedCollection extends Collection {
         this.elements = new Object[capacity];
     }
 
-    public ArrayIndexedCollection() {
-        this(16);
-    }
-
-    private static int getSize(Collection initCollection, int capacity) {
+    /**
+     * Helper function used to get the max size (explicit size / collection size) or throw error if passed collection is null
+     *
+     * @param initCollection existing collection
+     * @param capacity       initial size of internal array
+     * @return size of new collection
+     * @throws NullPointerException if initCollection is null
+     */
+    private static int getSize(Collection initCollection, int capacity) throws NullPointerException {
         if (initCollection == null) {
             throw new NullPointerException();
         }
@@ -30,15 +62,38 @@ public class ArrayIndexedCollection extends Collection {
         return Math.max(capacity, initCollection.size());
     }
 
+    /**
+     * Constructor that takes an existing collection and a specified initial size
+     *
+     * @param initCollection existing collection
+     * @param capacity       the capacity
+     * @throws NullPointerException     if initCollection is null
+     * @throws IllegalArgumentException if initCollection has no elements and capacity is 0
+     */
     public ArrayIndexedCollection(Collection initCollection, int capacity) {
         this(ArrayIndexedCollection.getSize(initCollection, capacity));
         this.addAll(initCollection);
     }
 
+    /**
+     * Constructor that takes an existing collection
+     *
+     * @param initCollection existing collection
+     * @throws NullPointerException     if initCollection is null
+     * @throws IllegalArgumentException if initCollection has no elements
+     */
     public ArrayIndexedCollection(Collection initCollection) {
         this(initCollection, -1);
     }
 
+    @Override
+    public int size() {
+        return this.size;
+    }
+
+    /**
+     * Internal method used to resize the internal array
+     */
     private void resize() {
         this.elements = Arrays.copyOf(this.elements, this.elements.length * 2);
     }
@@ -50,6 +105,13 @@ public class ArrayIndexedCollection extends Collection {
         }
     }
 
+    /**
+     * Adds the value to the list
+     *
+     * @param value value to be added
+     * @throws NullPointerException if value is null
+     */
+    @Override
     public void add(Object value) {
         if (value == null) {
             throw new NullPointerException();
@@ -62,6 +124,13 @@ public class ArrayIndexedCollection extends Collection {
         this.elements[this.size++] = value;
     }
 
+    /**
+     * Gets element by index
+     *
+     * @param index index
+     * @return element at that index
+     * @throws IndexOutOfBoundsException if index our of range
+     */
     public Object get(int index) {
         if (index < 0 || index >= this.size) {
             throw new IndexOutOfBoundsException();
@@ -70,12 +139,20 @@ public class ArrayIndexedCollection extends Collection {
         return this.elements[index];
     }
 
+    @Override
     public void clear() {
         Arrays.fill(this.elements, null);
         this.size = 0;
     }
 
-    // TODO:
+    /**
+     * Inserts element at specific position in array
+     *
+     * @param value    new element
+     * @param position new element position
+     * @throws NullPointerException      if value is null
+     * @throws IndexOutOfBoundsException if position is less than 0 or more than size
+     */
     void insert(Object value, int position) {
         if (value == null) {
             throw new NullPointerException();
@@ -97,6 +174,12 @@ public class ArrayIndexedCollection extends Collection {
         this.size++;
     }
 
+    /**
+     * Get index of element in the array or -1 if not found
+     *
+     * @param value element to get index for
+     * @return index in array or -1 if not found
+     */
     int indexOf(Object value) {
         for (int i = 0; i < this.elements.length; i++) {
             if (this.elements[i] == null) {
@@ -111,6 +194,12 @@ public class ArrayIndexedCollection extends Collection {
         return -1;
     }
 
+    /**
+     * Remove by index
+     *
+     * @param index index of element to remove
+     * @throws IndexOutOfBoundsException if index out of range
+     */
     void remove(int index) {
         if (index < 0 || index >= this.size) {
             throw new IndexOutOfBoundsException();
@@ -123,6 +212,7 @@ public class ArrayIndexedCollection extends Collection {
         this.size--;
     }
 
+    @Override
     Object[] toArray() {
         return Arrays.copyOf(this.elements, this.size);
     }

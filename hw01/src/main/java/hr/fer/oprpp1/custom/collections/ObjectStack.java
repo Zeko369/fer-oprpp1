@@ -1,36 +1,48 @@
 package hr.fer.oprpp1.custom.collections;
 
+/**
+ * Object stack modeled with ArrayIndexedCollection as the store backend
+ *
+ * @author franzekan
+ * @version 1.0
+ */
 public class ObjectStack {
-//    public static void main(String[] args) {
-//        ObjectStack obj = new ObjectStack();
-//        obj.push("8");
-//        obj.push("2");
-//        obj.push("/");
-//
-//        System.out.println(obj.size());
-//        System.out.println(obj.peek());
-//        System.out.println(obj.pop());
-//        System.out.println(obj.peek());
-//        obj.clear();
-//
-//        System.out.println(obj.peek());
-//        System.out.println(obj.size());
-//    }
-
+    /**
+     * Internal store
+     */
     private final ArrayIndexedCollection arr;
 
+    /**
+     * Instantiates a new Object stack.
+     */
     public ObjectStack() {
         this.arr = new ArrayIndexedCollection();
     }
 
+    /**
+     * Returns the size of the stack
+     *
+     * @return the int size
+     */
     public int size() {
         return this.arr.size();
     }
 
+    /**
+     * Checks if there are any items on the stack
+     *
+     * @return the boolean if there are any items
+     */
     public boolean isEmpty() {
         return this.arr.isEmpty();
     }
 
+    /**
+     * Helper to get the index of the last element
+     *
+     * @return index of last element
+     * @throws EmptyStackException if stack is empty
+     */
     private int getLastIndex() {
         int index = this.size() - 1;
         if (index < 0) {
@@ -40,10 +52,20 @@ public class ObjectStack {
         return index;
     }
 
+    /**
+     * Adds a value to the stack
+     *
+     * @param value the value
+     */
     public void push(Object value) {
         this.arr.add(value);
     }
 
+    /**
+     * Removes the top value on the stack and returns it
+     *
+     * @return the object
+     */
     public Object pop() {
         Object tmp = this.peek();
         this.arr.remove(this.getLastIndex());
@@ -51,11 +73,19 @@ public class ObjectStack {
         return tmp;
     }
 
+    /**
+     * Gets the valu on the top
+     *
+     * @return the object
+     */
     public Object peek() {
         return this.arr.get(this.getLastIndex());
     }
 
 
+    /**
+     * Empties the stack
+     */
     public void clear() {
         this.arr.clear();
     }

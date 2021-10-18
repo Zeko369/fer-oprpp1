@@ -3,7 +3,15 @@ package hr.fer.oprpp1.custom.collections.demo;
 import hr.fer.oprpp1.custom.collections.ObjectStack;
 
 /**
- * examples: "8 2 /" or "-1   8    2 / +"
+ * Class used to demo the <code>ObjectStack</code><br/>
+ * examples:
+ * <ul>
+ *   <li><code>"8 2 /"</code></li>
+ *   <li><code>"-1 8 2 / +"</code></li>
+ * </ul>
+ *
+ * @author franzekan
+ * @version 1.0
  */
 public class StackDemo {
     public static void main(String[] args) {
@@ -17,6 +25,7 @@ public class StackDemo {
             System.out.printf("Expression evaluates to %d.", val);
         } catch (InvalidExpression ex) {
             System.err.println("Error evaluating expression");
+            System.out.println(ex.getMessage());
         } catch (ArithmeticException ex) {
             System.err.printf("You have a math problem with your expression: %s", ex.getMessage());
         }
@@ -36,7 +45,7 @@ public class StackDemo {
         }
 
         if (stack.size() != 1) {
-            throw new InvalidExpression();
+            throw new InvalidExpression("Wrong number of elements");
         }
 
         return (int) stack.pop();
@@ -49,7 +58,7 @@ public class StackDemo {
             case "/" -> b / a;
             case "*" -> b * a;
             case "%" -> b % a;
-            default -> throw new RuntimeException("Wrong operation");
+            default -> throw new InvalidExpression("Wrong operation");
         };
     }
 
