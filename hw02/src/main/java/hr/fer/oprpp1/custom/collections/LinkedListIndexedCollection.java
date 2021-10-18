@@ -9,7 +9,7 @@ import java.util.NoSuchElementException;
  * @author franzekan
  * @version 1.0
  */
-public class LinkedListIndexedCollection implements Collection {
+public class LinkedListIndexedCollection implements List {
     private long modificationCount = 0;
 
     private static class LinkedListIndexedCollectionElementsGetter implements ElementsGetter {
@@ -17,14 +17,14 @@ public class LinkedListIndexedCollection implements Collection {
         private final LinkedListIndexedCollection collection;
         private final long savedModificationCount;
 
-        public LinkedListIndexedCollectionElementsGetter(LinkedListIndexedCollection collection)  {
+        public LinkedListIndexedCollectionElementsGetter(LinkedListIndexedCollection collection) {
             this.collection = collection;
             this.node = this.collection.first;
             this.savedModificationCount = this.collection.modificationCount;
         }
 
         private void checkConcurrent() {
-            if(this.savedModificationCount != this.collection.modificationCount) {
+            if (this.savedModificationCount != this.collection.modificationCount) {
                 throw new ConcurrentModificationException();
             }
         }
@@ -33,7 +33,7 @@ public class LinkedListIndexedCollection implements Collection {
         public Object getNextElement() {
             checkConcurrent();
 
-            if(this.node == null) {
+            if (this.node == null) {
                 throw new NoSuchElementException();
             }
 
@@ -192,7 +192,7 @@ public class LinkedListIndexedCollection implements Collection {
      * @return element on index
      * @throws IndexOutOfBoundsException if index is out of range
      */
-    Object get(int index) {
+    public Object get(int index) {
         if (index < 0 || index >= this.size) {
             throw new IndexOutOfBoundsException();
         }
@@ -206,6 +206,34 @@ public class LinkedListIndexedCollection implements Collection {
         }
 
         return tmp.value;
+    }
+
+    @Override
+    // TODO this
+    public void insert(Object value, int position) {
+        // Range throw
+        throw new UnsupportedOperationException("Not implemented yet");
+    }
+
+    @Override
+    public int indexOf(Object value) {
+        int i = 0;
+
+        ListNode tmp = this.first;
+        if (tmp == null) {
+            throw new NullPointerException();
+        }
+
+        while (tmp.next != null) {
+            if (tmp.value.equals(value)) {
+                return i;
+            }
+
+            i++;
+            tmp = tmp.next;
+        }
+
+        return -1;
     }
 
 
@@ -244,7 +272,7 @@ public class LinkedListIndexedCollection implements Collection {
      * @return the boolean
      * @throws IndexOutOfBoundsException if index is out of range
      */
-    boolean remove(int index) {
+    public void remove(int index) {
         if (index < 0 || index >= this.size) {
             throw new IndexOutOfBoundsException();
         }
@@ -255,8 +283,6 @@ public class LinkedListIndexedCollection implements Collection {
             this.first = this.first.next;
             this.first.previous = null;
             this.size--;
-
-            return true;
         }
 
         ListNode tmp = this.first;
@@ -266,8 +292,6 @@ public class LinkedListIndexedCollection implements Collection {
 
         tmp.previous.next = tmp.next;
         this.size--;
-
-        return true;
     }
 
     @Override

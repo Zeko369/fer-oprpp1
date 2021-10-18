@@ -10,7 +10,7 @@ import java.util.NoSuchElementException;
  * @author franzekan
  * @version 1.0
  */
-public class ArrayIndexedCollection implements Collection {
+public class ArrayIndexedCollection implements List {
     private long modificationCount = 0;
 
     private static class ArrayIndexedCollectionElementsGetter implements ElementsGetter {

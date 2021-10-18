@@ -9,6 +9,17 @@ package hr.fer.oprpp1.custom.collections;
 public interface Collection {
     ElementsGetter createElementsGetter();
 
+    default void addAllSatisfying(Collection col, Tester tester) {
+        ElementsGetter eg = col.createElementsGetter();
+        while (eg.hasNextElement()) {
+            Object tmp = eg.getNextElement();
+
+            if (tester.test(tmp)) {
+                this.add(tmp);
+            }
+        }
+    }
+
     /**
      * Size of collection
      *
