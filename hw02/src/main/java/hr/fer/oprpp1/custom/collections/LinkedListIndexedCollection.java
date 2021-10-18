@@ -143,6 +143,10 @@ public class LinkedListIndexedCollection implements List {
      */
     private ListNode last = null;
 
+    public boolean isEmpty() {
+        return this.first == null;
+    }
+
     /**
      * Empty constructor
      */
@@ -269,7 +273,6 @@ public class LinkedListIndexedCollection implements List {
      * Remove element by index
      *
      * @param index the index
-     * @return the boolean
      * @throws IndexOutOfBoundsException if index is out of range
      */
     public void remove(int index) {
