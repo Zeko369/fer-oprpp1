@@ -172,12 +172,6 @@ public class LinkedListIndexedCollection extends Collection {
     void clear() {
         this.size = 0;
 
-        ListNode tmp = this.last;
-        while (tmp.previous != null) {
-            tmp = tmp.previous;
-            tmp.next = null;
-        }
-
         this.first = null;
         this.last = null;
     }
