@@ -54,6 +54,7 @@ public class Lexer {
 
         StringBuilder tmp = new StringBuilder();
 
+        // Handle EXTENDED
         if (this.state == LexerState.EXTENDED) {
             if (this.getCurrent() == '#') {
                 this.currentIndex++;
@@ -67,8 +68,8 @@ public class Lexer {
             return this.setToken(new Token(TokenType.WORD, tmp.toString()));
         }
 
+        // Handle SIMPLE
         if (this.getCurrent() == '\\' || Character.isLetter(this.getCurrent())) {
-            // FIXME: Refactor double escape implementation
             if (this.getCurrent() == '\\') {
                 this.currentIndex++;
 
