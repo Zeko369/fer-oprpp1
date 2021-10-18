@@ -1,13 +1,22 @@
 package hr.fer.oprpp1.hw02.prob;
 
+import java.util.Objects;
+
 public class Lexer {
     private final char[] data;
-    private Token token; // trenutni token
-    private int currentIndex; // indeks prvog neobrađenog znaka
+    private Token token;
+    private int currentIndex;
+    private LexerState state;
 
     public Lexer(String text) {
         this.currentIndex = 0;
+        this.state = LexerState.BASIC;
+
         this.data = text.toCharArray();
+    }
+
+    public void setState(LexerState state) {
+        this.state = Objects.requireNonNull(state);
     }
 
     private boolean isEnd() {
@@ -44,8 +53,22 @@ public class Lexer {
         }
 
         StringBuilder tmp = new StringBuilder();
-        // FIXME: Refactor double escape implementation
+
+        if (this.state == LexerState.EXTENDED) {
+            if (this.getCurrent() == '#') {
+                this.currentIndex++;
+                return this.setToken(new Token(TokenType.SYMBOL, '#'));
+            }
+
+            while (!this.isEnd() && !Character.isWhitespace(this.getCurrent()) && this.getCurrent() != '#') {
+                tmp.append(this.getCurrentNext());
+            }
+
+            return this.setToken(new Token(TokenType.WORD, tmp.toString()));
+        }
+
         if (this.getCurrent() == '\\' || Character.isLetter(this.getCurrent())) {
+            // FIXME: Refactor double escape implementation
             if (this.getCurrent() == '\\') {
                 this.currentIndex++;
 
