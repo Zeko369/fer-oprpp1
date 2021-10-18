@@ -1,4 +1,12 @@
 #!/bin/sh
+
+if [[ $# -eq 0 ]] ; then
+	echo "You need to add 1 arg with foldername"
+	exit 1
+fi
+
+source ./jmbag.sh
+
 file_name="$1-$JMBAG"
 rm $file_name.zip
 
