@@ -6,4 +6,9 @@ public class TextNode extends Node {
     public TextNode(String text) {
         this.text = text;
     }
+
+    @Override
+    public String toString() {
+        return this.text;
+    }
 }

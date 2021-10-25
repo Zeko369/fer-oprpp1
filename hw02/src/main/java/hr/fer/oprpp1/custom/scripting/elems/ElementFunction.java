@@ -9,10 +9,10 @@ public class ElementFunction extends Element {
 
     @Override
     public String asText() {
-        return this.name;
+        return String.format("@%s", this.name);
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 }

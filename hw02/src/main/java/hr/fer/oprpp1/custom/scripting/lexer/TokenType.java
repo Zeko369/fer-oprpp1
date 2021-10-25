@@ -5,6 +5,7 @@ public enum TokenType {
     TAG_OPEN,
     TAG_CLOSE,
     SYMBOL,
+    OPERATOR,
     FUNCTION,
     COMMAND,
     STRING,

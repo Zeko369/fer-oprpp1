@@ -15,4 +15,21 @@ public class ForLoopNode extends Node {
         this.endExpression = endExpression;
         this.stepExpression = stepExpression;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        String step = this.stepExpression == null ? "" : this.stepExpression.asText();
+        sb.append(String.format("{$ FOR: %s %s %s %s $}\n", this.variable.asText(), this.startExpression.asText(), this.endExpression.asText(), step));
+
+        // TODO: Merge with other
+        this.forEachChildren(value -> {
+            sb.append(value.toString());
+            sb.append("\n");
+        });
+
+        sb.append("{$ END $}");
+
+        return sb.toString();
+    }
 }

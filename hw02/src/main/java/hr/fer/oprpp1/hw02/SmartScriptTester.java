@@ -13,9 +13,11 @@ public class SmartScriptTester {
         try {
             parser = new SmartScriptParser(docBody);
         } catch (SmartScriptParserException e) {
+            System.out.println(e.getMessage());
             System.out.println("Unable to parse document!");
             System.exit(-1);
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("If this line ever executes, you have failed this class!");
             System.exit(-1);
         }

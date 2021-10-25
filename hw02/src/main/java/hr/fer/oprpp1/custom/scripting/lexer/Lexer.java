@@ -2,6 +2,8 @@ package hr.fer.oprpp1.custom.scripting.lexer;
 
 import hr.fer.oprpp1.custom.scripting.lexer.demo.Loader;
 
+import java.util.Locale;
+
 public class Lexer {
     public static void main(String[] args) {
         String code = Loader.loadCode("./demos/code.txt");
@@ -55,11 +57,11 @@ public class Lexer {
         boolean isChar = this.getCurrent() == tillChar;
 
         while (!this.isEnd()) {
-            if(this.getCurrent() == '$') {
+            if (this.getCurrent() == '$') {
                 break;
             }
 
-            if(this.getCurrent() == tillChar) {
+            if (this.getCurrent() == tillChar) {
                 break;
             }
 
@@ -98,14 +100,12 @@ public class Lexer {
     }
 
     private boolean isStartOfTag() {
-        return this.getCurrent() == '{'
-                && (!this.hasLast() || this.getLast() != '\\')
-                && (!this.hasNext() || this.getNext() == '$');
+        return this.getCurrent() == '{' && (!this.hasLast() || this.getLast() != '\\') && this.getNext() == '$';
     }
 
-    private boolean isSymbol(char sym) {
-        for(char c : VALID_OPERATORS) {
-            if(c == sym) {
+    private boolean isOperator(char op) {
+        for (char c : VALID_OPERATORS) {
+            if (c == op) {
                 return true;
             }
         }
@@ -132,7 +132,7 @@ public class Lexer {
                     return this.setToken(new Token(TokenType.SYMBOL, this.getCurrentNext()));
                 }
 
-                return this.setToken(new Token(TokenType.COMMAND, this.tillSpace()));
+                return this.setToken(new Token(TokenType.COMMAND, this.tillSpace().toUpperCase()));
             }
 
             // END
@@ -168,23 +168,23 @@ public class Lexer {
                 try {
                     double d = Double.parseDouble(tmp);
                     if (Math.ceil(d) == Math.floor(d)) {
-                        return this.setToken(new Token(TokenType.INTEGER, tmp));
+                        return this.setToken(new Token(TokenType.INTEGER, (int) d));
                     }
 
-                    return this.setToken(new Token(TokenType.DOUBLE, tmp));
+                    return this.setToken(new Token(TokenType.DOUBLE, d));
                 } catch (NumberFormatException ex) {
                     throw new LexerException("Number not good");
                 }
             }
 
             String tmp = tillSpace();
-            if(tmp.length() == 0) {
+            if (tmp.length() == 0) {
                 throw new LexerException("This empty??");
             }
 
-            if(!Character.isLetter(tmp.charAt(0))) {
-                if(tmp.length() == 1 && this.isSymbol(tmp.charAt(0))) {
-                    return this.setToken(new Token(TokenType.SYMBOL, tmp));
+            if (!Character.isLetter(tmp.charAt(0))) {
+                if (tmp.length() == 1 && this.isOperator(tmp.charAt(0))) {
+                    return this.setToken(new Token(TokenType.OPERATOR, tmp));
                 }
 
                 throw new LexerException("This is not a valid variable name");

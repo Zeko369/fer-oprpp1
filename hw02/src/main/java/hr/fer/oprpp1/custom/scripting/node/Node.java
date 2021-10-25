@@ -1,6 +1,7 @@
 package hr.fer.oprpp1.custom.scripting.node;
 
 import hr.fer.oprpp1.custom.collections.ArrayIndexedCollection;
+import hr.fer.oprpp1.custom.collections.Processor;
 
 public abstract class Node {
     private final ArrayIndexedCollection children;
@@ -19,5 +20,9 @@ public abstract class Node {
 
     public Node getChild(int index) {
         return (Node) this.children.get(index);
+    }
+
+    public void forEachChildren(Processor p) {
+        this.children.forEach(p);
     }
 }

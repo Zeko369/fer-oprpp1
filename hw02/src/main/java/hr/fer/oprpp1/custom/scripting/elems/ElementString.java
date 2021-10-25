@@ -9,7 +9,7 @@ public class ElementString extends Element {
 
     @Override
     public String asText() {
-        return this.value;
+        return String.format("\"%s\"", this.value);
     }
 
     public String getValue() {
