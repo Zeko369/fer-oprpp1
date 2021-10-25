@@ -8,10 +8,27 @@ import hr.fer.oprpp1.custom.scripting.parser.SmartScriptParserException;
 public class SmartScriptTester {
     public static void main(String[] args) {
         String docBody = Loader.loadCode("./demos/code.txt");
+        System.out.println(docBody);
+
+        String originalDocumentBody = SmartScriptTester.parse(docBody);
+        String reParsedDocumentBody = SmartScriptTester.parse(originalDocumentBody);
+
+        System.out.println(originalDocumentBody);
+        System.out.println("---------------------");
+        System.out.println(reParsedDocumentBody);
+
+        if(originalDocumentBody.equals(reParsedDocumentBody)) {
+            System.out.println("Same");
+        } else {
+            System.out.println("Didn't work :(");
+        }
+    }
+
+    private static String parse(String code) {
         SmartScriptParser parser = null;
 
         try {
-            parser = new SmartScriptParser(docBody);
+            parser = new SmartScriptParser(code);
         } catch (SmartScriptParserException e) {
             System.out.println(e.getMessage());
             System.out.println("Unable to parse document!");
@@ -23,7 +40,6 @@ public class SmartScriptTester {
         }
 
         DocumentNode document = parser.getDocumentNode();
-        String originalDocumentBody = document.toString();
-        System.out.println(originalDocumentBody); // should write something like originl content of docBody
+        return document.toString();
     }
 }

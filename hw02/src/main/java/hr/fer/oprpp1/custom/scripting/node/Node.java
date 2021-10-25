@@ -22,6 +22,15 @@ public abstract class Node {
         return (Node) this.children.get(index);
     }
 
+    public abstract String toCode();
+
+    protected String childrenToString() {
+        StringBuilder sb = new StringBuilder();
+        this.forEachChildren(value -> sb.append(((Node) value).toCode()));
+
+        return sb.toString();
+    }
+
     public void forEachChildren(Processor p) {
         this.children.forEach(p);
     }

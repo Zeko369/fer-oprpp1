@@ -8,7 +8,7 @@ public class TextNode extends Node {
     }
 
     @Override
-    public String toString() {
+    public String toCode() {
         return this.text;
     }
 }

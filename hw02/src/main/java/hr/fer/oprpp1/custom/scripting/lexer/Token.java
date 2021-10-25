@@ -20,8 +20,9 @@ public class Token {
     @Override
     public String toString() {
         return switch (this.type) {
+            case EOF -> "(EOF)";
             case TAG_OPEN, TAG_CLOSE -> String.format("(%s)", this.type);
-            default -> String.format("(%s, '%s')", this.type, this.value);
+            default -> String.format("(%s, '%s')", this.type, this.value.toString().replace("\n", "\\n"));
         };
 
     }

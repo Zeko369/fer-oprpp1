@@ -2,8 +2,6 @@ package hr.fer.oprpp1.custom.scripting.lexer;
 
 import hr.fer.oprpp1.custom.scripting.lexer.demo.Loader;
 
-import java.util.Locale;
-
 public class Lexer {
     public static void main(String[] args) {
         String code = Loader.loadCode("./demos/code.txt");
@@ -26,7 +24,7 @@ public class Lexer {
     private LexerState state = LexerState.NORMAL;
     private Token token = null;
 
-    private static char[] VALID_OPERATORS = {'+', '-', '/', '*', '^'};
+    private static final char[] VALID_OPERATORS = {'+', '-', '/', '*', '^'};
 
     public Lexer(String str) {
         this.data = str.toCharArray();

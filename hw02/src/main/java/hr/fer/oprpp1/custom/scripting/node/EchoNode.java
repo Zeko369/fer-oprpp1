@@ -10,7 +10,7 @@ public class EchoNode extends Node {
     }
 
     @Override
-    public String toString() {
+    public String toCode() {
         StringBuilder sb = new StringBuilder();
         sb.append("{$= ");
 
