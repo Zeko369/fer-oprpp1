@@ -10,12 +10,15 @@ public class SmartScriptTester {
         String docBody = Loader.loadCode("./demos/code.txt");
         System.out.println(docBody);
 
-        String originalDocumentBody = SmartScriptTester.parse(docBody);
-        String reParsedDocumentBody = SmartScriptTester.parse(originalDocumentBody);
+        DocumentNode parsedTree = SmartScriptTester.parse(docBody);
+        String originalDocumentBody = parsedTree.toString();
+        String reParsedDocumentBody = SmartScriptTester.parse(originalDocumentBody).toString();
 
         System.out.println(originalDocumentBody);
-        System.out.println("---------------------");
-        System.out.println(reParsedDocumentBody);
+//        System.out.println("---------------------");
+//        System.out.println(reParsedDocumentBody);
+
+        System.out.println(parsedTree.toStructure());
 
         if(originalDocumentBody.equals(reParsedDocumentBody)) {
             System.out.println("Same");
@@ -24,7 +27,7 @@ public class SmartScriptTester {
         }
     }
 
-    private static String parse(String code) {
+    private static DocumentNode parse(String code) {
         SmartScriptParser parser = null;
 
         try {
@@ -39,7 +42,6 @@ public class SmartScriptTester {
             System.exit(-1);
         }
 
-        DocumentNode document = parser.getDocumentNode();
-        return document.toString();
+        return parser.getDocumentNode();
     }
 }

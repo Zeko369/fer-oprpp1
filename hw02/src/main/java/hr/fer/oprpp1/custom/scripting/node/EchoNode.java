@@ -9,18 +9,24 @@ public class EchoNode extends Node {
         this.elements = elements;
     }
 
-    @Override
-    public String toCode() {
+    private String arguments() {
         StringBuilder sb = new StringBuilder();
-        sb.append("{$= ");
 
         for (Element element : this.elements) {
             sb.append(element.asText());
             sb.append(" ");
         }
 
-        sb.append("$}");
-
         return sb.toString();
+    }
+
+    @Override
+    public String toCode() {
+        return String.format("{$= %s $}", this.arguments());
+    }
+
+    @Override
+    public String toStructure(int depth) {
+        return String.format("%sECHO: %s\n", " ".repeat(depth), this.arguments());
     }
 }

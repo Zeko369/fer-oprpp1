@@ -24,6 +24,10 @@ public abstract class Node {
 
     public abstract String toCode();
 
+    public String toStructure(int depth) {
+        return "";
+    }
+
     protected String childrenToString() {
         StringBuilder sb = new StringBuilder();
         this.forEachChildren(value -> sb.append(((Node) value).toCode()));

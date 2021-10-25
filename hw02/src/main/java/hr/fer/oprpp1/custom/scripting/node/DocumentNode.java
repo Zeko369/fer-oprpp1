@@ -10,4 +10,15 @@ public class DocumentNode extends Node {
     public String toCode() {
         return this.childrenToString();
     }
+
+    public String toStructure() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("ROOT:\n");
+        this.forEachChildren((c) -> {
+            sb.append(((Node) c).toStructure(2));
+            sb.append("\n");
+        });
+
+        return sb.toString();
+    }
 }

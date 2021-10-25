@@ -27,7 +27,7 @@ public class ForCommandParser implements CommandParser {
 
         for (int i = 1; i < elements.length; i++) {
             if (!(elements[i] instanceof ElementVariable || elements[i] instanceof ElementConstantInteger || elements[i] instanceof ElementConstantDouble)) {
-                throw new SmartScriptParserException(String.format("[FOR]: %d is not a valid type", i));
+                throw new SmartScriptParserException(String.format("[FOR]: argument[%d] is not a valid type", i));
             }
         }
 

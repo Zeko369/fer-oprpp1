@@ -25,6 +25,7 @@ public class SmartScriptParser {
         } catch (LexerException ex) {
             throw new SmartScriptParserException(String.format("[Lexer]: %s", ex.getMessage()));
         } catch (Exception ex) {
+            ex.printStackTrace();
             throw new SmartScriptParserException("Internal error");
         }
     }

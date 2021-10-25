@@ -27,4 +27,15 @@ public class ForLoopNode extends Node {
 
         return sb.toString();
     }
+
+    @Override
+    public String toStructure(int depth) {
+        StringBuilder sb = new StringBuilder();
+        String step = this.stepExpression == null ? "" : this.stepExpression.asText();
+
+        sb.append(String.format("%sFOR: %s %s %s %s\n", " ".repeat(depth), this.variable.asText(), this.startExpression.asText(), this.endExpression.asText(), step));
+        this.forEachChildren(c -> sb.append(((Node) c).toStructure(depth + 2)));
+
+        return sb.toString();
+    }
 }
