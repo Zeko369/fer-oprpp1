@@ -4,9 +4,4 @@ public class SmartScriptParserException extends RuntimeException {
     public SmartScriptParserException(String message) {
         super(message);
     }
-
-    public SmartScriptParserException() {
-        super();
-    }
-
 }

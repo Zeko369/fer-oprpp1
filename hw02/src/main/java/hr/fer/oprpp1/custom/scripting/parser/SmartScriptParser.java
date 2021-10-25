@@ -22,7 +22,7 @@ public class SmartScriptParser {
             this.parse();
         } catch (SmartScriptParserException ex) {
             throw ex;
-        } catch(LexerException ex) {
+        } catch (LexerException ex) {
             throw new SmartScriptParserException(String.format("[Lexer]: %s", ex.getMessage()));
         } catch (Exception ex) {
             throw new SmartScriptParserException("Internal error");
@@ -32,9 +32,6 @@ public class SmartScriptParser {
     public DocumentNode getDocumentNode() {
         return this.root;
     }
-
-
-    // FIXME: TILL SPACE IS BROKEN SINCE 123" won't work but is valid (break on next type)
 
     private void parse() {
         ObjectStack s = new ObjectStack();
