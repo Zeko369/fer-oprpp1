@@ -1,24 +1,8 @@
 package hr.fer.oprpp1.custom.scripting.lexer;
 
-import hr.fer.oprpp1.custom.scripting.lexer.demo.Loader;
+import java.util.function.Predicate;
 
 public class Lexer {
-    public static void main(String[] args) {
-        String code = Loader.loadCode("./demos/code.txt");
-        System.out.println(code);
-
-        int i = 0;
-        Token t;
-        Lexer l = new Lexer(code);
-
-        do {
-            LexerState s = l.getState();
-            t = l.getNextToken();
-            System.out.printf("%s %s%n", s == LexerState.NORMAL ? "NOR" : "TAG", t);
-            i++;
-        } while (t.getType() != TokenType.EOF && i < 50);
-    }
-
     private int index = 0;
     private final char[] data;
     private LexerState state = LexerState.NORMAL;
@@ -38,39 +22,42 @@ public class Lexer {
         return state;
     }
 
-    private Token setToken(Token t) {
-        this.token = t;
-        return t;
+    private Token setToken(TokenType type, Object value) {
+        this.token = new Token(type, value);
+        return this.token;
     }
 
-    private void eatSpace() {
+    private void skipSpace() {
         if (this.getCurrent() != ' ') return;
         while (this.getCurrent() == ' ') {
             this.index++;
         }
     }
 
-    private String till(char tillChar) {
+    private String tillNewType(Predicate<Character> test) {
         StringBuilder sb = new StringBuilder();
-        boolean isChar = this.getCurrent() == tillChar;
-
-        while (!this.isEnd()) {
-            if (this.getCurrent() == '$') {
-                break;
-            }
-
-            if (this.getCurrent() == tillChar) {
-                break;
-            }
-
-            sb.append(this.getCurrentNext());
+        while (!this.isEnd() && test.test(this.getCurrent()) && this.getCurrent() != ' ' && !this.isStartOfTag()) {
+            sb.append(this.getCurrentAndMove());
         }
 
         return sb.toString();
     }
 
-    private String tillSpace() {
-        return till(' ');
+    private String getTillChar(char tillChar) {
+        StringBuilder sb = new StringBuilder();
+        while (!this.isEnd()) {
+            if (this.getCurrent() == '$' || this.getCurrent() == tillChar) {
+                break;
+            }
+
+            sb.append(this.getCurrentAndMove());
+        }
+
+        return sb.toString();
+    }
+
+    private String getTillSpace() {
+        return getTillChar(' ');
     }
 
     private boolean hasLast() {
@@ -85,12 +72,8 @@ public class Lexer {
         return this.data[this.index];
     }
 
-    private char getCurrentNext() {
+    private char getCurrentAndMove() {
         return this.data[this.index++];
-    }
-
-    private boolean hasNext() {
-        return this.data.length > this.index;
     }
 
     private char getNext() {
@@ -118,19 +101,19 @@ public class Lexer {
         }
 
         if (this.isEnd()) {
-            return this.setToken(new Token(TokenType.EOF, null));
+            return this.setToken(TokenType.EOF, null);
         }
 
         if (this.state == LexerState.TAG) {
-            this.eatSpace();
+            this.skipSpace();
 
             // COMMAND
             if (this.token.getType().equals(TokenType.TAG_OPEN)) {
                 if (this.getCurrent() == '=') {
-                    return this.setToken(new Token(TokenType.SYMBOL, this.getCurrentNext()));
+                    return this.setToken(TokenType.SYMBOL, this.getCurrentAndMove());
                 }
 
-                return this.setToken(new Token(TokenType.COMMAND, this.tillSpace().toUpperCase()));
+                return this.setToken(TokenType.COMMAND, this.getTillSpace().toUpperCase());
             }
 
             // END
@@ -139,56 +122,58 @@ public class Lexer {
                 this.index++;
                 this.index++;
 
-                return this.setToken(new Token(TokenType.TAG_CLOSE, "$}"));
+                return this.setToken(TokenType.TAG_CLOSE, "$}");
             }
 
             // FUNCTION
             if (this.getCurrent() == '@') {
                 this.index++;
-                String tmp = this.tillSpace();
+                String tmp = this.getTillSpace();
                 this.index++;
-                return this.setToken(new Token(TokenType.FUNCTION, tmp));
+                return this.setToken(TokenType.FUNCTION, tmp);
             }
 
             // STRING LITERAL
             if (this.getCurrent() == '"') {
                 this.index++;
-                String tmp = this.till('"');
+                String tmp = this.getTillChar('"');
                 this.index++;
 
-                return this.setToken(new Token(TokenType.STRING, tmp));
+                return this.setToken(TokenType.STRING, tmp);
             }
 
             // NUMBERS
             if (Character.isDigit(this.getCurrent())) {
-                String tmp = this.tillSpace();
+                String tmp = this.tillNewType(LexerUtils::isNumber);
 
                 try {
                     double d = Double.parseDouble(tmp);
                     if (Math.ceil(d) == Math.floor(d)) {
-                        return this.setToken(new Token(TokenType.INTEGER, (int) d));
+                        return this.setToken(TokenType.INTEGER, (int) d);
                     }
 
-                    return this.setToken(new Token(TokenType.DOUBLE, d));
+                    return this.setToken(TokenType.DOUBLE, d);
                 } catch (NumberFormatException ex) {
-                    throw new LexerException("Number not good");
+                    throw new LexerException("Number parse error");
                 }
             }
 
-            String tmp = tillSpace();
+            // OPERATOR
+            if (this.isOperator(this.getCurrent())) {
+                return this.setToken(TokenType.OPERATOR, this.getCurrentAndMove());
+            }
+
+            // VARIABLE
+            if (!Character.isLetter(this.getCurrent())) {
+                throw new LexerException("Unexpected character");
+            }
+
+            String tmp = this.tillNewType(LexerUtils::isVariable);
             if (tmp.length() == 0) {
-                throw new LexerException("This empty??");
+                throw new LexerException("Variable is empty");
             }
 
-            if (!Character.isLetter(tmp.charAt(0))) {
-                if (tmp.length() == 1 && this.isOperator(tmp.charAt(0))) {
-                    return this.setToken(new Token(TokenType.OPERATOR, tmp));
-                }
-
-                throw new LexerException("This is not a valid variable name");
-            }
-
-            return this.setToken(new Token(TokenType.VARIABLE, tmp));
+            return this.setToken(TokenType.VARIABLE, tmp);
         }
 
         if (isStartOfTag()) {
@@ -196,14 +181,14 @@ public class Lexer {
             this.index++;
             this.index++;
 
-            return this.setToken(new Token(TokenType.TAG_OPEN, "{$"));
+            return this.setToken(TokenType.TAG_OPEN, "{$");
         } else {
             StringBuilder sb = new StringBuilder();
             while (!this.isEnd() && !this.isStartOfTag()) {
-                sb.append(this.getCurrentNext());
+                sb.append(this.getCurrentAndMove());
             }
 
-            return this.setToken(new Token(TokenType.TEXT, sb.toString()));
+            return this.setToken(TokenType.TEXT, sb.toString());
         }
     }
 
