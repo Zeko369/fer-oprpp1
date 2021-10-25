@@ -3,11 +3,15 @@ package hr.fer.oprpp1.custom.scripting.elems;
 /**
  * Element class used to store an operator <code>+/-*^</code>
  * I.e. <code>+</code> will be parsed into this class
+ *
+ * @author franzekan
  */
 public class ElementOperator extends Element {
     private final String symbol;
 
     /**
+     * Instantiates a new Element operator.
+     *
      * @param symbol the symbol
      */
     public ElementOperator(String symbol) {

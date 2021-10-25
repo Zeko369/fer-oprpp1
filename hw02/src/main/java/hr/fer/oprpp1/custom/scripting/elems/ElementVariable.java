@@ -3,11 +3,15 @@ package hr.fer.oprpp1.custom.scripting.elems;
 /**
  * Element class used to store a variable
  * I.e. <code>foo</code> will be parsed into this class
+ *
+ * @author franzekan
  */
 public class ElementVariable extends Element {
     private final String name;
 
     /**
+     * Instantiates a new Element variable.
+     *
      * @param name the name
      */
     public ElementVariable(String name) {

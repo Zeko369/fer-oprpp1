@@ -3,11 +3,15 @@ package hr.fer.oprpp1.custom.scripting.elems;
 /**
  * Element class used to store int value
  * I.e. <code>123</code> will be parsed into this class
+ *
+ * @author franzekan
  */
 public class ElementConstantInteger extends Element {
     private final int value;
 
     /**
+     * Instantiates a new Element constant integer.
+     *
      * @param value number
      */
     public ElementConstantInteger(int value) {
@@ -17,7 +21,7 @@ public class ElementConstantInteger extends Element {
     /**
      * Value getter
      *
-     * @return value
+     * @return value value
      */
     public int getValue() {
         return value;
