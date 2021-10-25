@@ -4,7 +4,7 @@ import hr.fer.oprpp1.custom.scripting.lexer.demo.Loader;
 
 public class Lexer {
     public static void main(String[] args) {
-        String code = Loader.loadCode("./demos/code_escape_quote.txt");
+        String code = Loader.loadCode("./demos/code.txt");
         System.out.println(code);
 
         int i = 0;
@@ -24,6 +24,8 @@ public class Lexer {
     private LexerState state = LexerState.NORMAL;
     private Token token = null;
 
+    private static char[] VALID_OPERATORS = {'+', '-', '/', '*', '^'};
+
     public Lexer(String str) {
         this.data = str.toCharArray();
     }
@@ -41,14 +43,6 @@ public class Lexer {
         return t;
     }
 
-    private char getCurrent() {
-        return this.data[this.index];
-    }
-
-    private char getCurrentNext() {
-        return this.data[this.index++];
-    }
-
     private void eatSpace() {
         if (this.getCurrent() != ' ') return;
         while (this.getCurrent() == ' ') {
@@ -59,9 +53,16 @@ public class Lexer {
     private String till(char tillChar) {
         StringBuilder sb = new StringBuilder();
         boolean isChar = this.getCurrent() == tillChar;
-        boolean isLastCharEscape = this.getLast() == '\\';
 
-        while (!this.isEnd() && !(isChar || isLastCharEscape) && this.getCurrent() != '$') {
+        while (!this.isEnd()) {
+            if(this.getCurrent() == '$') {
+                break;
+            }
+
+            if(this.getCurrent() == tillChar) {
+                break;
+            }
+
             sb.append(this.getCurrentNext());
         }
 
@@ -72,13 +73,46 @@ public class Lexer {
         return till(' ');
     }
 
+    private boolean hasLast() {
+        return this.index > 0;
+    }
+
     private char getLast() {
         return this.data[this.index - 1];
+    }
+
+    private char getCurrent() {
+        return this.data[this.index];
+    }
+
+    private char getCurrentNext() {
+        return this.data[this.index++];
+    }
+
+    private boolean hasNext() {
+        return this.data.length > this.index;
     }
 
     private char getNext() {
         return this.data[this.index + 1];
     }
+
+    private boolean isStartOfTag() {
+        return this.getCurrent() == '{'
+                && (!this.hasLast() || this.getLast() != '\\')
+                && (!this.hasNext() || this.getNext() == '$');
+    }
+
+    private boolean isSymbol(char sym) {
+        for(char c : VALID_OPERATORS) {
+            if(c == sym) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 
     public Token getNextToken() {
         if (this.index > this.data.length) {
@@ -143,7 +177,20 @@ public class Lexer {
                 }
             }
 
-            return this.setToken(new Token(TokenType.STRING, tillSpace()));
+            String tmp = tillSpace();
+            if(tmp.length() == 0) {
+                throw new LexerException("This empty??");
+            }
+
+            if(!Character.isLetter(tmp.charAt(0))) {
+                if(tmp.length() == 1 && this.isSymbol(tmp.charAt(0))) {
+                    return this.setToken(new Token(TokenType.SYMBOL, tmp));
+                }
+
+                throw new LexerException("This is not a valid variable name");
+            }
+
+            return this.setToken(new Token(TokenType.VARIABLE, tmp));
         }
 
         if (isStartOfTag()) {
@@ -154,16 +201,12 @@ public class Lexer {
             return this.setToken(new Token(TokenType.TAG_OPEN, "{$"));
         } else {
             StringBuilder sb = new StringBuilder();
-            while(!this.isEnd() && !this.isStartOfTag()) {
+            while (!this.isEnd() && !this.isStartOfTag()) {
                 sb.append(this.getCurrentNext());
             }
 
             return this.setToken(new Token(TokenType.TEXT, sb.toString()));
         }
-    }
-
-    private boolean isStartOfTag() {
-        return this.getCurrent() == '{' && this.getLast() != '\\' && this.getNext() == '$';
     }
 
     public Token getCurrentToken() {
