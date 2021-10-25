@@ -4,7 +4,7 @@ import hr.fer.oprpp1.custom.scripting.lexer.demo.Loader;
 
 public class Lexer {
     public static void main(String[] args) {
-        String code = Loader.loadCode("./demos/code.txt");
+        String code = Loader.loadCode("./demos/code_escape_quote.txt");
         System.out.println(code);
 
         int i = 0;
@@ -49,25 +49,6 @@ public class Lexer {
         return this.data[this.index++];
     }
 
-    private void checkStream(char... items) {
-        for (char i : items) {
-            if (this.getCurrent() != i) {
-                throw new RuntimeException("Error stream");
-            }
-
-            this.index++;
-        }
-    }
-
-    private String tillChar(char c) {
-        StringBuilder sb = new StringBuilder();
-        while (!this.isEnd() && this.getCurrent() != c) {
-            sb.append(this.getCurrentNext());
-        }
-
-        return sb.toString();
-    }
-
     private void eatSpace() {
         if (this.getCurrent() != ' ') return;
         while (this.getCurrent() == ' ') {
@@ -77,7 +58,10 @@ public class Lexer {
 
     private String till(char tillChar) {
         StringBuilder sb = new StringBuilder();
-        while (!this.isEnd() && this.getCurrent() != tillChar && this.getCurrent() != '$') {
+        boolean isChar = this.getCurrent() == tillChar;
+        boolean isLastCharEscape = this.getLast() == '\\';
+
+        while (!this.isEnd() && !(isChar || isLastCharEscape) && this.getCurrent() != '$') {
             sb.append(this.getCurrentNext());
         }
 
@@ -86,6 +70,14 @@ public class Lexer {
 
     private String tillSpace() {
         return till(' ');
+    }
+
+    private char getLast() {
+        return this.data[this.index - 1];
+    }
+
+    private char getNext() {
+        return this.data[this.index + 1];
     }
 
     public Token getNextToken() {
@@ -100,14 +92,6 @@ public class Lexer {
         if (this.state == LexerState.TAG) {
             this.eatSpace();
 
-            // END
-            if (this.getCurrent() == '$') {
-                // FIXME: Deprecate this and use tillSpace
-                this.checkStream('$', '}');
-                this.state = LexerState.NORMAL;
-                return this.setToken(new Token(TokenType.TAG_CLOSE, "$}"));
-            }
-
             // COMMAND
             if (this.token.getType().equals(TokenType.TAG_OPEN)) {
                 if (this.getCurrent() == '=') {
@@ -115,6 +99,15 @@ public class Lexer {
                 }
 
                 return this.setToken(new Token(TokenType.COMMAND, this.tillSpace()));
+            }
+
+            // END
+            if (this.getCurrent() == '$') {
+                this.state = LexerState.NORMAL;
+                this.index++;
+                this.index++;
+
+                return this.setToken(new Token(TokenType.TAG_CLOSE, "$}"));
             }
 
             // FUNCTION
@@ -153,33 +146,24 @@ public class Lexer {
             return this.setToken(new Token(TokenType.STRING, tillSpace()));
         }
 
-        if (this.getCurrent() == '{') {
-            this.checkStream('{', '$');
-
+        if (isStartOfTag()) {
             this.state = LexerState.TAG;
-            return this.setToken(new Token(TokenType.TAG_OPEN, "{$"));
+            this.index++;
+            this.index++;
 
-//            boolean isEcho = this.getCurrent() == '=';
-//            if (isEcho) {
-//                this.index++;
-//            }
-//
-//            String tmp = this.tillChar('$').trim();
-//
-//            this.checkStream('$', '}');
-//
-//            if (isEcho) {
-//                return this.setToken(new Token(TokenType.ECHO, tmp));
-//            } else {
-//                TokenType type = tmp.toUpperCase(Locale.ROOT).equals("END")
-//                        ? TokenType.TAG_CLOSE
-//                        : TokenType.TAG_OPEN;
-//                return this.setToken(new Token(type, tmp));
-//            }
+            return this.setToken(new Token(TokenType.TAG_OPEN, "{$"));
         } else {
-            String tmp = this.tillChar('{').trim();
-            return this.setToken(new Token(TokenType.TEXT, tmp));
+            StringBuilder sb = new StringBuilder();
+            while(!this.isEnd() && !this.isStartOfTag()) {
+                sb.append(this.getCurrentNext());
+            }
+
+            return this.setToken(new Token(TokenType.TEXT, sb.toString()));
         }
+    }
+
+    private boolean isStartOfTag() {
+        return this.getCurrent() == '{' && this.getLast() != '\\' && this.getNext() == '$';
     }
 
     public Token getCurrentToken() {

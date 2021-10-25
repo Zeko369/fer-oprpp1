@@ -1,0 +1,3 @@
+# A tag follows {$= \"Joe \\\"Long\\\" Smith\"$}.
+# Example { bla } blu \{$=1$}. Nothing interesting {=here}
+Example \{$=1$}. Now actually write one {$=1$}
