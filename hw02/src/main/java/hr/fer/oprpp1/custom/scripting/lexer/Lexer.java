@@ -143,11 +143,16 @@ public class Lexer {
             }
 
             // NUMBERS
-            if (Character.isDigit(this.getCurrent())) {
+            if ((this.getCurrent() == '-' && Character.isDigit(this.getNext())) || Character.isDigit(this.getCurrent())) {
+                boolean negate = this.getCurrent() == '-';
+                if (negate) this.index++;
+
                 String tmp = this.tillNewType(LexerUtils::isNumber);
 
                 try {
                     double d = Double.parseDouble(tmp);
+                    if (negate) d *= -1;
+
                     if (Math.ceil(d) == Math.floor(d)) {
                         return this.setToken(TokenType.INTEGER, (int) d);
                     }
@@ -160,7 +165,7 @@ public class Lexer {
 
             // OPERATOR
             if (this.isOperator(this.getCurrent())) {
-                return this.setToken(TokenType.OPERATOR, this.getCurrentAndMove());
+                return this.setToken(TokenType.OPERATOR, String.valueOf(this.getCurrentAndMove()));
             }
 
             // VARIABLE
