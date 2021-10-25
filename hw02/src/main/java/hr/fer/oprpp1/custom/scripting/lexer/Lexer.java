@@ -46,7 +46,7 @@ public class Lexer {
     private String getTillChar(char tillChar) {
         StringBuilder sb = new StringBuilder();
         while (!this.isEnd()) {
-            if (this.getCurrent() == '$' || this.getCurrent() == tillChar) {
+            if (this.getCurrent() == '$' || (this.getCurrent() == tillChar && this.hasLast() && this.getLast() != '\\')) {
                 break;
             }
 
@@ -190,6 +190,10 @@ public class Lexer {
         } else {
             StringBuilder sb = new StringBuilder();
             while (!this.isEnd() && !this.isStartOfTag()) {
+                if(this.hasLast() && this.getLast() == '\\' && this.getCurrent() == 'n') {
+                    throw new LexerException("Wild \\n inside of Text");
+                }
+
                 sb.append(this.getCurrentAndMove());
             }
 

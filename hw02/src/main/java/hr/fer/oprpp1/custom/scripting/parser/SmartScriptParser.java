@@ -18,7 +18,6 @@ public class SmartScriptParser {
         this.root = new DocumentNode();
 
         try {
-
             this.parse();
         } catch (SmartScriptParserException ex) {
             throw ex;

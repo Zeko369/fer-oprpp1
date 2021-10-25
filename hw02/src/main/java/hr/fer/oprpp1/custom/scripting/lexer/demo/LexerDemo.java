@@ -8,7 +8,7 @@ import hr.fer.oprpp1.custom.scripting.shared.Loader;
 
 public class LexerDemo {
     public static void main(String[] args) {
-        String code = Loader.loadCode("./demos/code.txt");
+        String code = Loader.loadCode("./demos/primjer7.txt");
         System.out.println(code);
 
         int i = 0;

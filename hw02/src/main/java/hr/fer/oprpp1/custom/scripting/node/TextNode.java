@@ -14,6 +14,6 @@ public class TextNode extends Node {
 
     @Override
     public String toStructure(int depth) {
-        return String.format("%sTEXT: %s\n", " ".repeat(depth), this.text.replace("\n", "\\n"));
+        return String.format("%sTEXT: %s", " ".repeat(depth), this.text.replace("\n", "\\n"));
     }
 }

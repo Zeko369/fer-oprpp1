@@ -27,6 +27,6 @@ public class EchoNode extends Node {
 
     @Override
     public String toStructure(int depth) {
-        return String.format("%sECHO: %s\n", " ".repeat(depth), this.arguments());
+        return String.format("%sECHO: %s", " ".repeat(depth), this.arguments().replace("\n", "\\n"));
     }
 }
