@@ -30,6 +30,42 @@ public class ForLoopNode extends Node {
         this.stepExpression = stepExpression;
     }
 
+    /**
+     * Gets variable.
+     *
+     * @return the variable
+     */
+    public ElementVariable getVariable() {
+        return variable;
+    }
+
+    /**
+     * Gets start expression.
+     *
+     * @return the start expression
+     */
+    public Element getStartExpression() {
+        return startExpression;
+    }
+
+    /**
+     * Gets end expression.
+     *
+     * @return the end expression
+     */
+    public Element getEndExpression() {
+        return endExpression;
+    }
+
+    /**
+     * Gets step expression.
+     *
+     * @return the step expression
+     */
+    public Element getStepExpression() {
+        return stepExpression;
+    }
+
     @Override
     public String toCode() {
         StringBuilder sb = new StringBuilder();

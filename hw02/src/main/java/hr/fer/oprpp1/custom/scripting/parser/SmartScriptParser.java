@@ -24,6 +24,11 @@ public class SmartScriptParser {
      * @param body the body
      */
     public SmartScriptParser(String body) {
+        if(body == null) {
+            // TODO: Maybe make this a NullPointerException
+            throw new SmartScriptParserException("[FATAL]: Body can't be null");
+        }
+
         this.body = body;
         this.root = new DocumentNode();
 

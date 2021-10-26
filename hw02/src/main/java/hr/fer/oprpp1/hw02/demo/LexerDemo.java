@@ -1,10 +1,10 @@
-package hr.fer.oprpp1.custom.scripting.lexer.demo;
+package hr.fer.oprpp1.hw02.demo;
 
 import hr.fer.oprpp1.custom.scripting.lexer.Lexer;
 import hr.fer.oprpp1.custom.scripting.lexer.LexerState;
 import hr.fer.oprpp1.custom.scripting.lexer.Token;
 import hr.fer.oprpp1.custom.scripting.lexer.TokenType;
-import hr.fer.oprpp1.custom.scripting.shared.Loader;
+import hr.fer.oprpp1.custom.shared.Loader;
 
 /**
  * LexerDemo

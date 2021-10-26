@@ -37,8 +37,13 @@ public class Lexer {
      * Instantiates a new Lexer.
      *
      * @param str the str
+     * @throws NullPointerException if str is null
      */
     public Lexer(String str) {
+        if(str == null) {
+            throw new NullPointerException();
+        }
+
         this.data = str.toCharArray();
     }
 
@@ -47,7 +52,7 @@ public class Lexer {
      * @return if this.index is done
      */
     private boolean isEnd() {
-        return this.index == this.data.length;
+        return this.index >= this.data.length;
     }
 
     /**
@@ -159,10 +164,6 @@ public class Lexer {
      * @return the next token
      */
     public Token getNextToken() {
-        if (this.index > this.data.length) {
-            return this.getCurrentToken();
-        }
-
         if (this.isEnd()) {
             return this.setToken(TokenType.EOF, null);
         }
@@ -211,16 +212,16 @@ public class Lexer {
                 if (negate) this.index++;
 
                 String tmp = this.tillNewType(LexerUtils::isNumber);
-
                 try {
-                    double d = Double.parseDouble(tmp);
-                    if (negate) d *= -1;
-
-                    if (Math.ceil(d) == Math.floor(d)) {
-                        return this.setToken(TokenType.INTEGER, (int) d);
+                    if(tmp.contains(".")) {
+                        double d = Double.parseDouble(tmp);
+                        if (negate) d *= -1;
+                        return this.setToken(TokenType.DOUBLE, d);
+                    } else {
+                        int d = Integer.parseInt(tmp);
+                        if (negate) d *= -1;
+                        return this.setToken(TokenType.INTEGER, d);
                     }
-
-                    return this.setToken(TokenType.DOUBLE, d);
                 } catch (NumberFormatException ex) {
                     throw new LexerException("Number parse error");
                 }
@@ -236,11 +237,7 @@ public class Lexer {
                 throw new LexerException("Unexpected character");
             }
 
-            String tmp = this.tillNewType(LexerUtils::isVariable);
-            if (tmp.length() == 0) {
-                throw new LexerException("Variable is empty");
-            }
-
+            String tmp = this.tillNewType(LexerUtils::isVariable).trim();
             return this.setToken(TokenType.VARIABLE, tmp);
         }
 

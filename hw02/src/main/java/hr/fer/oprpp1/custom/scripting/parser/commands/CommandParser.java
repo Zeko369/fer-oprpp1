@@ -16,6 +16,6 @@ public interface CommandParser {
      * @return parsed Command node
      */
     static Node parseCommand(Lexer l) {
-        return null;
+        throw new UnsupportedOperationException("Direct usage of CommandParser is not supported");
     }
 }

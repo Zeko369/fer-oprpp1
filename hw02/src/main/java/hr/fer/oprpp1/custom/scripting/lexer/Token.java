@@ -45,6 +45,5 @@ public class Token {
             case TAG_OPEN, TAG_CLOSE -> String.format("(%s)", this.type);
             default -> String.format("(%s, '%s')", this.type, this.value.toString().replace("\n", "\\n"));
         };
-
     }
 }

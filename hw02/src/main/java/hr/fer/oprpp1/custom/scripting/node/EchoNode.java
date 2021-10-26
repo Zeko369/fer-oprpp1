@@ -20,6 +20,15 @@ public class EchoNode extends Node {
         this.elements = elements;
     }
 
+    /**
+     * Elements getter
+     *
+     * @return the elements
+     */
+    public Element[] getElements() {
+        return elements;
+    }
+
     private String arguments() {
         StringBuilder sb = new StringBuilder();
 

@@ -3,7 +3,7 @@ package hr.fer.oprpp1.hw02;
 import hr.fer.oprpp1.custom.scripting.node.DocumentNode;
 import hr.fer.oprpp1.custom.scripting.parser.SmartScriptParser;
 import hr.fer.oprpp1.custom.scripting.parser.SmartScriptParserException;
-import hr.fer.oprpp1.custom.scripting.shared.Loader;
+import hr.fer.oprpp1.custom.shared.Loader;
 
 public class SmartScriptTester {
     public static void main(String[] args) {

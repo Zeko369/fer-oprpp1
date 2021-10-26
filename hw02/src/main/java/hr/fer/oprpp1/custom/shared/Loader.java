@@ -1,4 +1,4 @@
-package hr.fer.oprpp1.custom.scripting.shared;
+package hr.fer.oprpp1.custom.shared;
 
 import java.io.File;
 import java.io.FileNotFoundException;
