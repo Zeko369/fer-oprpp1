@@ -9,10 +9,20 @@ import hr.fer.oprpp1.custom.scripting.node.*;
 import hr.fer.oprpp1.custom.scripting.parser.commands.ForCommandParser;
 import hr.fer.oprpp1.custom.scripting.parser.utils.ElementsHelper;
 
+/**
+ * SmartScript parser class that returns a parsed tree from a string
+ *
+ * @author franzekan
+ */
 public class SmartScriptParser {
     private final String body;
     private final DocumentNode root;
 
+    /**
+     * Instantiates a new Smart script parser.
+     *
+     * @param body the body
+     */
     public SmartScriptParser(String body) {
         this.body = body;
         this.root = new DocumentNode();
@@ -29,6 +39,11 @@ public class SmartScriptParser {
         }
     }
 
+    /**
+     * Gets the root of the parsed tree
+     *
+     * @return the document node
+     */
     public DocumentNode getDocumentNode() {
         return this.root;
     }

@@ -4,7 +4,18 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+/**
+ * Helper for reading the file
+ *
+ * @author franzekan
+ */
 public class Loader {
+    /**
+     * Load code string.
+     *
+     * @param filename the filename
+     * @return the string
+     */
     public static String loadCode(String filename) {
         StringBuilder sb = new StringBuilder();
 

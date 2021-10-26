@@ -1,8 +1,19 @@
 package hr.fer.oprpp1.custom.scripting.node;
 
+/**
+ * Class used to represent the TextNode
+ * <code>Foo Bar Text</code>
+ *
+ * @author franzekan
+ */
 public class TextNode extends Node {
     private final String text;
 
+    /**
+     * Instantiates a new Text node.
+     *
+     * @param text the text
+     */
     public TextNode(String text) {
         this.text = text;
     }

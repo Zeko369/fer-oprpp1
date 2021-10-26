@@ -7,6 +7,11 @@ import hr.fer.oprpp1.custom.scripting.lexer.Token;
 import hr.fer.oprpp1.custom.scripting.lexer.TokenType;
 import hr.fer.oprpp1.custom.scripting.parser.SmartScriptParserException;
 
+/**
+ * Helper for getting all elements inside of a tag (till TAG_CLOSE)
+ *
+ * @author franzekan
+ */
 public class ElementsHelper {
     private static Element parseElement(Token token) {
         return switch (token.getType()) {
@@ -20,6 +25,12 @@ public class ElementsHelper {
         };
     }
 
+    /**
+     * Get all elements in till end of tag
+     *
+     * @param l Lexer
+     * @return elements inside the tag
+     */
     public static Element[] getElementsInTag(Lexer l) {
         ArrayIndexedCollection elements = new ArrayIndexedCollection();
         Token t = l.getNextToken();

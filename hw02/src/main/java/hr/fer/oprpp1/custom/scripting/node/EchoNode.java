@@ -2,9 +2,20 @@ package hr.fer.oprpp1.custom.scripting.node;
 
 import hr.fer.oprpp1.custom.scripting.elems.Element;
 
+/**
+ * Class used to represent the EchoNode
+ * <code>{$= 123 $}</code>
+ *
+ * @author franzekan
+ */
 public class EchoNode extends Node {
     private final Element[] elements;
 
+    /**
+     * Instantiates a new Echo node.
+     *
+     * @param elements the elements
+     */
     public EchoNode(Element[] elements) {
         this.elements = elements;
     }

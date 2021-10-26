@@ -1,5 +1,10 @@
 package hr.fer.oprpp1.custom.scripting.node;
 
+/**
+ * Root node in the document
+ *
+ * @author franzekan
+ */
 public class DocumentNode extends Node {
     @Override
     public String toString() {
@@ -11,6 +16,11 @@ public class DocumentNode extends Node {
         return this.childrenToString();
     }
 
+    /**
+     * Returns the structure of the tree bellow
+     *
+     * @return the string
+     */
     public String toStructure() {
         StringBuilder sb = new StringBuilder();
         sb.append("ROOT:\n");
@@ -20,5 +30,13 @@ public class DocumentNode extends Node {
         });
 
         return sb.toString();
+    }
+
+    /**
+     * Depth is ignored in DocumentNode
+     */
+    @Override
+    public String toStructure(int depth) {
+        return this.toStructure();
     }
 }

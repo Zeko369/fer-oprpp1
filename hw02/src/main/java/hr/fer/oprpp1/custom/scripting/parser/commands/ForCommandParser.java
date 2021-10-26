@@ -10,7 +10,18 @@ import hr.fer.oprpp1.custom.scripting.node.Node;
 import hr.fer.oprpp1.custom.scripting.parser.SmartScriptParserException;
 import hr.fer.oprpp1.custom.scripting.parser.utils.ElementsHelper;
 
+/**
+ * HelperParser for ForLoops
+ *
+ * @author franzekan
+ */
 public class ForCommandParser implements CommandParser {
+    /**
+     * Parses a FOR node
+     *
+     * @param l Lexer
+     * @return parsed ForLoopNode
+     */
     public static Node parseCommand(Lexer l) {
         Element[] elements = ElementsHelper.getElementsInTag(l);
         if (elements.length < 3) {
