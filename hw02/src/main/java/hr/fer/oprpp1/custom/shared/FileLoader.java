@@ -30,7 +30,7 @@ public class FileLoader {
                 sb.append("\n");
             }
         } catch (FileNotFoundException e) {
-            System.out.println("File not found");
+            return null;
         }
 
         return sb.toString();

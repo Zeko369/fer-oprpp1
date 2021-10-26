@@ -29,7 +29,7 @@ public class LexerTest {
 
     @Test
     public void simpleEchoTagTest() {
-        Lexer l = new Lexer("{$= 123 + 10.123 @func variable \"string\" $}");
+        Lexer l = new Lexer("{$= 123 + 10.123 @func @func_1 variable \"string\" $}");
         checkTokenStream(l, new Token[]{
                 new Token(TokenType.TAG_OPEN, "{$"),
                 new Token(TokenType.SYMBOL, '='),
@@ -37,6 +37,7 @@ public class LexerTest {
                 new Token(TokenType.OPERATOR, "+"),
                 new Token(TokenType.DOUBLE, 10.123),
                 new Token(TokenType.FUNCTION, "func"),
+                new Token(TokenType.FUNCTION, "func_1"),
                 new Token(TokenType.VARIABLE, "variable"),
                 new Token(TokenType.STRING, "string"),
                 new Token(TokenType.TAG_CLOSE, "$}"),

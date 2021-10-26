@@ -195,7 +195,7 @@ public class Lexer {
             // FUNCTION
             if (this.getCurrent() == '@') {
                 this.index++;
-                String tmp = this.getTillSpace();
+                String tmp = this.tillNewType(obj -> LexerUtils.isVariable((char) obj));
                 this.index++;
                 return this.setToken(TokenType.FUNCTION, tmp);
             }
