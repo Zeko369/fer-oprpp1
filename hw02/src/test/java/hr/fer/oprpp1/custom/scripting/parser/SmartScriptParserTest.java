@@ -107,5 +107,10 @@ public class SmartScriptParserTest {
     public void throwsErrorForUnsupportedCommandTagTest() {
         assertThrows(SmartScriptParserException.class, () -> new SmartScriptParser("{$ WHILE $}"));
     }
+
+    @Test
+    public void throwsErrorForUnclosedTagTest() {
+        assertThrows(SmartScriptParserException.class, () -> new SmartScriptParser("{$ FOR i 0 10 1 $}"));
+    }
 }
 

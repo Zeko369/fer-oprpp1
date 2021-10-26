@@ -94,5 +94,9 @@ public class SmartScriptParser {
                 default -> throw new SmartScriptParserException(String.format("[General]: Unexpected token: %s", t));
             }
         } while (t.getType() != TokenType.EOF);
+
+        if(s.size() != 1) {
+            throw new SmartScriptParserException("[General]: Some tag not closed");
+        }
     }
 }
