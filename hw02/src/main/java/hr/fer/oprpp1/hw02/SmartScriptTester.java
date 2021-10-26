@@ -3,20 +3,20 @@ package hr.fer.oprpp1.hw02;
 import hr.fer.oprpp1.custom.scripting.node.DocumentNode;
 import hr.fer.oprpp1.custom.scripting.parser.SmartScriptParser;
 import hr.fer.oprpp1.custom.scripting.parser.SmartScriptParserException;
-import hr.fer.oprpp1.custom.shared.Loader;
+import hr.fer.oprpp1.custom.shared.FileLoader;
 
 public class SmartScriptTester {
     public static void main(String[] args) {
-//        SmartScriptTester.runFilename("./demos/primjer1.txt");
+        SmartScriptTester.runFilename("./demos/primjer1.txt");
 
-        for(int i = 1; i < 10; i++) {
-            System.out.printf("--------- %d ---------\n", i);
-            SmartScriptTester.runFilename(String.format("./demos/primjer%d.txt", i));
-        }
+//        for(int i = 1; i < 10; i++) {
+//            System.out.printf("--------- %d ---------\n", i);
+//            SmartScriptTester.runFilename(String.format("./demos/primjer%d.txt", i));
+//        }
     }
 
     private static void runFilename(String filename) {
-        String docBody = Loader.loadCode(filename);
+        String docBody = FileLoader.loadCode(filename);
         System.out.println(docBody);
 
         DocumentNode parsedTree = SmartScriptTester.parse(docBody);

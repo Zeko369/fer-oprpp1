@@ -9,7 +9,7 @@ import java.util.Scanner;
  *
  * @author franzekan
  */
-public class Loader {
+public class FileLoader {
     /**
      * Load code string.
      *
