@@ -31,4 +31,18 @@ public class ElementFunction extends Element {
     public String asText() {
         return String.format("@%s", this.name);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ElementFunction that = (ElementFunction) o;
+
+        if(this.name != null) {
+            return this.name.equals(that.name);
+        }
+
+        return that.name == null;
+    }
 }

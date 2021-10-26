@@ -31,4 +31,18 @@ public class ElementOperator extends Element {
     public String asText() {
         return this.symbol;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ElementOperator that = (ElementOperator) o;
+
+        if(this.symbol != null) {
+            return this.symbol.equals(that.symbol);
+        }
+
+        return that.symbol == null;
+    }
 }

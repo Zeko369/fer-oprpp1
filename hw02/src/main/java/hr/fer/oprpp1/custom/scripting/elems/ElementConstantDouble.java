@@ -31,4 +31,14 @@ public class ElementConstantDouble extends Element {
     public String asText() {
         return String.valueOf(this.value);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ElementConstantDouble that = (ElementConstantDouble) o;
+
+        return Double.compare(that.value, value) == 0;
+    }
 }

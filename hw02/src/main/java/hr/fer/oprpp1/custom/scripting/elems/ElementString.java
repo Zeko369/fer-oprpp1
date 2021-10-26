@@ -31,4 +31,18 @@ public class ElementString extends Element {
     public String asText() {
         return String.format("\"%s\"", this.value);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ElementString that = (ElementString) o;
+
+        if(this.value != null) {
+            return this.value.equals(that.value);
+        }
+
+        return that.value == null;
+    }
 }

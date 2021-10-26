@@ -32,4 +32,13 @@ public class ElementConstantInteger extends Element {
         return String.valueOf(this.value);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ElementConstantInteger that = (ElementConstantInteger) o;
+
+        return value == that.value;
+    }
 }
