@@ -12,6 +12,23 @@ import java.util.NoSuchElementException;
 public class LinkedListIndexedCollection implements List {
     private long modificationCount = 0;
 
+    public static void main(String[] args) {
+        LinkedListIndexedCollection l = new LinkedListIndexedCollection();
+        l.add(1);
+        l.add(2);
+        l.add(3);
+        l.add(4);
+        l.add(5);
+
+        l.forEach(o -> System.out.printf("%d, ", o));
+        System.out.println("");
+
+        l.insert(9, 5);
+
+        l.forEach(o -> System.out.printf("%d, ", o));
+        System.out.println("");
+    }
+
     private static class LinkedListIndexedCollectionElementsGetter implements ElementsGetter {
         private ListNode node;
         private final LinkedListIndexedCollection collection;
@@ -213,10 +230,30 @@ public class LinkedListIndexedCollection implements List {
     }
 
     @Override
-    // TODO this
-    public void insert(Object value, int position) {
-        // Range throw
-        throw new UnsupportedOperationException("Not implemented yet");
+    public void insert(Object value, int index) {
+        if (index < 0 || index > this.size) {
+            throw new IndexOutOfBoundsException();
+        }
+
+        if (index == 0) {
+            this.first.previous = new ListNode(value, null, this.first);
+            this.first = this.first.previous;
+            return;
+        }
+
+        ListNode ln = this.first;
+        for(int i = 0; i < index; i++) {
+            if(i == index - 1) {
+                ln.next = new ListNode(value, ln);
+                return;
+            }
+
+            ln = ln.next;
+        }
+
+        ListNode tmp = new ListNode(value, ln.previous, ln);
+        ln.previous.next = tmp;
+        ln.previous = tmp;
     }
 
     @Override

@@ -40,6 +40,7 @@ public class ElementsHelper {
             t = l.getNextToken();
         }
 
+        // FIXME: HERE
         Element[] tmp = new Element[elements.size()];
         for (int i = 0; i < elements.size(); i++) {
             tmp[i] = (Element) elements.get(i);

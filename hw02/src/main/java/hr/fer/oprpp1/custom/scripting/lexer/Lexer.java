@@ -1,5 +1,7 @@
 package hr.fer.oprpp1.custom.scripting.lexer;
 
+import hr.fer.oprpp1.custom.collections.Tester;
+
 import java.util.function.Predicate;
 
 /**
@@ -40,7 +42,7 @@ public class Lexer {
      * @throws NullPointerException if str is null
      */
     public Lexer(String str) {
-        if(str == null) {
+        if (str == null) {
             throw new NullPointerException();
         }
 
@@ -49,6 +51,7 @@ public class Lexer {
 
     /**
      * Checks if the end has been reached
+     *
      * @return if this.index is done
      */
     private boolean isEnd() {
@@ -67,7 +70,7 @@ public class Lexer {
     /**
      * Helper function used to create a new token, set it to the last one and return it
      *
-     * @param type Type of the new token
+     * @param type  Type of the new token
      * @param value Value for the new token
      * @return new Token
      */
@@ -92,7 +95,7 @@ public class Lexer {
      * @param test Predicate used to test each character
      * @return string from currentIndex till the test is no longer satisfied
      */
-    private String tillNewType(Predicate<Character> test) {
+    private String tillNewType(Tester test) {
         StringBuilder sb = new StringBuilder();
         while (!this.isEnd() && test.test(this.getCurrent()) && this.getCurrent() != ' ' && !this.isStartOfTag()) {
             sb.append(this.getCurrentAndMove());
@@ -211,9 +214,9 @@ public class Lexer {
                 boolean negate = this.getCurrent() == '-';
                 if (negate) this.index++;
 
-                String tmp = this.tillNewType(LexerUtils::isNumber);
+                String tmp = this.tillNewType(obj -> LexerUtils.isNumber((char) obj));
                 try {
-                    if(tmp.contains(".")) {
+                    if (tmp.contains(".")) {
                         double d = Double.parseDouble(tmp);
                         if (negate) d *= -1;
                         return this.setToken(TokenType.DOUBLE, d);
@@ -237,7 +240,7 @@ public class Lexer {
                 throw new LexerException("Unexpected character");
             }
 
-            String tmp = this.tillNewType(LexerUtils::isVariable).trim();
+            String tmp = this.tillNewType(obj -> LexerUtils.isVariable((char) obj)).trim();
             return this.setToken(TokenType.VARIABLE, tmp);
         }
 
