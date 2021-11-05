@@ -3,6 +3,9 @@ package hr.fer.oprpp1.custom.collections;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SimpleHashtableTest {
@@ -17,7 +20,7 @@ public class SimpleHashtableTest {
 
     @Test
     void size() {
-        for(SimpleHashtable.TableEntry<String, String> entry : this.dict.toArray()) {
+        for (SimpleHashtable.TableEntry<String, String> entry : this.dict.toArray()) {
             System.out.printf("%s %s\n", entry.getKey(), entry.getValue());
         }
 
@@ -88,6 +91,40 @@ public class SimpleHashtableTest {
     @Test
     void testToString() {
         assertEquals("[foo=Value1, bar=Value2]", this.dict.toString());
+    }
+
+    @Test
+    void testIter() {
+        Iterator<SimpleHashtable.TableEntry<String, String>> iter = this.dict.iterator();
+        SimpleHashtable.TableEntry<String, String> tmp;
+
+        assertTrue(iter.hasNext());
+
+        tmp = iter.next();
+        assertEquals("foo", tmp.getKey());
+        assertEquals("Value1", tmp.getValue());
+        assertTrue(iter.hasNext());
+
+        tmp = iter.next();
+        assertEquals("bar", tmp.getKey());
+        assertEquals("Value2", tmp.getValue());
+        assertFalse(iter.hasNext());
+
+        assertThrows(NoSuchElementException.class, iter::next);
+    }
+
+    @Test
+    void testForEach() {
+        StringBuilder keys = new StringBuilder();
+        StringBuilder values = new StringBuilder();
+
+        this.dict.forEach((item) -> {
+            keys.append(item.getKey()).append(",");
+            values.append(item.getValue()).append(",");
+        });
+
+        assertEquals("foo,bar,", keys.toString());
+        assertEquals("Value1,Value2,", values.toString());
     }
 
     @Test
