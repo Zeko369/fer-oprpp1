@@ -9,11 +9,11 @@ import java.util.NoSuchElementException;
  * @author franzekan
  * @version 1.0
  */
-public class LinkedListIndexedCollection implements List {
+public class LinkedListIndexedCollection<T> implements List<T> {
     private long modificationCount = 0;
 
     public static void main(String[] args) {
-        LinkedListIndexedCollection l = new LinkedListIndexedCollection();
+        LinkedListIndexedCollection<Integer> l = new LinkedListIndexedCollection<>();
         l.add(1);
         l.add(2);
         l.add(3);
@@ -29,24 +29,24 @@ public class LinkedListIndexedCollection implements List {
         System.out.println("");
     }
 
-    private static class LinkedListIndexedCollectionElementsGetter implements ElementsGetter {
-        private ListNode node;
-        private final LinkedListIndexedCollection collection;
+    private static class LinkedListIndexedCollectionElementsGetter<K> implements ElementsGetter<K> {
+        private ListNode<K> node;
+        private final LinkedListIndexedCollection<K> collection;
         private final long savedModificationCount;
 
-        public LinkedListIndexedCollectionElementsGetter(LinkedListIndexedCollection collection) {
+        public LinkedListIndexedCollectionElementsGetter(LinkedListIndexedCollection<K> collection) {
             this.collection = collection;
             this.node = this.collection.first;
             this.savedModificationCount = this.collection.modificationCount;
         }
 
         @Override
-        public Object getNextElement() {
+        public K getNextElement() {
             if(!this.hasNextElement()) {
                 throw new NoSuchElementException();
             }
 
-            Object tmp = this.node.value;
+            K tmp = this.node.value;
             this.node = this.node.next;
             return tmp;
         }
@@ -61,28 +61,28 @@ public class LinkedListIndexedCollection implements List {
         }
     }
 
-    public ElementsGetter createElementsGetter() {
-        return new LinkedListIndexedCollectionElementsGetter(this);
+    public ElementsGetter<T> createElementsGetter() {
+        return new LinkedListIndexedCollectionElementsGetter<>(this);
     }
 
     /**
      * Internal class used to represent a node in a linked list
      */
-    private static class ListNode {
+    private static class ListNode<K> {
         /**
          * Node value
          */
-        private final Object value;
+        private final K value;
 
         /**
          * Reference to previous node
          */
-        private ListNode previous;
+        private ListNode<K> previous;
 
         /**
          * Reference to next node
          */
-        private ListNode next;
+        private ListNode<K> next;
 
         /**
          * Constructor with all properties as arguments
@@ -91,7 +91,7 @@ public class LinkedListIndexedCollection implements List {
          * @param previous the previous
          * @param next     the next
          */
-        public ListNode(Object value, ListNode previous, ListNode next) {
+        public ListNode(K value, ListNode<K> previous, ListNode<K> next) {
             this.value = value;
             this.previous = previous;
             this.next = next;
@@ -103,7 +103,7 @@ public class LinkedListIndexedCollection implements List {
          * @param value    the value
          * @param previous the previous
          */
-        public ListNode(Object value, ListNode previous) {
+        public ListNode(K value, ListNode<K> previous) {
             this(value, previous, null);
         }
 
@@ -112,7 +112,7 @@ public class LinkedListIndexedCollection implements List {
          *
          * @param value the value
          */
-        public ListNode(Object value) {
+        public ListNode(K value) {
             this(value, null, null);
         }
 
@@ -122,7 +122,7 @@ public class LinkedListIndexedCollection implements List {
          * @param node node to get hashCode for
          * @return hashCode as hex
          */
-        private String getHashCode(ListNode node) {
+        private String getHashCode(ListNode<K> node) {
             if (node == null) {
                 return "null";
             }
@@ -149,12 +149,12 @@ public class LinkedListIndexedCollection implements List {
     /**
      * Reference to the first element in the list
      */
-    private ListNode first = null;
+    private ListNode<T> first = null;
 
     /**
      * Reference to the last element in the list
      */
-    private ListNode last = null;
+    private ListNode<T> last = null;
 
     public boolean isEmpty() {
         return this.first == null;
@@ -171,7 +171,7 @@ public class LinkedListIndexedCollection implements List {
      *
      * @param initCollection the init collection
      */
-    public LinkedListIndexedCollection(Collection initCollection) {
+    public LinkedListIndexedCollection(Collection<T> initCollection) {
         this.addAll(initCollection);
         this.size = initCollection.size();
     }
@@ -183,7 +183,7 @@ public class LinkedListIndexedCollection implements List {
      * @throws NullPointerException if value is null
      */
     @Override
-    public void add(Object value) {
+    public void add(T value) {
         if (value == null) {
             throw new NullPointerException();
         }
@@ -192,13 +192,13 @@ public class LinkedListIndexedCollection implements List {
         this.modificationCount++;
 
         if (this.last == null) {
-            this.last = new ListNode(value);
+            this.last = new ListNode<T>(value);
             this.first = this.last;
 
             return;
         }
 
-        this.last.next = new ListNode(value, this.last);
+        this.last.next = new ListNode<T>(value, this.last);
         this.last = this.last.next;
     }
 
@@ -209,7 +209,7 @@ public class LinkedListIndexedCollection implements List {
      * @return element on index
      * @throws IndexOutOfBoundsException if index is out of range
      */
-    public Object get(int index) {
+    public T get(int index) {
         if (index < 0 || index >= this.size) {
             throw new IndexOutOfBoundsException();
         }
@@ -217,7 +217,7 @@ public class LinkedListIndexedCollection implements List {
         boolean fromStart = this.size / 2 + 1 > index;
         int for_max = fromStart ? index : this.size - index - 1;
 
-        ListNode tmp = fromStart ? this.first : this.last;
+        ListNode<T> tmp = fromStart ? this.first : this.last;
         for (int i = 0; i < for_max; i++) {
             tmp = fromStart ? tmp.next : tmp.previous;
         }
@@ -226,28 +226,28 @@ public class LinkedListIndexedCollection implements List {
     }
 
     @Override
-    public void insert(Object value, int index) {
+    public void insert(T value, int index) {
         if (index < 0 || index > this.size) {
             throw new IndexOutOfBoundsException();
         }
 
         if (index == 0) {
-            this.first.previous = new ListNode(value, null, this.first);
+            this.first.previous = new ListNode<T>(value, null, this.first);
             this.first = this.first.previous;
             return;
         }
 
-        ListNode ln = this.first;
+        ListNode<T> ln = this.first;
         for(int i = 0; i < index; i++) {
             if(i == index - 1) {
-                ln.next = new ListNode(value, ln);
+                ln.next = new ListNode<T>(value, ln);
                 return;
             }
 
             ln = ln.next;
         }
 
-        ListNode tmp = new ListNode(value, ln.previous, ln);
+        ListNode<T> tmp = new ListNode<T>(value, ln.previous, ln);
         ln.previous.next = tmp;
         ln.previous = tmp;
     }
@@ -256,7 +256,7 @@ public class LinkedListIndexedCollection implements List {
     public int indexOf(Object value) {
         int i = 0;
 
-        ListNode tmp = this.first;
+        ListNode<T> tmp = this.first;
         if (tmp == null) {
             throw new NullPointerException();
         }
@@ -289,7 +289,7 @@ public class LinkedListIndexedCollection implements List {
 
     @Override
     public boolean contains(Object value) {
-        ListNode tmp = this.first;
+        ListNode<T> tmp = this.first;
 
         while (tmp != null) {
             if (tmp.value.equals(value)) {
@@ -319,20 +319,23 @@ public class LinkedListIndexedCollection implements List {
             this.first = this.first.next;
             this.first.previous = null;
             this.size--;
+            return;
         }
 
-        ListNode tmp = this.first;
+        ListNode<T> tmp = this.first;
         for (int i = 0; i < index; i++) {
             tmp = tmp.next;
         }
 
-        tmp.previous.next = tmp.next;
+        if (tmp.previous != null) {
+            tmp.previous.next = tmp.next;
+        }
         this.size--;
     }
 
     @Override
-    public boolean remove(Object value) {
-        ListNode tmp = this.first;
+    public boolean remove(T value) {
+        ListNode<T> tmp = this.first;
 
         while (tmp != null) {
             if (tmp.value.equals(value)) {
@@ -355,21 +358,21 @@ public class LinkedListIndexedCollection implements List {
     }
 
     @Override
-    public Object[] toArray() {
-        class GetProcessor implements Processor {
+    public T[] toArray() {
+        class GetProcessor implements Processor<T> {
             private int i = 0;
-            private final Object[] arr;
+            private final T[] arr;
 
             public GetProcessor(int size) {
-                this.arr = new Object[size];
+                this.arr = (T[]) new Object[size];
             }
 
-            public Object[] getArr() {
+            public T[] getArr() {
                 return arr;
             }
 
             @Override
-            public void process(Object value) {
+            public void process(T value) {
                 this.arr[i++] = value;
             }
         }
@@ -381,8 +384,8 @@ public class LinkedListIndexedCollection implements List {
     }
 
     @Override
-    public void forEach(Processor processor) {
-        ListNode tmp = this.first;
+    public void forEach(Processor<T> processor) {
+        ListNode<T> tmp = this.first;
         while (tmp != null) {
             processor.process(tmp.value);
             tmp = tmp.next;

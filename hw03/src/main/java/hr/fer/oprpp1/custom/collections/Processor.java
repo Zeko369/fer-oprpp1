@@ -6,11 +6,11 @@ package hr.fer.oprpp1.custom.collections;
  * @author franzekan
  * @version 1.0
  */
-public interface Processor {
+public interface Processor<T> {
     /**
      * Method called for each item
      *
      * @param value the value
      */
-    void process(Object value);
+    void process(T value);
 }

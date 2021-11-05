@@ -7,8 +7,8 @@ import hr.fer.oprpp1.custom.collections.Tester;
 
 public class TesterDemo {
     public static void main(String[] args) {
-        Collection col1 = new LinkedListIndexedCollection();
-        Collection col2 = new ArrayIndexedCollection();
+        Collection<Integer> col1 = new LinkedListIndexedCollection<>();
+        Collection<Integer> col2 = new ArrayIndexedCollection<>();
 
         col1.add(2);
         col1.add(3);
@@ -17,11 +17,10 @@ public class TesterDemo {
         col1.add(6);
         col2.add(12);
 
-        class EvenIntegerTester implements Tester {
-            public boolean test(Object obj) {
-                if (!(obj instanceof Integer)) return false;
-                Integer i = (Integer) obj;
-                return i % 2 == 0;
+        class EvenIntegerTester implements Tester<Integer> {
+            public boolean test(Integer obj) {
+                if (obj == null) return false;
+                return obj % 2 == 0;
             }
         }
 

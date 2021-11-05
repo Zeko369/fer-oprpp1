@@ -6,17 +6,17 @@ package hr.fer.oprpp1.custom.collections;
  * @author franzekan
  * @version 1.0
  */
-public class ObjectStack {
+public class ObjectStack<T> {
     /**
      * Internal store
      */
-    private final ArrayIndexedCollection arr;
+    private final ArrayIndexedCollection<T> arr;
 
     /**
      * Instantiates a new Object stack.
      */
     public ObjectStack() {
-        this.arr = new ArrayIndexedCollection();
+        this.arr = new ArrayIndexedCollection<T>();
     }
 
     /**
@@ -57,7 +57,7 @@ public class ObjectStack {
      *
      * @param value the value
      */
-    public void push(Object value) {
+    public void push(T value) {
         this.arr.add(value);
     }
 
@@ -66,8 +66,8 @@ public class ObjectStack {
      *
      * @return the object
      */
-    public Object pop() {
-        Object tmp = this.peek();
+    public T pop() {
+        T tmp = this.peek();
         this.arr.remove(this.getLastIndex());
 
         return tmp;
@@ -78,7 +78,7 @@ public class ObjectStack {
      *
      * @return the object
      */
-    public Object peek() {
+    public T peek() {
         return this.arr.get(this.getLastIndex());
     }
 

@@ -1,9 +1,9 @@
 package hr.fer.oprpp1.custom.collections;
 
-public interface List extends Collection {
-    Object get(int index);
+public interface List<T> extends Collection<T> {
+    T get(int index);
 
-    void insert(Object value, int position);
+    void insert(T value, int position);
 
     int indexOf(Object value);
 

@@ -10,15 +10,15 @@ import java.util.NoSuchElementException;
  * @author franzekan
  * @version 1.0
  */
-public class ArrayIndexedCollection implements List {
+public class ArrayIndexedCollection<T> implements List<T> {
     private long modificationCount = 0;
 
-    private static class ArrayIndexedCollectionElementsGetter implements ElementsGetter {
+    private static class ArrayIndexedCollectionElementsGetter<K> implements ElementsGetter<K> {
         private int index;
-        private final ArrayIndexedCollection collection;
+        private final ArrayIndexedCollection<K> collection;
         private final long savedModificationCount;
 
-        public ArrayIndexedCollectionElementsGetter(ArrayIndexedCollection collection) {
+        public ArrayIndexedCollectionElementsGetter(ArrayIndexedCollection<K> collection) {
             this.collection = collection;
             this.savedModificationCount = collection.modificationCount;
             this.index = 0;
@@ -37,7 +37,7 @@ public class ArrayIndexedCollection implements List {
         }
 
         @Override
-        public Object getNextElement() {
+        public K getNextElement() {
             checkConcurrent();
             if (!this.hasNextElement()) {
                 throw new NoSuchElementException();
@@ -48,8 +48,8 @@ public class ArrayIndexedCollection implements List {
     }
 
     // TODO: move down
-    public ElementsGetter createElementsGetter() {
-        return new ArrayIndexedCollectionElementsGetter(this);
+    public ElementsGetter<T> createElementsGetter() {
+        return new ArrayIndexedCollectionElementsGetter<T>(this);
     }
 
     /**
@@ -60,7 +60,7 @@ public class ArrayIndexedCollection implements List {
     /**
      * Internal array store
      */
-    private Object[] elements;
+    private T[] elements;
 
     /**
      * DEFAULT SIZE
@@ -86,7 +86,7 @@ public class ArrayIndexedCollection implements List {
             throw new IllegalArgumentException("Size can't be less than 1");
         }
 
-        this.elements = new Object[capacity];
+        this.elements = (T[]) new Object[capacity];
     }
 
     /**
@@ -97,6 +97,7 @@ public class ArrayIndexedCollection implements List {
      * @return size of new collection
      * @throws NullPointerException if initCollection is null
      */
+    // TODO: Check this
     private static int getSize(Collection initCollection, int capacity) throws NullPointerException {
         if (initCollection == null) {
             throw new NullPointerException();
@@ -113,7 +114,7 @@ public class ArrayIndexedCollection implements List {
      * @throws NullPointerException     if initCollection is null
      * @throws IllegalArgumentException if initCollection has no elements and capacity is 0
      */
-    public ArrayIndexedCollection(Collection initCollection, int capacity) {
+    public ArrayIndexedCollection(Collection<T> initCollection, int capacity) {
         this(ArrayIndexedCollection.getSize(initCollection, capacity));
         this.addAll(initCollection);
     }
@@ -125,7 +126,7 @@ public class ArrayIndexedCollection implements List {
      * @throws NullPointerException     if initCollection is null
      * @throws IllegalArgumentException if initCollection has no elements
      */
-    public ArrayIndexedCollection(Collection initCollection) {
+    public ArrayIndexedCollection(Collection<T> initCollection) {
         this(initCollection, -1);
     }
 
@@ -143,7 +144,7 @@ public class ArrayIndexedCollection implements List {
     }
 
     @Override
-    public void forEach(Processor processor) {
+    public void forEach(Processor<T> processor) {
         for (int i = 0; i < this.size; i++) {
             processor.process(this.elements[i]);
         }
@@ -156,7 +157,7 @@ public class ArrayIndexedCollection implements List {
      * @throws NullPointerException if value is null
      */
     @Override
-    public void add(Object value) {
+    public void add(T value) {
         if (value == null) {
             throw new NullPointerException();
         }
@@ -176,7 +177,7 @@ public class ArrayIndexedCollection implements List {
      * @return element at that index
      * @throws IndexOutOfBoundsException if index our of range
      */
-    public Object get(int index) {
+    public T get(int index) {
         if (index < 0 || index >= this.size) {
             throw new IndexOutOfBoundsException();
         }
@@ -200,7 +201,7 @@ public class ArrayIndexedCollection implements List {
      * @throws NullPointerException      if value is null
      * @throws IndexOutOfBoundsException if position is less than 0 or more than size
      */
-    public void insert(Object value, int position) {
+    public void insert(T value, int position) {
         if (value == null) {
             throw new NullPointerException();
         }
@@ -229,6 +230,10 @@ public class ArrayIndexedCollection implements List {
      * @return index in array or -1 if not found
      */
     public int indexOf(Object value) {
+        if(value == null) {
+            throw new NullPointerException();
+        }
+
         for (int i = 0; i < this.elements.length; i++) {
             if (this.elements[i] == null) {
                 break;
@@ -262,7 +267,7 @@ public class ArrayIndexedCollection implements List {
     }
 
     @Override
-    public Object[] toArray() {
+    public T[] toArray() {
         return Arrays.copyOf(this.elements, this.size);
     }
 
@@ -272,7 +277,7 @@ public class ArrayIndexedCollection implements List {
     }
 
     @Override
-    public boolean remove(Object value) {
+    public boolean remove(T value) {
         this.remove(this.indexOf(value));
         return true;
     }
