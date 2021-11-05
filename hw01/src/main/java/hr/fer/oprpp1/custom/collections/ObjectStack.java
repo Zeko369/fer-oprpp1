@@ -67,10 +67,10 @@ public class ObjectStack {
      * @return the object
      */
     public Object pop() {
-        Object tmp = this.peek();
+        Object value = this.peek();
         this.arr.remove(this.getLastIndex());
 
-        return tmp;
+        return value;
     }
 
     /**
