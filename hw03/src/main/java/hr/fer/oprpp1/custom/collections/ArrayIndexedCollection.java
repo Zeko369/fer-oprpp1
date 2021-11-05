@@ -3,6 +3,7 @@ package hr.fer.oprpp1.custom.collections;
 import java.util.Arrays;
 import java.util.ConcurrentModificationException;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 /**
  * Collection implementation using an array[] as a storage backend
@@ -25,7 +26,7 @@ public class ArrayIndexedCollection<T> implements List<T> {
         }
 
         private void checkConcurrent() {
-            if(this.savedModificationCount != this.collection.modificationCount) {
+            if (this.savedModificationCount != this.collection.modificationCount) {
                 throw new ConcurrentModificationException();
             }
         }
@@ -49,7 +50,7 @@ public class ArrayIndexedCollection<T> implements List<T> {
 
     // TODO: move down
     public ElementsGetter<T> createElementsGetter() {
-        return new ArrayIndexedCollectionElementsGetter<T>(this);
+        return new ArrayIndexedCollectionElementsGetter<>(this);
     }
 
     /**
@@ -65,7 +66,7 @@ public class ArrayIndexedCollection<T> implements List<T> {
     /**
      * DEFAULT SIZE
      */
-    public static int DEFAULT_SIZE = 16;
+    public static final int DEFAULT_SIZE = 16;
 
     /**
      * Simple constructor without any params
@@ -81,29 +82,13 @@ public class ArrayIndexedCollection<T> implements List<T> {
      * @param capacity initial size of internal array
      * @throws IllegalArgumentException if size is less than 1
      */
+    @SuppressWarnings("unchecked")
     public ArrayIndexedCollection(int capacity) {
         if (capacity < 1) {
             throw new IllegalArgumentException("Size can't be less than 1");
         }
 
         this.elements = (T[]) new Object[capacity];
-    }
-
-    /**
-     * Helper function used to get the max size (explicit size / collection size) or throw error if passed collection is null
-     *
-     * @param initCollection existing collection
-     * @param capacity       initial size of internal array
-     * @return size of new collection
-     * @throws NullPointerException if initCollection is null
-     */
-    // TODO: Check this
-    private static int getSize(Collection initCollection, int capacity) throws NullPointerException {
-        if (initCollection == null) {
-            throw new NullPointerException();
-        }
-
-        return Math.max(capacity, initCollection.size());
     }
 
     /**
@@ -115,7 +100,7 @@ public class ArrayIndexedCollection<T> implements List<T> {
      * @throws IllegalArgumentException if initCollection has no elements and capacity is 0
      */
     public ArrayIndexedCollection(Collection<T> initCollection, int capacity) {
-        this(ArrayIndexedCollection.getSize(initCollection, capacity));
+        this(Math.max(capacity, Objects.requireNonNull(initCollection).size()));
         this.addAll(initCollection);
     }
 
@@ -230,7 +215,7 @@ public class ArrayIndexedCollection<T> implements List<T> {
      * @return index in array or -1 if not found
      */
     public int indexOf(Object value) {
-        if(value == null) {
+        if (value == null) {
             throw new NullPointerException();
         }
 

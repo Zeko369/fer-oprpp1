@@ -21,12 +21,12 @@ public class LinkedListIndexedCollection<T> implements List<T> {
         l.add(5);
 
         l.forEach(o -> System.out.printf("%d, ", o));
-        System.out.println("");
+        System.out.println();
 
         l.insert(9, 5);
 
         l.forEach(o -> System.out.printf("%d, ", o));
-        System.out.println("");
+        System.out.println();
     }
 
     private static class LinkedListIndexedCollectionElementsGetter<K> implements ElementsGetter<K> {
@@ -192,13 +192,13 @@ public class LinkedListIndexedCollection<T> implements List<T> {
         this.modificationCount++;
 
         if (this.last == null) {
-            this.last = new ListNode<T>(value);
+            this.last = new ListNode<>(value);
             this.first = this.last;
 
             return;
         }
 
-        this.last.next = new ListNode<T>(value, this.last);
+        this.last.next = new ListNode<>(value, this.last);
         this.last = this.last.next;
     }
 
@@ -232,7 +232,7 @@ public class LinkedListIndexedCollection<T> implements List<T> {
         }
 
         if (index == 0) {
-            this.first.previous = new ListNode<T>(value, null, this.first);
+            this.first.previous = new ListNode<>(value, null, this.first);
             this.first = this.first.previous;
             return;
         }
@@ -240,14 +240,14 @@ public class LinkedListIndexedCollection<T> implements List<T> {
         ListNode<T> ln = this.first;
         for(int i = 0; i < index; i++) {
             if(i == index - 1) {
-                ln.next = new ListNode<T>(value, ln);
+                ln.next = new ListNode<>(value, ln);
                 return;
             }
 
             ln = ln.next;
         }
 
-        ListNode<T> tmp = new ListNode<T>(value, ln.previous, ln);
+        ListNode<T> tmp = new ListNode<>(value, ln.previous, ln);
         ln.previous.next = tmp;
         ln.previous = tmp;
     }
@@ -363,6 +363,7 @@ public class LinkedListIndexedCollection<T> implements List<T> {
             private int i = 0;
             private final T[] arr;
 
+            @SuppressWarnings("unchecked")
             public GetProcessor(int size) {
                 this.arr = (T[]) new Object[size];
             }

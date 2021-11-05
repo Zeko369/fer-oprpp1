@@ -16,7 +16,7 @@ public class ObjectStack<T> {
      * Instantiates a new Object stack.
      */
     public ObjectStack() {
-        this.arr = new ArrayIndexedCollection<T>();
+        this.arr = new ArrayIndexedCollection<>();
     }
 
     /**
@@ -74,7 +74,7 @@ public class ObjectStack<T> {
     }
 
     /**
-     * Gets the valu on the top
+     * Gets the value on the top
      *
      * @return the object
      */

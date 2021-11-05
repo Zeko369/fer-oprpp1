@@ -373,8 +373,8 @@ public class SimpleHashtable<K, V> implements Iterable<SimpleHashtable.TableEntr
      * @return the boolean
      */
     public boolean containsValue(Object value) {
-        for (int i = 0; i < table.length; i++) {
-            TableEntry<K, V> current = table[i];
+        for (TableEntry<K, V> kvTableEntry : table) {
+            TableEntry<K, V> current = kvTableEntry;
             while (current != null && !current.getValue().equals(value)) {
                 current = current.next;
             }
@@ -427,8 +427,8 @@ public class SimpleHashtable<K, V> implements Iterable<SimpleHashtable.TableEntr
         TableEntry<K, V>[] array = (TableEntry<K, V>[]) new TableEntry[this.size];
         int index = 0;
 
-        for (int i = 0; i < table.length; i++) {
-            TableEntry<K, V> current = table[i];
+        for (TableEntry<K, V> kvTableEntry : table) {
+            TableEntry<K, V> current = kvTableEntry;
             while (current != null) {
                 array[index++] = current;
                 current = current.next;
