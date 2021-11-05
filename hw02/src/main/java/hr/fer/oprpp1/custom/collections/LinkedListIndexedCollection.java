@@ -40,17 +40,9 @@ public class LinkedListIndexedCollection implements List {
             this.savedModificationCount = this.collection.modificationCount;
         }
 
-        private void checkConcurrent() {
-            if (this.savedModificationCount != this.collection.modificationCount) {
-                throw new ConcurrentModificationException();
-            }
-        }
-
         @Override
         public Object getNextElement() {
-            checkConcurrent();
-
-            if (this.node == null) {
+            if(!this.hasNextElement()) {
                 throw new NoSuchElementException();
             }
 
@@ -61,6 +53,10 @@ public class LinkedListIndexedCollection implements List {
 
         @Override
         public boolean hasNextElement() {
+            if (this.savedModificationCount != this.collection.modificationCount) {
+                throw new ConcurrentModificationException();
+            }
+
             return this.node != null;
         }
     }
