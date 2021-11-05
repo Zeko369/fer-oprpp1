@@ -6,13 +6,13 @@
       <OVERRIDDEN_METHODS>false</OVERRIDDEN_METHODS>
       <SPLITTED_CLASS_NAME>true</SPLITTED_CLASS_NAME>
       <LEVELS>
+        <LEVEL>METHOD</LEVEL>
         <LEVEL>TYPE</LEVEL>
         <LEVEL>FIELD</LEVEL>
-        <LEVEL>METHOD</LEVEL>
       </LEVELS>
       <VISIBILITIES>
-        <VISIBILITY>DEFAULT</VISIBILITY>
         <VISIBILITY>PUBLIC</VISIBILITY>
+        <VISIBILITY>DEFAULT</VISIBILITY>
         <VISIBILITY>PROTECTED</VISIBILITY>
       </VISIBILITIES>
     </GENERAL>
@@ -27,12 +27,16 @@
 &lt;#list element.typeParameters as typeParameter&gt;
         * @param &lt;${typeParameter.name}&gt; the type parameter\n
 &lt;/#list&gt;
+ *\n
+ * @author franzekan\n
  */</VALUE>
         </CLASS>
         <CLASS>
           <KEY>^.*(public|protected|private)*.+enum\s+\w+.*</KEY>
           <VALUE>/**\n
  * The enum ${name}.\n
+ *\n
+ * @author franzekan\n
  */</VALUE>
         </CLASS>
         <CLASS>
@@ -44,12 +48,16 @@
 &lt;#list element.typeParameters as typeParameter&gt;
         * @param &lt;${typeParameter.name}&gt; the type parameter\n
 &lt;/#list&gt;
+ *\n
+ * @author franzekan\n
  */</VALUE>
         </CLASS>
         <CLASS>
           <KEY>.+</KEY>
           <VALUE>/**\n
  * The type ${name}.\n
+ *
+ * @author franzekan
  */</VALUE>
         </CLASS>
       </CLASSES>
