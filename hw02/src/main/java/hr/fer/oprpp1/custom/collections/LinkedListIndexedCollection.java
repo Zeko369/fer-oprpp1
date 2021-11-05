@@ -319,6 +319,7 @@ public class LinkedListIndexedCollection implements List {
             this.first = this.first.next;
             this.first.previous = null;
             this.size--;
+						return;
         }
 
         ListNode tmp = this.first;
