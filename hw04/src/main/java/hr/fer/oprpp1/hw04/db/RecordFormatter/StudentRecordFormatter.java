@@ -1,9 +1,11 @@
-package hr.fer.oprpp1.hw04.db;
+package hr.fer.oprpp1.hw04.db.RecordFormatter;
+
+import hr.fer.oprpp1.hw04.db.StudentRecord;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecordFormatter {
+public class StudentRecordFormatter extends BaseRecordFormatter {
     public static List<String> format(List<StudentRecord> records) {
         int[] maxLengths = new int[4];
         maxLengths[3] = 3;
@@ -22,18 +24,7 @@ public class RecordFormatter {
         return formattedRecords;
     }
 
-    private static String genBorder(int[] maxLengths) {
-        StringBuilder sb = new StringBuilder();
-        for (int maxLength : maxLengths) {
-            sb.append("+");
-            sb.append("=".repeat(maxLength));
-        }
-        sb.append("+");
-
-        return sb.toString();
-    }
-
-    private static String formatRow(int [] maxLengths, StudentRecord record) {
+    private static String formatRow(int[] maxLengths, StudentRecord record) {
         StringBuilder sb = new StringBuilder();
         sb.append(formatCell(maxLengths[0], record.getJmbag()));
         sb.append(formatCell(maxLengths[1], record.getFirstName()));
@@ -42,9 +33,5 @@ public class RecordFormatter {
         sb.append("|");
 
         return sb.toString();
-    }
-
-    private static String formatCell(int maxSize, String value) {
-        return "| " + value + " ".repeat(maxSize - value.length() - 1);
     }
 }

@@ -1,5 +1,7 @@
 package hr.fer.oprpp1.hw04.db;
 
+import hr.fer.oprpp1.hw04.db.RecordFormatter.StudentRecordFormatter;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -15,7 +17,7 @@ public class StudentDB {
 
             System.out.println(sdb.forJMBAG("0000000010"));
 
-            List<String> formattedOut = RecordFormatter.format(sdb.filter(s -> s.getFirstName().equals("Ivan")));
+            List<String> formattedOut = StudentRecordFormatter.format(sdb.filter(s -> s.getFirstName().equals("Ivan")));
             for (String line : formattedOut) {
                 System.out.println(line);
             }
