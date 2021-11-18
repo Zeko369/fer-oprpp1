@@ -10,6 +10,19 @@ public class ComparisonOperators {
     public static final IComparisonOperator EQUALS = (s1, s2) -> compare(s1, s2) == 0;
     public static final IComparisonOperator NOT_EQUALS = (s1, s2) -> compare(s1, s2) != 0;
 
+    public static IComparisonOperator getByName(String name) {
+        return switch (name.toUpperCase()) {
+            case "<" -> LESS;
+            case "<=" -> LESS_OR_EQUALS;
+            case ">" -> GREATER;
+            case ">=" -> GREATER_OR_EQUALS;
+            case "=" -> EQUALS;
+            case "!=" -> NOT_EQUALS;
+            case "LIKE" -> LIKE;
+            default -> throw new IllegalArgumentException("Unknown operator: " + name);
+        };
+    }
+
     private static int compare(String s1, String s2) {
         return Objects.requireNonNull(s1).compareTo(Objects.requireNonNull(s2));
     }

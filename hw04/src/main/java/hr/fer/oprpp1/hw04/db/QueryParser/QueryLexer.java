@@ -1,0 +1,106 @@
+package hr.fer.oprpp1.hw04.db.QueryParser;
+
+import java.util.List;
+
+public class QueryLexer {
+    private final char[] query;
+    private QueryToken token = null;
+    private int index;
+
+    public QueryLexer(String query) {
+        this.query = query.toCharArray();
+    }
+
+    private static final List<String> operatorKeyword = List.of(new String[]{
+            ">", ">=", "=", "<=", "<", "!=", "LIKE"
+    });
+
+    private static final List<String> logicalOperatorKeyword = List.of(new String[]{
+            "AND"
+    });
+
+    private QueryToken setToken(QueryTokenType type, String value) {
+        this.token = new QueryToken(type, value);
+        return this.token;
+    }
+
+    private char getCurrent() {
+        if (this.index >= this.query.length) {
+            return '\0';
+        }
+
+        return this.query[this.index];
+    }
+
+    private char getCurrentAndMove() {
+        return this.query[this.index++];
+    }
+
+    private void skipSpace() {
+        if (this.getCurrent() != ' ') return;
+        while (this.getCurrent() == ' ') {
+            this.index++;
+        }
+    }
+
+    private boolean checkSequence(String seq) {
+        if (this.index + seq.length() > this.query.length) return false;
+
+        for (int i = 0; i < seq.length(); i++) {
+            char c = Character.toUpperCase(this.query[this.index + i]);
+            if (seq.toUpperCase().charAt(i) != c) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public QueryToken getToken() {
+        return this.token;
+    }
+
+    public QueryToken getNextToken() {
+        this.skipSpace();
+        if (this.index >= this.query.length) {
+            return this.setToken(QueryTokenType.EOF, null);
+        }
+
+        // VALUE
+        if (this.getCurrent() == '"') {
+            StringBuilder sb = new StringBuilder();
+
+            this.index++;
+            while (this.getCurrent() != '"') {
+                sb.append(this.getCurrentAndMove());
+            }
+            this.index++;
+
+            return this.setToken(QueryTokenType.VALUE, sb.toString());
+        }
+
+        // OPERATOR
+        for (String operator : operatorKeyword) {
+            if (this.checkSequence(operator)) {
+                this.index += operator.length();
+                return this.setToken(QueryTokenType.OPERATOR, operator);
+            }
+        }
+
+        // LOGICAL OPERATOR
+        for (String logicalOperator : logicalOperatorKeyword) {
+            if (this.checkSequence(logicalOperator)) {
+                this.index += logicalOperator.length();
+                return this.setToken(QueryTokenType.LOGICAL_OPERATOR, logicalOperator);
+            }
+        }
+
+        // COLUMN
+        StringBuilder sb = new StringBuilder();
+        while (Character.isLetter(this.getCurrent())) {
+            sb.append(this.getCurrentAndMove());
+        }
+
+        return this.setToken(QueryTokenType.COLUMN, sb.toString());
+    }
+}
