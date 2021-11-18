@@ -7,6 +7,10 @@ import java.util.List;
 
 public class StudentRecordFormatter extends BaseRecordFormatter {
     public static List<String> format(List<StudentRecord> records) {
+        if(records.size() == 0)  {
+            return List.of(endFormatLine(0));
+        }
+
         int[] maxLengths = new int[4];
         maxLengths[3] = 3;
 
@@ -20,6 +24,7 @@ public class StudentRecordFormatter extends BaseRecordFormatter {
         formattedRecords.add(genBorder(maxLengths));
         formattedRecords.addAll(records.stream().map(r -> formatRow(maxLengths, r)).toList());
         formattedRecords.add(genBorder(maxLengths));
+        formattedRecords.add(endFormatLine(records.size()));
 
         return formattedRecords;
     }

@@ -15,4 +15,8 @@ public abstract class BaseRecordFormatter {
     protected static String formatCell(int maxSize, String value) {
         return "| " + value + " ".repeat(maxSize - value.length() - 1);
     }
+
+    protected static String endFormatLine(int count) {
+        return String.format("Records selected: %d", count);
+    }
 }
