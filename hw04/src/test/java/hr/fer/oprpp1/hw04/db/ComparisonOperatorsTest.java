@@ -2,6 +2,9 @@ package hr.fer.oprpp1.hw04.db;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ComparisonOperatorsTest {
@@ -104,5 +107,25 @@ public class ComparisonOperatorsTest {
         assertThrows(NullPointerException.class, () -> operator.satisfied(null, null));
     }
 
+    @Test
+    void testByName() {
+        Map<String, IComparisonOperator> tmp = new HashMap<>();
+        tmp.put("<=", ComparisonOperators.LESS_OR_EQUALS);
+        tmp.put("<", ComparisonOperators.LESS);
+        tmp.put("=", ComparisonOperators.EQUALS);
+        tmp.put("!=", ComparisonOperators.NOT_EQUALS);
+        tmp.put(">", ComparisonOperators.GREATER);
+        tmp.put(">=", ComparisonOperators.GREATER_OR_EQUALS);
+        tmp.put("LIKE", ComparisonOperators.LIKE);
+
+        for (String field : tmp.keySet()) {
+            assertEquals(ComparisonOperators.getByName(field), tmp.get(field));
+        }
+    }
+
+    @Test
+    void testByNameThrowsForWrongName() {
+        assertThrows(IllegalArgumentException.class, () -> ComparisonOperators.getByName("WRONG"));
+    }
 }
 
