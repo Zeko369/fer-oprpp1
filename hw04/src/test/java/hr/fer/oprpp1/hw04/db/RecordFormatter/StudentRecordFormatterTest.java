@@ -24,7 +24,19 @@ public class StudentRecordFormatterTest {
 
         assertEquals(4, result.size());
         assertEquals(result.get(0), result.get(2));
-        assertEquals("| 012345678 | foo | bar | 5 |", result.get(1));
+        assertEquals("| 012345678 | bar | foo | 5 |", result.get(1));
+        assertEquals("Records selected: 1", result.get(3));
+    }
+
+    @Test
+    void testFormattingOfSingleRowWithOneParam() {
+        List<String> result = StudentRecordFormatter.format(
+                new StudentRecord("012345678", "foo", "bar", 5)
+        );
+
+        assertEquals(4, result.size());
+        assertEquals(result.get(0), result.get(2));
+        assertEquals("| 012345678 | bar | foo | 5 |", result.get(1));
         assertEquals("Records selected: 1", result.get(3));
     }
 
@@ -37,8 +49,8 @@ public class StudentRecordFormatterTest {
 
         assertEquals(5, result.size());
         assertEquals(result.get(0), result.get(3));
-        assertEquals("| 012345678 | foo    | bar | 5 |", result.get(1));
-        assertEquals("| 012345679 | foobar | bar | 5 |", result.get(2));
+        assertEquals("| 012345678 | bar | foo    | 5 |", result.get(1));
+        assertEquals("| 012345679 | bar | foobar | 5 |", result.get(2));
         assertEquals("Records selected: 2", result.get(4));
     }
 }

@@ -11,6 +11,10 @@ public class ConditionalExpression {
         this.comparisonOperator = operator;
     }
 
+    public boolean check(StudentRecord sr) {
+        return comparisonOperator.satisfied(fieldGetter.get(sr), stringLiteral);
+    }
+
     public IComparisonOperator getComparisonOperator() {
         return comparisonOperator;
     }

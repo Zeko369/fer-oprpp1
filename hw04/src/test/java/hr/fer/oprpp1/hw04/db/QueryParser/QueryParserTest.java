@@ -2,6 +2,8 @@ package hr.fer.oprpp1.hw04.db.QueryParser;
 
 import hr.fer.oprpp1.hw04.db.ComparisonOperators;
 import hr.fer.oprpp1.hw04.db.FieldValueGetters;
+import hr.fer.oprpp1.hw04.db.IFilter;
+import hr.fer.oprpp1.hw04.db.StudentRecord;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -40,7 +42,7 @@ public class QueryParserTest {
 
         assertEquals(1, parser.getQuery().size());
         assertFalse(parser.isDirectQuery());
-        assertThrows(IllegalStateException.class, parser::getQueriedJMBAG);
+        assertThrows(QueryParserException.class, parser::getQueriedJMBAG);
     }
 
     @Test
@@ -59,9 +61,18 @@ public class QueryParserTest {
 
     @Test
     void throwForWrongOrderOfQuery() {
-        assertThrows(IllegalStateException.class, () -> new QueryParser("<= fooBar firstName"));
-        assertThrows(IllegalStateException.class, () -> new QueryParser("firstName \"fooBar\" <="));
-        assertThrows(IllegalStateException.class, () -> new QueryParser("firstName <= and"));
-        assertThrows(IllegalStateException.class, () -> new QueryParser("AND firstName <= \"fooBar\""));
+        assertThrows(QueryParserException.class, () -> new QueryParser("<= fooBar firstName"));
+        assertThrows(QueryParserException.class, () -> new QueryParser("firstName \"fooBar\" <="));
+        assertThrows(QueryParserException.class, () -> new QueryParser("firstName <= and"));
+        assertThrows(QueryParserException.class, () -> new QueryParser("AND firstName <= \"fooBar\""));
+    }
+
+    @Test
+    void testIFilterReturn() {
+        QueryParser parser = new QueryParser("firstName = \"fooBar\" AND lastName <= \"foo\"");
+        IFilter filter = parser.getFilter();
+
+        assertTrue(filter.accepts(new StudentRecord("0123456789", "fooBar", "foo", 5)));
+        assertFalse(filter.accepts(new StudentRecord("0123456789", "notFooBar", "NotFoo", 5)));
     }
 }

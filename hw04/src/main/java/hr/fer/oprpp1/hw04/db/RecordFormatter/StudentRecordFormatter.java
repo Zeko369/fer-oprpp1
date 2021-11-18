@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StudentRecordFormatter extends BaseRecordFormatter {
+    public static List<String> format(StudentRecord record) {
+        return format(List.of(record));
+    }
+
     public static List<String> format(List<StudentRecord> records) {
         if(records.size() == 0)  {
             return List.of(endFormatLine(0));
@@ -16,8 +20,8 @@ public class StudentRecordFormatter extends BaseRecordFormatter {
 
         records.forEach(record -> {
             maxLengths[0] = Math.max(maxLengths[0], record.getJmbag().length() + 2);
-            maxLengths[1] = Math.max(maxLengths[1], record.getFirstName().length() + 2);
-            maxLengths[2] = Math.max(maxLengths[2], record.getLastName().length() + 2);
+            maxLengths[1] = Math.max(maxLengths[1], record.getLastName().length() + 2);
+            maxLengths[2] = Math.max(maxLengths[2], record.getFirstName().length() + 2);
         });
 
         List<String> formattedRecords = new ArrayList<>();
@@ -32,8 +36,8 @@ public class StudentRecordFormatter extends BaseRecordFormatter {
     private static String formatRow(int[] maxLengths, StudentRecord record) {
         StringBuilder sb = new StringBuilder();
         sb.append(formatCell(maxLengths[0], record.getJmbag()));
-        sb.append(formatCell(maxLengths[1], record.getFirstName()));
-        sb.append(formatCell(maxLengths[2], record.getLastName()));
+        sb.append(formatCell(maxLengths[1], record.getLastName()));
+        sb.append(formatCell(maxLengths[2], record.getFirstName()));
         sb.append(formatCell(maxLengths[3], String.valueOf(record.getFinalGrade())));
         sb.append("|");
 
