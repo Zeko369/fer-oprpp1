@@ -30,10 +30,18 @@ public class QueryParserTest {
 
     @Test
     void testDirectOnAComplexQuery() {
-        QueryParser parser = new QueryParser("jmbag = \"0123456789\" AND firstName = \"fooBar\"");
+        QueryParser parser = new QueryParser("lastName = \"0123456789\" AND firstName = \"fooBar\"");
 
         assertEquals(2, parser.getQuery().size());
         assertFalse(parser.isDirectQuery());
+    }
+
+    @Test
+    void testDirectOnAComplexWithJMBAGQuery() {
+        QueryParser parser = new QueryParser("jmbag = \"0123456789\" AND firstName = \"fooBar\"");
+
+        assertEquals(2, parser.getQuery().size());
+        assertTrue(parser.isDirectQuery());
     }
 
     @Test
@@ -74,5 +82,11 @@ public class QueryParserTest {
 
         assertTrue(filter.accepts(new StudentRecord("0123456789", "fooBar", "foo", 5)));
         assertFalse(filter.accepts(new StudentRecord("0123456789", "notFooBar", "NotFoo", 5)));
+    }
+
+    @Test
+    void testIsNever() {
+        QueryParser parser = new QueryParser("jmbag = \"fooBar\" AND jmbag = \"foo\"");
+        assertTrue(parser.isNever());
     }
 }
