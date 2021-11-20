@@ -9,16 +9,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class QueryParser {
-    private final List<ConditionalExpression> query = new ArrayList<>();
+    private List<ConditionalExpression> query = new ArrayList<>();
 
     public QueryParser(String query) {
-        this.parse(query);
+        try {
+            this.parse(query);
+        } catch (RuntimeException e) {
+            throw new QueryParserException("Error parsing query");
+        }
+
+
+        QueryOptimizer opt = new QueryOptimizer(this.query);
+        this.query = opt.getOptimizedQuery();
     }
 
     private void parse(String query) {
         QueryLexer lexer = new QueryLexer(query);
         QueryToken token = lexer.getNextToken();
-
 
         while (!token.isEOF()) {
             if (token.getType() == QueryTokenType.LOGICAL_OPERATOR) {
@@ -54,18 +61,33 @@ public class QueryParser {
         }
     }
 
+    private ConditionalExpression canBeDirect() {
+        for (ConditionalExpression expression : this.query) {
+            if (expression.getFieldGetter() == FieldValueGetters.JMBAG) {
+                return expression;
+            }
+        }
+
+        return null;
+    }
+
+    public boolean isNever() {
+        return this.query.size() == 1 && this.query.get(0).getComparisonOperator().equals(ComparisonOperators.NEVER);
+    }
+
     public boolean isDirectQuery() {
-        if (this.query.size() != 1) {
+        ConditionalExpression ex = this.canBeDirect();
+        if (ex == null) {
             return false;
         }
 
-        ConditionalExpression expression = this.query.get(0);
-        return expression.getFieldGetter().equals(FieldValueGetters.JMBAG) && expression.getComparisonOperator().equals(ComparisonOperators.EQUALS);
+        return ex.getFieldGetter().equals(FieldValueGetters.JMBAG) && ex.getComparisonOperator().equals(ComparisonOperators.EQUALS);
     }
 
     public String getQueriedJMBAG() {
-        if (this.isDirectQuery()) {
-            return this.query.get(0).getStringLiteral();
+        ConditionalExpression ex = this.canBeDirect();
+        if (ex != null) {
+            return ex.getStringLiteral();
         }
 
         throw new QueryParserException("Not a direct query");

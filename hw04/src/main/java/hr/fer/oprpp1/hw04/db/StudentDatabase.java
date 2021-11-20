@@ -11,21 +11,31 @@ public class StudentDatabase {
 
     public StudentDatabase(List<String> lines) {
         this.list = this.parseLines(lines);
-        this.jmbagIndexMap = this.list.stream().collect(Collectors.toMap(StudentRecord::getJmbag, this.list::indexOf));
 
         // check for duplicate JMBAG in list
         Set<String> jmbagSet = this.list.stream().map(StudentRecord::getJmbag).collect(Collectors.toSet());
         if (jmbagSet.size() != this.list.size()) {
-            throw new Error("Duplicate JMBAG in database");
+            throw new IllegalStateException("Duplicate JMBAG in database");
         }
+
+        this.jmbagIndexMap = this.list.stream().collect(Collectors.toMap(StudentRecord::getJmbag, this.list::indexOf));
+    }
+
+    public int size() {
+        return this.list.size();
     }
 
     private List<StudentRecord> parseLines(List<String> lines) {
-        return lines.stream().map(StudentRecord::new).collect(Collectors.toList());
+        return lines.stream().map(StudentRecord::fromTSVLine).collect(Collectors.toList());
     }
 
     public StudentRecord forJMBAG(String jmbag) {
-        return this.list.get(this.jmbagIndexMap.get(jmbag));
+        try {
+            int index = this.jmbagIndexMap.get(jmbag);
+            return this.list.get(index);
+        } catch(NullPointerException e) {
+            return null;
+        }
     }
 
     public List<StudentRecord> filter(IFilter filter) {

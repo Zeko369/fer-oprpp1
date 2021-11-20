@@ -10,6 +10,8 @@ public class ComparisonOperators {
     public static final IComparisonOperator EQUALS = (s1, s2) -> compare(s1, s2) == 0;
     public static final IComparisonOperator NOT_EQUALS = (s1, s2) -> compare(s1, s2) != 0;
 
+    public static final IComparisonOperator NEVER = (s1, s2) -> false;
+
     public static IComparisonOperator getByName(String name) {
         return switch (name.toUpperCase()) {
             case "<" -> LESS;
