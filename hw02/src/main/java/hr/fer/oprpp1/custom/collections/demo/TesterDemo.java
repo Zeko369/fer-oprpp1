@@ -5,7 +5,17 @@ import hr.fer.oprpp1.custom.collections.Collection;
 import hr.fer.oprpp1.custom.collections.LinkedListIndexedCollection;
 import hr.fer.oprpp1.custom.collections.Tester;
 
+/**
+ * The type Tester demo.
+ *
+ * @author franzekan
+ */
 public class TesterDemo {
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         Collection col1 = new LinkedListIndexedCollection();
         Collection col2 = new ArrayIndexedCollection();

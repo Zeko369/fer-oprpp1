@@ -7,8 +7,19 @@ package hr.fer.oprpp1.custom.collections;
  * @version 1.0
  */
 public interface Collection {
+    /**
+     * Create elements getter elements getter.
+     *
+     * @return the elements getter
+     */
     ElementsGetter createElementsGetter();
 
+    /**
+     * Add all satisfying.
+     *
+     * @param col    the col
+     * @param tester the tester
+     */
     default void addAllSatisfying(Collection col, Tester tester) {
         ElementsGetter eg = col.createElementsGetter();
         while (eg.hasNextElement()) {

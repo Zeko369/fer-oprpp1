@@ -9,8 +9,8 @@ public enum LexerState {
     /**
      * Normal lexer state (outside tags)
      */
-
     NORMAL,
+
     /**
      * Tag lexer state (Inside tags)
      */

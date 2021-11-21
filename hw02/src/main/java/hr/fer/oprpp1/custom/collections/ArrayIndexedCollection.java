@@ -18,6 +18,11 @@ public class ArrayIndexedCollection implements List {
         private final ArrayIndexedCollection collection;
         private final long savedModificationCount;
 
+        /**
+         * Instantiates a new Array indexed collection elements getter.
+         *
+         * @param collection the collection
+         */
         public ArrayIndexedCollectionElementsGetter(ArrayIndexedCollection collection) {
             this.collection = collection;
             this.savedModificationCount = collection.modificationCount;
@@ -25,7 +30,7 @@ public class ArrayIndexedCollection implements List {
         }
 
         private void checkConcurrent() {
-            if(this.savedModificationCount != this.collection.modificationCount) {
+            if (this.savedModificationCount != this.collection.modificationCount) {
                 throw new ConcurrentModificationException();
             }
         }

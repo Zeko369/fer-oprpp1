@@ -15,7 +15,7 @@ import hr.fer.oprpp1.custom.scripting.parser.utils.ElementsHelper;
  *
  * @author franzekan
  */
-public class ForCommandParser implements CommandParser {
+public class ForCommandParser extends CommandParser {
     /**
      * Parses a FOR node
      *

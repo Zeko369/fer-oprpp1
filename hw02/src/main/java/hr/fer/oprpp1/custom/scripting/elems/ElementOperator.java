@@ -39,7 +39,7 @@ public class ElementOperator extends Element {
 
         ElementOperator that = (ElementOperator) o;
 
-        if(this.symbol != null) {
+        if (this.symbol != null) {
             return this.symbol.equals(that.symbol);
         }
 

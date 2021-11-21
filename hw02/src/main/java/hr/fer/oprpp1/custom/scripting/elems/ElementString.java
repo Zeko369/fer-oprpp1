@@ -39,7 +39,7 @@ public class ElementString extends Element {
 
         ElementString that = (ElementString) o;
 
-        if(this.value != null) {
+        if (this.value != null) {
             return this.value.equals(that.value);
         }
 

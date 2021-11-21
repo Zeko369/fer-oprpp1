@@ -40,7 +40,7 @@ public class ElementVariable extends Element {
 
         ElementVariable that = (ElementVariable) o;
 
-        if(this.name != null) {
+        if (this.name != null) {
             return this.name.equals(that.name);
         }
 

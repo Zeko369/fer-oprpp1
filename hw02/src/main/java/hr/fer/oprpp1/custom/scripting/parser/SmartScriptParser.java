@@ -24,7 +24,7 @@ public class SmartScriptParser {
      * @param body the body
      */
     public SmartScriptParser(String body) {
-        if(body == null) {
+        if (body == null) {
             // TODO: Maybe make this a NullPointerException
             throw new SmartScriptParserException("[FATAL]: Body can't be null");
         }
@@ -95,7 +95,7 @@ public class SmartScriptParser {
             }
         } while (t.getType() != TokenType.EOF);
 
-        if(s.size() != 1) {
+        if (s.size() != 1) {
             throw new SmartScriptParserException("[General]: Some tag not closed");
         }
     }

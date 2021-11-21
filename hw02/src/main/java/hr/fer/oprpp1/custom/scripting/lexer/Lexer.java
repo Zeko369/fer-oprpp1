@@ -2,8 +2,6 @@ package hr.fer.oprpp1.custom.scripting.lexer;
 
 import hr.fer.oprpp1.custom.collections.Tester;
 
-import java.util.function.Predicate;
-
 /**
  * Lexer for our custom scripting PHP like language
  *
@@ -16,7 +14,7 @@ public class Lexer {
     private int index = 0;
 
     /**
-     * Inpute array
+     * Input array
      */
     private final char[] data;
 

@@ -13,6 +13,11 @@ import hr.fer.oprpp1.custom.shared.FileLoader;
  * @author franzekan
  */
 public class LexerDemo {
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         String code = FileLoader.loadCode("./demos/primjer7.txt");
         System.out.println(code);

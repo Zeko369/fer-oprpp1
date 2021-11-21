@@ -12,6 +12,11 @@ import java.util.NoSuchElementException;
 public class LinkedListIndexedCollection implements List {
     private long modificationCount = 0;
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         LinkedListIndexedCollection l = new LinkedListIndexedCollection();
         l.add(1);
@@ -21,12 +26,12 @@ public class LinkedListIndexedCollection implements List {
         l.add(5);
 
         l.forEach(o -> System.out.printf("%d, ", o));
-        System.out.println("");
+        System.out.println();
 
         l.insert(9, 5);
 
         l.forEach(o -> System.out.printf("%d, ", o));
-        System.out.println("");
+        System.out.println();
     }
 
     private static class LinkedListIndexedCollectionElementsGetter implements ElementsGetter {
@@ -34,6 +39,11 @@ public class LinkedListIndexedCollection implements List {
         private final LinkedListIndexedCollection collection;
         private final long savedModificationCount;
 
+        /**
+         * Instantiates a new Linked list indexed collection elements getter.
+         *
+         * @param collection the collection
+         */
         public LinkedListIndexedCollectionElementsGetter(LinkedListIndexedCollection collection) {
             this.collection = collection;
             this.node = this.collection.first;
@@ -42,7 +52,7 @@ public class LinkedListIndexedCollection implements List {
 
         @Override
         public Object getNextElement() {
-            if(!this.hasNextElement()) {
+            if (!this.hasNextElement()) {
                 throw new NoSuchElementException();
             }
 
@@ -238,8 +248,8 @@ public class LinkedListIndexedCollection implements List {
         }
 
         ListNode ln = this.first;
-        for(int i = 0; i < index; i++) {
-            if(i == index - 1) {
+        for (int i = 0; i < index; i++) {
+            if (i == index - 1) {
                 ln.next = new ListNode(value, ln);
                 return;
             }
@@ -319,7 +329,7 @@ public class LinkedListIndexedCollection implements List {
             this.first = this.first.next;
             this.first.previous = null;
             this.size--;
-						return;
+            return;
         }
 
         ListNode tmp = this.first;

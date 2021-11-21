@@ -8,7 +8,17 @@ import hr.fer.oprpp1.custom.shared.FileLoader;
 import java.io.FileNotFoundException;
 import java.util.Objects;
 
+/**
+ * The type Smart script tester.
+ *
+ * @author franzekan
+ */
 public class SmartScriptTester {
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         try {
             if (args.length == 0) {

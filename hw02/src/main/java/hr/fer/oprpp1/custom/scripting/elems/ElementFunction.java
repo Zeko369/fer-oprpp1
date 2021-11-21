@@ -39,7 +39,7 @@ public class ElementFunction extends Element {
 
         ElementFunction that = (ElementFunction) o;
 
-        if(this.name != null) {
+        if (this.name != null) {
             return this.name.equals(that.name);
         }
 

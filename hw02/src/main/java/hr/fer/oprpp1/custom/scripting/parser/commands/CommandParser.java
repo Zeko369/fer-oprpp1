@@ -8,7 +8,7 @@ import hr.fer.oprpp1.custom.scripting.node.Node;
  *
  * @author franzekan
  */
-public interface CommandParser {
+public abstract class CommandParser {
     /**
      * Parse command node.
      *
