@@ -153,7 +153,7 @@ public class ArrayIndexedCollection extends Collection {
      * @throws NullPointerException      if value is null
      * @throws IndexOutOfBoundsException if position is less than 0 or more than size
      */
-    void insert(Object value, int position) {
+    public void insert(Object value, int position) {
         if (value == null) {
             throw new NullPointerException();
         }
@@ -180,7 +180,7 @@ public class ArrayIndexedCollection extends Collection {
      * @param value element to get index for
      * @return index in array or -1 if not found
      */
-    int indexOf(Object value) {
+    public int indexOf(Object value) {
         for (int i = 0; i < this.elements.length; i++) {
             if (this.elements[i] == null) {
                 break;
@@ -200,7 +200,7 @@ public class ArrayIndexedCollection extends Collection {
      * @param index index of element to remove
      * @throws IndexOutOfBoundsException if index out of range
      */
-    void remove(int index) {
+    public void remove(int index) {
         if (index < 0 || index >= this.size) {
             throw new IndexOutOfBoundsException();
         }
@@ -213,12 +213,12 @@ public class ArrayIndexedCollection extends Collection {
     }
 
     @Override
-    Object[] toArray() {
+    public Object[] toArray() {
         return Arrays.copyOf(this.elements, this.size);
     }
 
     @Override
-    boolean contains(Object value) {
+    public boolean contains(Object value) {
         return this.indexOf(value) != -1;
     }
 }

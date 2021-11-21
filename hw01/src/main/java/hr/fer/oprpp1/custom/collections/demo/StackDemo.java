@@ -14,6 +14,11 @@ import hr.fer.oprpp1.custom.collections.ObjectStack;
  * @version 1.0
  */
 public class StackDemo {
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         if (args.length != 1) {
             System.err.println("You need to pass exactly one argument");

@@ -7,6 +7,11 @@ package hr.fer.oprpp1.custom.collections.demo;
  * @version 1.0
  */
 public class InvalidExpression extends RuntimeException {
+    /**
+     * Instantiates a new Invalid expression.
+     *
+     * @param problem the problem
+     */
     public InvalidExpression(String problem) {
         super(problem);
     }

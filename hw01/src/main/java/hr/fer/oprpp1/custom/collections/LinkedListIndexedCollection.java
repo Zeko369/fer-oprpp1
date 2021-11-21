@@ -121,7 +121,7 @@ public class LinkedListIndexedCollection extends Collection {
      * @throws NullPointerException if value is null
      */
     @Override
-    void add(Object value) {
+    public void add(Object value) {
         if (value == null) {
             throw new NullPointerException();
         }
@@ -146,7 +146,7 @@ public class LinkedListIndexedCollection extends Collection {
      * @return element on index
      * @throws IndexOutOfBoundsException if index is out of range
      */
-    Object get(int index) {
+    public Object get(int index) {
         if (index < 0 || index >= this.size) {
             throw new IndexOutOfBoundsException();
         }
@@ -164,12 +164,12 @@ public class LinkedListIndexedCollection extends Collection {
 
 
     @Override
-    int size() {
+    public int size() {
         return this.size;
     }
 
     @Override
-    void clear() {
+    public void clear() {
         this.size = 0;
 
         this.first = null;
@@ -177,7 +177,7 @@ public class LinkedListIndexedCollection extends Collection {
     }
 
     @Override
-    boolean contains(Object value) {
+    public boolean contains(Object value) {
         ListNode tmp = this.first;
 
         while (tmp != null) {
@@ -198,7 +198,7 @@ public class LinkedListIndexedCollection extends Collection {
      * @return the boolean
      * @throws IndexOutOfBoundsException if index is out of range
      */
-    boolean remove(int index) {
+    public boolean remove(int index) {
         if (index < 0 || index >= this.size) {
             throw new IndexOutOfBoundsException();
         }
@@ -223,7 +223,7 @@ public class LinkedListIndexedCollection extends Collection {
     }
 
     @Override
-    boolean remove(Object value) {
+    public boolean remove(Object value) {
         ListNode tmp = this.first;
 
         while (tmp != null) {
@@ -246,7 +246,7 @@ public class LinkedListIndexedCollection extends Collection {
     }
 
     @Override
-    Object[] toArray() {
+    public Object[] toArray() {
         class GetProcessor extends Processor {
             private int i = 0;
             private final Object[] arr;
@@ -272,7 +272,7 @@ public class LinkedListIndexedCollection extends Collection {
     }
 
     @Override
-    void forEach(Processor processor) {
+    public void forEach(Processor processor) {
         ListNode tmp = this.first;
         while (tmp != null) {
             processor.process(tmp.value);
