@@ -12,5 +12,6 @@ public class Processor {
      *
      * @param value the value
      */
-    public void process(Object value) {}
+    public void process(Object value) {
+    }
 }
