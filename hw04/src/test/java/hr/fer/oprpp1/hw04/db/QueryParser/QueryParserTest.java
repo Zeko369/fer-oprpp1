@@ -50,7 +50,7 @@ public class QueryParserTest {
 
         assertEquals(1, parser.getQuery().size());
         assertFalse(parser.isDirectQuery());
-        assertThrows(QueryParserException.class, parser::getQueriedJMBAG);
+        assertThrows(IllegalStateException.class, parser::getQueriedJMBAG);
     }
 
     @Test

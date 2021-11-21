@@ -1,11 +1,24 @@
 package hr.fer.oprpp1.hw04.db;
 
+/**
+ * The type Student record.
+ *
+ * @author franzekan
+ */
 public class StudentRecord {
     private final String jmbag;
     private final String firstName;
     private final String lastName;
     private final int finalGrade;
 
+    /**
+     * Instantiates a new Student record.
+     *
+     * @param jmbag      the jmbag
+     * @param firstName  the first name
+     * @param lastName   the last name
+     * @param finalGrade the final grade
+     */
     public StudentRecord(String jmbag, String firstName, String lastName, int finalGrade) {
         this.jmbag = jmbag;
         this.firstName = firstName;
@@ -13,6 +26,13 @@ public class StudentRecord {
         this.finalGrade = finalGrade;
     }
 
+    /**
+     * Parses the TSV line into a StudentRecord object.
+     *
+     * @param line the line
+     * @return the student record
+     * @throws StudentRecordParseException if the line is not in the correct format
+     */
     public static StudentRecord fromTSVLine(String line) throws StudentRecordParseException {
         String[] parts = line.split("\t");
         if (parts.length != 4) {
@@ -32,18 +52,38 @@ public class StudentRecord {
         }
     }
 
+    /**
+     * Gets jmbag.
+     *
+     * @return the jmbag
+     */
     public String getJmbag() {
         return jmbag;
     }
 
+    /**
+     * Gets first name.
+     *
+     * @return the first name
+     */
     public String getFirstName() {
         return firstName;
     }
 
+    /**
+     * Gets last name.
+     *
+     * @return the last name
+     */
     public String getLastName() {
         return lastName;
     }
 
+    /**
+     * Gets final grade.
+     *
+     * @return the final grade
+     */
     public int getFinalGrade() {
         return finalGrade;
     }

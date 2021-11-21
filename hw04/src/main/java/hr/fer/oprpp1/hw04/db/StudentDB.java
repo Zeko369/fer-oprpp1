@@ -12,7 +12,17 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
+/**
+ * Simple application that loads students from a file and allows users to query them from a console.
+ *
+ * @author franzekan
+ */
 public class StudentDB {
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         String filename = "./src/main/resources/database.txt";
         if (args.length == 1) {
@@ -69,6 +79,12 @@ public class StudentDB {
         }
     }
 
+    /**
+     * Run query.
+     *
+     * @param query the query
+     * @param sdb   the student database
+     */
     protected static void runQuery(String query, StudentDatabase sdb) {
         try {
             if (!query.startsWith("query")) {

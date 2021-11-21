@@ -2,11 +2,32 @@ package hr.fer.oprpp1.hw04.db.QueryParser;
 
 import java.util.List;
 
+/**
+ * Lexer for our simple query language
+ *
+ * @author franzekan
+ */
 public class QueryLexer {
+    /**
+     * Array representation of input query
+     */
     private final char[] query;
+
+    /**
+     * Last token returned by nextToken()
+     */
     private QueryToken token = null;
+
+    /**
+     * Current index in query
+     */
     private int index;
 
+    /**
+     * Instantiates a new Query lexer.
+     *
+     * @param query the query
+     */
     public QueryLexer(String query) {
         this.query = query.toCharArray();
     }
@@ -60,10 +81,20 @@ public class QueryLexer {
         return true;
     }
 
+    /**
+     * Gets last parsed token.
+     *
+     * @return the token
+     */
     public QueryToken getToken() {
         return this.token;
     }
 
+    /**
+     * Gets next token.
+     *
+     * @return the next token
+     */
     public QueryToken getNextToken() {
         this.skipSpace();
         if (this.index >= this.query.length) {

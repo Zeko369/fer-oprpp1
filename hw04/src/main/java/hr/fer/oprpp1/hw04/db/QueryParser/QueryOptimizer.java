@@ -4,13 +4,29 @@ import hr.fer.oprpp1.hw04.db.*;
 
 import java.util.*;
 
+/**
+ * Simple query optimizer, currently only optimizing
+ * - multiple JMABG= with different values -> NEVER
+ *
+ * @author franzekan
+ */
 public class QueryOptimizer {
     private final List<ConditionalExpression> expressions;
 
+    /**
+     * Instantiates a new Query optimizer.
+     *
+     * @param expressions the expressions
+     */
     public QueryOptimizer(List<ConditionalExpression> expressions) {
         this.expressions = expressions;
     }
 
+    /**
+     * Gets optimized query.
+     *
+     * @return the optimized query
+     */
     public List<ConditionalExpression> getOptimizedQuery() {
         List<ConditionalExpression> ret = this.checkForEqualsDiffValue();
         if (ret != null) return ret;
@@ -18,7 +34,11 @@ public class QueryOptimizer {
         return this.expressions;
     }
 
-    // Optimize for same column equals with different values
+    /**
+     * Optimize for same column equals with different values
+     *
+     * @return ConditionalExpression(NEVER) if found multiple JMABG= with different values, otherwise null
+     */
     private List<ConditionalExpression> checkForEqualsDiffValue() {
         Map<Integer, Set<String>> repetitions = new HashMap<>();
 

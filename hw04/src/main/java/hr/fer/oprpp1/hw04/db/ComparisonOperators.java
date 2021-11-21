@@ -2,33 +2,45 @@ package hr.fer.oprpp1.hw04.db;
 
 import java.util.Objects;
 
+/**
+ * Container for all predefined comparison operators.
+ *
+ * @author franzekan
+ */
 public class ComparisonOperators {
+    /**
+     * The constant LESS.
+     */
     public static final IComparisonOperator LESS = (s1, s2) -> compare(s1, s2) < 0;
+    /**
+     * The constant LESS_OR_EQUALS.
+     */
     public static final IComparisonOperator LESS_OR_EQUALS = (s1, s2) -> compare(s1, s2) <= 0;
+    /**
+     * The constant GREATER.
+     */
     public static final IComparisonOperator GREATER = (s1, s2) -> compare(s1, s2) > 0;
+    /**
+     * The constant GREATER_OR_EQUALS.
+     */
     public static final IComparisonOperator GREATER_OR_EQUALS = (s1, s2) -> compare(s1, s2) >= 0;
+    /**
+     * The constant EQUALS.
+     */
     public static final IComparisonOperator EQUALS = (s1, s2) -> compare(s1, s2) == 0;
+    /**
+     * The constant NOT_EQUALS.
+     */
     public static final IComparisonOperator NOT_EQUALS = (s1, s2) -> compare(s1, s2) != 0;
 
+    /**
+     * The constant NEVER.
+     */
     public static final IComparisonOperator NEVER = (s1, s2) -> false;
 
-    public static IComparisonOperator getByName(String name) {
-        return switch (name.toUpperCase()) {
-            case "<" -> LESS;
-            case "<=" -> LESS_OR_EQUALS;
-            case ">" -> GREATER;
-            case ">=" -> GREATER_OR_EQUALS;
-            case "=" -> EQUALS;
-            case "!=" -> NOT_EQUALS;
-            case "LIKE" -> LIKE;
-            default -> throw new IllegalArgumentException("Unknown operator: " + name);
-        };
-    }
-
-    private static int compare(String s1, String s2) {
-        return Objects.requireNonNull(s1).compareTo(Objects.requireNonNull(s2));
-    }
-
+    /**
+     * The constant LIKE.
+     */
     public static final IComparisonOperator LIKE = (s1, s2) -> {
         if (s1.contains("*")) {
             throw new ComparisonOperatorException("Value can't have a wildcard");
@@ -55,4 +67,28 @@ public class ComparisonOperators {
 
         return (s1.startsWith(start) && s1.endsWith(end)) && s1.length() >= start.length() + end.length();
     };
+
+    /**
+     * Gets by name.
+     *
+     * @param name the name
+     * @return the by name
+     * @throws IllegalArgumentException if name is not valid
+     */
+    public static IComparisonOperator getByName(String name) throws IllegalArgumentException {
+        return switch (name.toUpperCase()) {
+            case "<" -> LESS;
+            case "<=" -> LESS_OR_EQUALS;
+            case ">" -> GREATER;
+            case ">=" -> GREATER_OR_EQUALS;
+            case "=" -> EQUALS;
+            case "!=" -> NOT_EQUALS;
+            case "LIKE" -> LIKE;
+            default -> throw new IllegalArgumentException("Unknown operator: " + name);
+        };
+    }
+
+    private static int compare(String s1, String s2) throws NullPointerException {
+        return Objects.requireNonNull(s1).compareTo(Objects.requireNonNull(s2));
+    }
 }

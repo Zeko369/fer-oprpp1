@@ -5,11 +5,28 @@ import hr.fer.oprpp1.hw04.db.StudentRecord;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Student record formatter.
+ *
+ * @author franzekan
+ */
 public class StudentRecordFormatter extends BaseRecordFormatter {
+    /**
+     * Format list.
+     *
+     * @param record the record
+     * @return the list
+     */
     public static List<String> format(StudentRecord record) {
         return format(List.of(record));
     }
 
+    /**
+     * Format list.
+     *
+     * @param records the records
+     * @return the list
+     */
     public static List<String> format(List<StudentRecord> records) {
         if(records.size() == 0)  {
             return List.of(endFormatLine(0));

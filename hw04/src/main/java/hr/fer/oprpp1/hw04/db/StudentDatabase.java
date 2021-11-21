@@ -6,10 +6,22 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * Simple student database implementation
+ *
+ * @author franzekan
+ */
 public class StudentDatabase {
     private final List<StudentRecord> list;
     private final Map<String, Integer> jmbagIndexMap;
 
+    /**
+     * Instantiates a new Student database.
+     *
+     * @param lines the lines
+     * @throws StudentRecordParseException       If it can't parse a specific row
+     * @throws StudentDatabaseUniqueKeyException If multiple rows have the same JMBAG
+     */
     public StudentDatabase(List<String> lines) throws StudentRecordParseException, StudentDatabaseUniqueKeyException {
         this.list = this.parseLines(Objects.requireNonNull(lines));
 
@@ -22,6 +34,11 @@ public class StudentDatabase {
         this.jmbagIndexMap = this.list.stream().collect(Collectors.toMap(StudentRecord::getJmbag, this.list::indexOf));
     }
 
+    /**
+     * Returns the number of rows in the DB
+     *
+     * @return the int
+     */
     public int size() {
         return this.list.size();
     }
@@ -30,6 +47,12 @@ public class StudentDatabase {
         return lines.stream().map(StudentRecord::fromTSVLine).collect(Collectors.toList());
     }
 
+    /**
+     * Returns a student with the given JMBAG or null if not found
+     *
+     * @param jmbag the jmbag
+     * @return the student record
+     */
     public StudentRecord forJMBAG(String jmbag) {
         try {
             int index = this.jmbagIndexMap.get(jmbag);
@@ -39,10 +62,21 @@ public class StudentDatabase {
         }
     }
 
+    /**
+     * Filters DB by a given filter
+     *
+     * @param filter the filter
+     * @return the list
+     */
     public List<StudentRecord> filter(IFilter filter) {
         return this.list.stream().filter(filter::accepts).collect(Collectors.toList());
     }
 
+    /**
+     * Returns all rows in the DB
+     *
+     * @return the list
+     */
     public List<StudentRecord> all() {
         return this.list;
     }
