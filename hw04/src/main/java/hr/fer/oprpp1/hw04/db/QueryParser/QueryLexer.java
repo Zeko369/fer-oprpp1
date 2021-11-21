@@ -36,9 +36,13 @@ public class QueryLexer {
         return this.query[this.index++];
     }
 
+    private boolean currentIsWhitespace() {
+        return Character.isWhitespace(this.getCurrent());
+    }
+
     private void skipSpace() {
-        if (this.getCurrent() != ' ') return;
-        while (this.getCurrent() == ' ') {
+        if (!this.currentIsWhitespace()) return;
+        while (this.currentIsWhitespace()) {
             this.index++;
         }
     }

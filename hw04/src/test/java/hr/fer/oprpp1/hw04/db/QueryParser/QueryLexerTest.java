@@ -48,4 +48,18 @@ public class QueryLexerTest {
         assertEquals(QueryTokenType.VALUE, lexer.getNextToken().getType());
         assertEquals("fooBar123", lexer.getToken().getValue());
     }
+
+    @Test
+    void testWithTabs() {
+        QueryLexer lexer = new QueryLexer("\tfirstName\t=\t\"fooBar\"");
+
+        assertEquals(QueryTokenType.COLUMN, lexer.getNextToken().getType());
+        assertEquals("firstName", lexer.getToken().getValue());
+
+        assertEquals(QueryTokenType.OPERATOR, lexer.getNextToken().getType());
+        assertEquals("=", lexer.getToken().getValue());
+
+        assertEquals(QueryTokenType.VALUE, lexer.getNextToken().getType());
+        assertEquals("fooBar", lexer.getToken().getValue());
+    }
 }

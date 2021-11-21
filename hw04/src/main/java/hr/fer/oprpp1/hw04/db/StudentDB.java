@@ -53,12 +53,12 @@ public class StudentDB {
 
     protected static void runQuery(String query, StudentDatabase sdb) {
         try {
-            if (!query.startsWith("query ")) {
+            if (!query.startsWith("query")) {
                 System.out.println("Invalid command, a query needs to start with `query `");
                 return;
             }
 
-            QueryParser parser = new QueryParser(query.substring(6));
+            QueryParser parser = new QueryParser(query.substring(5).trim());
             if (parser.isNever()) {
                 System.err.println("This query will always return 0 rows");
             }

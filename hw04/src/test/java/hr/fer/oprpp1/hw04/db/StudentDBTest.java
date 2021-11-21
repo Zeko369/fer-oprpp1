@@ -71,6 +71,13 @@ public class StudentDBTest {
     }
 
     @Test
+    void testRunWorksWithTabs() {
+        StudentDB.runQuery("query\t  \tjmbag\t=\t\"0001\"", this.sdb);
+
+        assertStdOut("Using index for record retrieval.\n" + this.getFormatted(List.of(this.sdb.all().get(0))));
+    }
+
+    @Test
     void testRunMultipleJMBAGButOneOfThemIsDirect() {
         StudentDB.runQuery("query jmbag <= \"0001\" AND jmbag = \"0001\"", this.sdb);
 
