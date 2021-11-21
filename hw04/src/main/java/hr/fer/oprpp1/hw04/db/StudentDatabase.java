@@ -41,4 +41,8 @@ public class StudentDatabase {
     public List<StudentRecord> filter(IFilter filter) {
         return this.list.stream().filter(filter::accepts).collect(Collectors.toList());
     }
+
+    public List<StudentRecord> all() {
+        return this.list;
+    }
 }

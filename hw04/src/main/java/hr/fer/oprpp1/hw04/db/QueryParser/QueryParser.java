@@ -7,6 +7,8 @@ import hr.fer.oprpp1.hw04.db.IFilter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class QueryParser {
     private List<ConditionalExpression> query = new ArrayList<>();
@@ -29,7 +31,8 @@ public class QueryParser {
                 .filter(ConditionalExpression.expressionIsEqualJMBAG)
                 .toList();
 
-        if (tmp.size() == 1) {
+        Set<String> values = tmp.stream().map(ConditionalExpression::getStringLiteral).collect(Collectors.toSet());
+        if (values.size() == 1) {
             return tmp.get(0);
         }
 

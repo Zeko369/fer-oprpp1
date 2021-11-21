@@ -1,6 +1,7 @@
 package hr.fer.oprpp1.hw04.db;
 
 import com.github.stefanbirkner.systemlambda.SystemLambda;
+import hr.fer.oprpp1.hw04.db.RecordFormatter.StudentRecordFormatter;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -54,36 +55,55 @@ public class StudentDBTest {
         assertEquals("Records selected: 0", stdOutStream.toString().trim());
     }
 
+    private void assertStdOut(String output) {
+        assertEquals(output, stdOutStream.toString().trim());
+    }
+
+    private void assertStdErr(String output) {
+        assertEquals(output, stdErrStream.toString().trim());
+    }
+
+    private String getFormatted(List<StudentRecord> records) {
+        return StudentRecordFormatter.format(records)
+                .stream()
+                .reduce("", (a, b) -> a + b + "\n")
+                .trim();
+    }
+
+    @Test
+    void testRunMultipleJMBAGButOneOfThemIsDirect() {
+        StudentDB.runQuery("query jmbag <= \"0001\" AND jmbag = \"0001\"", this.sdb);
+
+        assertStdOut("Using index for record retrieval.\n" + this.getFormatted(List.of(this.sdb.all().get(0))));
+    }
+
     @Test
     void testRunQueryIndexed() {
         StudentDB.runQuery("query jmbag = \"0001\"", this.sdb);
-        assertEquals(
-                "Using index for record retrieval.\n" +
-                        "+======+=====+=====+===+\n" +
-                        "| 0001 | bar | foo | 1 |\n" +
-                        "+======+=====+=====+===+\n" +
-                        "Records selected: 1", stdOutStream.toString().trim());
+
+        assertStdOut("Using index for record retrieval.\n" + this.getFormatted(List.of(this.sdb.all().get(0))));
     }
 
     @Test
     void testRunQueryIndexedButNotFound() {
         StudentDB.runQuery("query jmbag = \"0034\"", this.sdb);
-        assertEquals(
-                "Using index for record retrieval.\n" +
-                        "Records selected: 0", stdOutStream.toString().trim());
+
+        assertStdOut("Using index for record retrieval.\n" + this.getFormatted(List.of()));
     }
 
     @Test
     void testRunQueryNever() {
         StudentDB.runQuery("query jmbag = \"0034\" AND jmbag = \"0234\"", this.sdb);
-        assertEquals("This query will always return 0 rows", stdErrStream.toString().trim());
-        assertEquals("Records selected: 0", stdOutStream.toString().trim());
+
+        assertStdErr("This query will always return 0 rows");
+        assertStdOut(this.getFormatted(List.of()));
     }
 
     @Test
     void testRunQueryWrongQuery() {
         StudentDB.runQuery("query j m bag = AND jmbag = \"0234\"", this.sdb);
-        assertEquals("Error parsing query.", stdOutStream.toString().trim());
+
+        assertStdOut("Error parsing query.");
     }
 
     @Test
@@ -93,13 +113,13 @@ public class StudentDBTest {
         int status = SystemLambda.catchSystemExit(() -> StudentDB.main(new String[]{}));
         assertEquals(0, status);
 
-        assertEquals("Welcome to the student database.\n" +
+        assertStdOut("Welcome to the student database.\n" +
                 "> Using index for record retrieval.\n" +
                 "+============+===========+=======+===+\n" +
                 "| 0000000001 | Akšamović | Marin | 2 |\n" +
                 "+============+===========+=======+===+\n" +
                 "Records selected: 1\n" +
-                "> Goodbye!", stdOutStream.toString().trim());
+                "> Goodbye!");
     }
 
     @Test
@@ -109,13 +129,13 @@ public class StudentDBTest {
         int status = SystemLambda.catchSystemExit(() -> StudentDB.main(new String[]{}));
         assertEquals(0, status);
 
-        assertEquals("Welcome to the student database.\n" +
+        assertStdOut("Welcome to the student database.\n" +
                 "> Using index for record retrieval.\n" +
                 "+============+===========+=======+===+\n" +
                 "| 0000000001 | Akšamović | Marin | 2 |\n" +
                 "+============+===========+=======+===+\n" +
                 "Records selected: 1\n" +
-                "> Exiting...", stdOutStream.toString().trim());
+                "> Exiting...");
     }
 
     @Test
@@ -123,6 +143,6 @@ public class StudentDBTest {
         int status = SystemLambda.catchSystemExit(() -> StudentDB.main(new String[]{"notFound.txt"}));
 
         assertEquals(1, status);
-        assertEquals("Error reading database file.", stdErrStream.toString().trim());
+        assertStdErr("Error reading database file.");
     }
 }
