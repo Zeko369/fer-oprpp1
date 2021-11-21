@@ -10,6 +10,7 @@ import java.util.List;
 
 public class QueryParser {
     private List<ConditionalExpression> query = new ArrayList<>();
+    private final ConditionalExpression direct;
 
     public QueryParser(String query) {
         try {
@@ -18,9 +19,21 @@ public class QueryParser {
             throw new QueryParserException("Error parsing query");
         }
 
-
         QueryOptimizer opt = new QueryOptimizer(this.query);
         this.query = opt.getOptimizedQuery();
+        this.direct = this.findDirectQuery();
+    }
+
+    private ConditionalExpression findDirectQuery() {
+        List<ConditionalExpression> tmp = this.query.stream()
+                .filter(ConditionalExpression.expressionIsEqualJMBAG)
+                .toList();
+
+        if (tmp.size() == 1) {
+            return tmp.get(0);
+        }
+
+        return null;
     }
 
     private void parse(String query) {
@@ -61,33 +74,17 @@ public class QueryParser {
         }
     }
 
-    private ConditionalExpression canBeDirect() {
-        for (ConditionalExpression expression : this.query) {
-            if (expression.getFieldGetter() == FieldValueGetters.JMBAG) {
-                return expression;
-            }
-        }
-
-        return null;
-    }
-
     public boolean isNever() {
         return this.query.size() == 1 && this.query.get(0).getComparisonOperator().equals(ComparisonOperators.NEVER);
     }
 
     public boolean isDirectQuery() {
-        ConditionalExpression ex = this.canBeDirect();
-        if (ex == null) {
-            return false;
-        }
-
-        return ex.getFieldGetter().equals(FieldValueGetters.JMBAG) && ex.getComparisonOperator().equals(ComparisonOperators.EQUALS);
+        return this.direct != null;
     }
 
     public String getQueriedJMBAG() {
-        ConditionalExpression ex = this.canBeDirect();
-        if (ex != null) {
-            return ex.getStringLiteral();
+        if (this.isDirectQuery()) {
+            return this.direct.getStringLiteral();
         }
 
         throw new QueryParserException("Not a direct query");

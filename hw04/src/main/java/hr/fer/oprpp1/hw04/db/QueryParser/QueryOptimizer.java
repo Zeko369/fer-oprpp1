@@ -18,10 +18,10 @@ public class QueryOptimizer {
         return this.expressions;
     }
 
+    // Optimize for same column equals with different values
     private List<ConditionalExpression> checkForEqualsDiffValue() {
         Map<Integer, Set<String>> repetitions = new HashMap<>();
 
-        // Optimize for same column with different values and equals
         for (ConditionalExpression expression : expressions) {
             if (!expression.getComparisonOperator().equals(ComparisonOperators.EQUALS)) {
                 continue;
