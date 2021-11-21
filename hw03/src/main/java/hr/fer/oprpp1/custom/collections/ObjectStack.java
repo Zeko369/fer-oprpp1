@@ -3,6 +3,7 @@ package hr.fer.oprpp1.custom.collections;
 /**
  * Object stack modeled with ArrayIndexedCollection as the store backend
  *
+ * @param <T> the type parameter
  * @author franzekan
  * @version 1.0
  */

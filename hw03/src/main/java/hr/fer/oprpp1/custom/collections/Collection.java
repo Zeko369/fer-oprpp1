@@ -3,12 +3,24 @@ package hr.fer.oprpp1.custom.collections;
 /**
  * "abstract" base class for every custom Object collection we make
  *
+ * @param <T> the type parameter
  * @author franzekan
  * @version 1.0
  */
 public interface Collection<T> {
+    /**
+     * Create elements getter elements getter.
+     *
+     * @return the elements getter
+     */
     ElementsGetter<T> createElementsGetter();
 
+    /**
+     * Add all satisfying.
+     *
+     * @param col    the col
+     * @param tester the tester
+     */
     default void addAllSatisfying(Collection<T> col, Tester<T> tester) {
         ElementsGetter<T> eg = col.createElementsGetter();
         while (eg.hasNextElement()) {

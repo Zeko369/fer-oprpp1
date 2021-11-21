@@ -8,6 +8,7 @@ import java.util.Objects;
 /**
  * Collection implementation using an array[] as a storage backend
  *
+ * @param <T> the type parameter
  * @author franzekan
  * @version 1.0
  */
@@ -19,6 +20,11 @@ public class ArrayIndexedCollection<T> implements List<T> {
         private final ArrayIndexedCollection<K> collection;
         private final long savedModificationCount;
 
+        /**
+         * Instantiates a new Array indexed collection elements getter.
+         *
+         * @param collection the collection
+         */
         public ArrayIndexedCollectionElementsGetter(ArrayIndexedCollection<K> collection) {
             this.collection = collection;
             this.savedModificationCount = collection.modificationCount;

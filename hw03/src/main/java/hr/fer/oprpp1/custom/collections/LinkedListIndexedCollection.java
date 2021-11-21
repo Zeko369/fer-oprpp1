@@ -6,12 +6,18 @@ import java.util.NoSuchElementException;
 /**
  * Collection implementation built like a linked list
  *
+ * @param <T> the type parameter
  * @author franzekan
  * @version 1.0
  */
 public class LinkedListIndexedCollection<T> implements List<T> {
     private long modificationCount = 0;
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         LinkedListIndexedCollection<Integer> l = new LinkedListIndexedCollection<>();
         l.add(1);
@@ -34,6 +40,11 @@ public class LinkedListIndexedCollection<T> implements List<T> {
         private final LinkedListIndexedCollection<K> collection;
         private final long savedModificationCount;
 
+        /**
+         * Instantiates a new Linked list indexed collection elements getter.
+         *
+         * @param collection the collection
+         */
         public LinkedListIndexedCollectionElementsGetter(LinkedListIndexedCollection<K> collection) {
             this.collection = collection;
             this.node = this.collection.first;
@@ -42,7 +53,7 @@ public class LinkedListIndexedCollection<T> implements List<T> {
 
         @Override
         public K getNextElement() {
-            if(!this.hasNextElement()) {
+            if (!this.hasNextElement()) {
                 throw new NoSuchElementException();
             }
 
@@ -238,8 +249,8 @@ public class LinkedListIndexedCollection<T> implements List<T> {
         }
 
         ListNode<T> ln = this.first;
-        for(int i = 0; i < index; i++) {
-            if(i == index - 1) {
+        for (int i = 0; i < index; i++) {
+            if (i == index - 1) {
                 ln.next = new ListNode<>(value, ln);
                 return;
             }

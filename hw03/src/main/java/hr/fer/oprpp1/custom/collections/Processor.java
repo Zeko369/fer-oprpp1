@@ -3,6 +3,7 @@ package hr.fer.oprpp1.custom.collections;
 /**
  * Base class for describing creation of executable functions that can be used in iteration over objects
  *
+ * @param <T> the type parameter
  * @author franzekan
  * @version 1.0
  */

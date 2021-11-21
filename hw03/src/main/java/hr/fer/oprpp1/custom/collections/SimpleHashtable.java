@@ -57,6 +57,7 @@ public class SimpleHashtable<K, V> implements Iterable<SimpleHashtable.TableEntr
 
         /**
          * Checks if there is a next element
+         *
          * @return if there is a next element
          * @throws ConcurrentModificationException if the modification count is different
          */
@@ -87,8 +88,9 @@ public class SimpleHashtable<K, V> implements Iterable<SimpleHashtable.TableEntr
 
         /**
          * Gets the next element
+         *
          * @return next element
-         * @throws NoSuchElementException if there is no next element
+         * @throws NoSuchElementException          if there is no next element
          * @throws ConcurrentModificationException if the modification count is different
          */
         public TableEntry<K, V> next() {
@@ -128,6 +130,7 @@ public class SimpleHashtable<K, V> implements Iterable<SimpleHashtable.TableEntr
 
         /**
          * Removes last element from the iterator
+         *
          * @throws IllegalStateException if the last element was already removed
          */
         public void remove() {
