@@ -36,7 +36,7 @@ public class StudentDB {
             System.err.println("Error reading database file.");
             System.exit(1);
             return;
-        } catch(NullPointerException e) {
+        } catch (NullPointerException e) {
             System.err.println("Database file can't be null");
             System.exit(1);
             return;
@@ -49,7 +49,7 @@ public class StudentDB {
             System.err.println("Error parsing database, multiple records with same JMBAG");
             System.exit(1);
             return;
-        } catch(StudentRecordParseException e) {
+        } catch (StudentRecordParseException e) {
             System.err.printf("Error parsing a row in student database, %s", e.getMessage());
             System.exit(1);
             return;

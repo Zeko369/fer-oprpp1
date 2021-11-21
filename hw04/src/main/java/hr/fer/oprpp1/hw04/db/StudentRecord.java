@@ -95,7 +95,7 @@ public class StudentRecord {
 
     @Override
     public boolean equals(Object obj) {
-        if(!(obj instanceof StudentRecord)) {
+        if (!(obj instanceof StudentRecord)) {
             return false;
         }
 

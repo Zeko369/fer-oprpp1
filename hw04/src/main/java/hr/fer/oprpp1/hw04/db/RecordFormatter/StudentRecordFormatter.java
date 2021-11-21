@@ -28,7 +28,7 @@ public class StudentRecordFormatter extends BaseRecordFormatter {
      * @return the list
      */
     public static List<String> format(List<StudentRecord> records) {
-        if(records.size() == 0)  {
+        if (records.size() == 0) {
             return List.of(endFormatLine(0));
         }
 

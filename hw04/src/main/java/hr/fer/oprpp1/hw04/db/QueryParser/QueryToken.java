@@ -25,7 +25,7 @@ public class QueryToken {
      *
      * @return the boolean
      */
-    public boolean isEOF()  {
+    public boolean isEOF() {
         return type == QueryTokenType.EOF;
     }
 
