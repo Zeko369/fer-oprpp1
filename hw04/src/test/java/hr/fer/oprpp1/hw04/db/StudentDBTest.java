@@ -6,10 +6,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.io.PrintStream;
+import java.io.*;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,10 +14,12 @@ import static org.junit.jupiter.api.Assertions.*;
 public class StudentDBTest {
     private StudentDatabase sdb;
 
-    private final PrintStream standardOut = System.out;
+    private static final InputStream DEFAULT_STDIN = System.in;
+
+    private static final PrintStream DEFAULT_STDOUT = System.out;
     private final ByteArrayOutputStream stdOutStream = new ByteArrayOutputStream();
 
-    private final PrintStream standardErr = System.err;
+    private static final PrintStream DEFAULT_STDERR = System.err;
     private final ByteArrayOutputStream stdErrStream = new ByteArrayOutputStream();
 
     @BeforeEach
@@ -36,11 +35,11 @@ public class StudentDBTest {
         System.setErr(new PrintStream(this.stdErrStream));
     }
 
-    private static final InputStream DEFAULT_STDIN = System.in;
-
     @AfterEach
     void tearDown() {
         System.setIn(DEFAULT_STDIN);
+        System.setOut(DEFAULT_STDOUT);
+        System.setErr(DEFAULT_STDERR);
     }
 
     @Test
@@ -151,5 +150,29 @@ public class StudentDBTest {
 
         assertEquals(1, status);
         assertStdErr("Error reading database file.");
+    }
+
+    @Test
+    void testForErrorParsingMessage() throws Exception {
+        int status = SystemLambda.catchSystemExit(() -> StudentDB.main(new String[]{"./src/test/resources/parse_error.txt"}));
+
+        assertEquals(1, status);
+        assertStdErr("Error parsing a row in student database, Wrong number of elements");
+    }
+
+    @Test
+    void testForErrorParsingMessageMultiple() throws Exception {
+        int status = SystemLambda.catchSystemExit(() -> StudentDB.main(new String[]{"./src/test/resources/same_jmbag.txt"}));
+
+        assertEquals(1, status);
+        assertStdErr("Error parsing database, multiple records with same JMBAG");
+    }
+
+    @Test
+    void testForErrorParsingNullPassed() throws Exception {
+        int status = SystemLambda.catchSystemExit(() -> StudentDB.main(new String[]{null}));
+
+        assertEquals(1, status);
+        assertStdErr("Database file can't be null");
     }
 }

@@ -13,7 +13,7 @@ public class StudentRecord {
         this.finalGrade = finalGrade;
     }
 
-    public static StudentRecord fromTSVLine(String line) {
+    public static StudentRecord fromTSVLine(String line) throws StudentRecordParseException {
         String[] parts = line.split("\t");
         if (parts.length != 4) {
             // TODO: Custom

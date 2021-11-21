@@ -24,9 +24,9 @@ public class StudentDatabaseTest {
 
     @Test
     void throwsForSameJMBAG() {
-        assertThrows(IllegalStateException.class, () -> {
-            StudentDatabase sb = new StudentDatabase(List.of("0001\tbar\tfoo\t4", "0001\tbar\tfoo\t4"));
-        });
+        assertThrows(StudentDatabaseUniqueKeyException.class, () ->
+                new StudentDatabase(List.of("0001\tbar\tfoo\t4", "0001\tbar\tfoo\t4"))
+        );
     }
 
     @Test

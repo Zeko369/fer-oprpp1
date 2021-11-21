@@ -5,28 +5,46 @@ import hr.fer.oprpp1.hw04.db.QueryParser.QueryParserException;
 import hr.fer.oprpp1.hw04.db.RecordFormatter.StudentRecordFormatter;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class StudentDB {
     public static void main(String[] args) {
-        String filename = "./database.txt";
+        String filename = "./src/main/resources/database.txt";
         if (args.length == 1) {
             filename = args[0];
         }
 
         List<String> lines;
         try {
-            lines = Files.readAllLines(Path.of(filename));
+            lines = Files.readAllLines(Path.of(Objects.requireNonNull(filename)), StandardCharsets.UTF_8);
         } catch (IOException e) {
             System.err.println("Error reading database file.");
             System.exit(1);
             return;
+        } catch(NullPointerException e) {
+            System.err.println("Database file can't be null");
+            System.exit(1);
+            return;
         }
 
-        StudentDatabase sdb = new StudentDatabase(lines);
+        StudentDatabase sdb;
+        try {
+            sdb = new StudentDatabase(lines);
+        } catch (StudentDatabaseUniqueKeyException e) {
+            System.err.println("Error parsing database, multiple records with same JMBAG");
+            System.exit(1);
+            return;
+        } catch(StudentRecordParseException e) {
+            System.err.printf("Error parsing a row in student database, %s", e.getMessage());
+            System.exit(1);
+            return;
+        }
+
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Welcome to the student database.");
