@@ -117,6 +117,10 @@ public class QueryParser {
                 this.withStatistic = true;
 
                 token = lexer.getNextToken();
+                if(token.getType() != QueryTokenType.EOF) {
+                    throw new QueryParserException("Unexpected option");
+                }
+
                 continue;
             }
 
