@@ -29,7 +29,12 @@ public enum QueryTokenType {
     /**
      * Eof query token type.
      */
-    EOF
+    EOF,
+
+    /**
+     * Query option token type
+     */
+    OPTION,
 
     // TODO: Maybe add later for finalGrade
     // INTEGER, and convert VALUE into STRING

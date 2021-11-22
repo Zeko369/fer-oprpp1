@@ -18,6 +18,9 @@ import java.util.stream.Collectors;
 public class QueryParser {
     private List<ConditionalExpression> query = new ArrayList<>();
 
+    // should be a list or a class/record
+    private boolean withStatistic = false;
+
     /**
      * ConditionalExpression with JMBAG=value if found, or null
      */
@@ -59,6 +62,18 @@ public class QueryParser {
         QueryToken token = lexer.getNextToken();
 
         while (!token.isEOF()) {
+            if (token.getType() == QueryTokenType.OPTION) {
+//                if we had multiple options, we would have to check if they are valid
+//                if (!token.getValue().equals("with-statistics")) {
+//                    throw new QueryParserException("Invalid option");
+//                }
+
+                this.withStatistic = true;
+
+                token = lexer.getNextToken();
+                continue;
+            }
+
             if (token.getType() == QueryTokenType.LOGICAL_OPERATOR) {
                 if (this.query.size() == 0) {
                     throw new QueryParserException("Unexpected logical operator");
@@ -148,5 +163,14 @@ public class QueryParser {
 
             return true;
         };
+    }
+
+    /**
+     * Gets with statistic.
+     *
+     * @return the with statistic
+     */
+    public boolean getWithStatistic() {
+        return this.withStatistic;
     }
 }

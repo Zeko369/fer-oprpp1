@@ -42,6 +42,30 @@ public class StudentDBTest {
         System.setErr(DEFAULT_STDERR);
     }
 
+    // EXAM
+    @Test
+    void testWithStatistics() throws Exception {
+        System.setIn(new ByteArrayInputStream("query jmbag = \"0000000001\" with-statistics\n".getBytes()));
+
+        int status = SystemLambda.catchSystemExit(() -> StudentDB.main(new String[]{}));
+        assertEquals(0, status);
+
+        assertStdOut("Welcome to the student database.\n" +
+                "> Using index for record retrieval.\n" +
+                "+============+===========+=======+===+\n" +
+                "| 0000000001 | Akšamović | Marin | 2 |\n" +
+                "+============+===========+=======+===+\n" +
+                "Records selected: 1\n" +
+                "Average grade is 2.00\n" +
+                "Grades:\n" +
+                "1: 0\n" +
+                "2: 1\n" +
+                "3: 0\n" +
+                "4: 0\n" +
+                "5: 0\n" +
+                "> Exiting...");
+    }
+
     @Test
     void testRunQueryNoQueryKeyword() {
         StudentDB.runQuery("firstName = \"notFound\"", this.sdb);

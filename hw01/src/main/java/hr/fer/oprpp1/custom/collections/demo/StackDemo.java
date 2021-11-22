@@ -44,7 +44,11 @@ public class StackDemo {
                 try {
                     stack.push(Integer.parseInt(v));
                 } catch (NumberFormatException ex) {
-                    stack.push(eval((int) stack.pop(), (int) stack.pop(), v));
+                    if(v.equals("sqr")) {
+                        stack.push(eval(2, (int) stack.pop(), "pow"));
+                    } else {
+                        stack.push(eval((int) stack.pop(), (int) stack.pop(), v));
+                    }
                 }
             }
         }
@@ -63,6 +67,7 @@ public class StackDemo {
             case "/" -> b / a;
             case "*" -> b * a;
             case "%" -> b % a;
+            case "pow" -> (int) Math.pow(b, a);
             default -> throw new InvalidExpression("Wrong operation");
         };
     }

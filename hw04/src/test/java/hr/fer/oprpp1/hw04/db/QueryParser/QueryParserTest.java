@@ -9,6 +9,19 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class QueryParserTest {
+    // EXAM:
+    @Test
+    void testWithStatistics() {
+       QueryParser parser = new QueryParser("firstName = \"fooBar\" with-statistics");
+
+        assertEquals(1, parser.getQuery().size());
+        assertEquals(FieldValueGetters.FIRST_NAME, parser.getQuery().get(0).getFieldGetter());
+        assertEquals(ComparisonOperators.EQUALS, parser.getQuery().get(0).getComparisonOperator());
+        assertEquals("fooBar", parser.getQuery().get(0).getStringLiteral());
+
+        assertTrue(parser.getWithStatistic());
+    }
+
     @Test
     void testSimpleQuery() {
         QueryParser parser = new QueryParser("firstName = \"fooBar\"");

@@ -8,6 +8,19 @@ package hr.fer.oprpp1.custom.collections;
  * @version 1.0
  */
 public interface Collection<T> {
+    // NEW EXAM STUFF
+
+    /**
+     * Add modified copies values from one list to another but first passing it through a modifier function
+     *
+     * @param <K>      typeof other collection
+     * @param c1       other collection copied from
+     * @param modifier the modifier
+     */
+    default <K> void addModified(Collection<K> c1, IModifier<T, K> modifier) {
+        c1.forEach(e -> this.add(modifier.modify(e)));
+    }
+
     /**
      * Create elements getter elements getter.
      *

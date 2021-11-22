@@ -40,6 +40,10 @@ public class QueryLexer {
             "AND"
     });
 
+    private static final List<String> optionKeywords = List.of(new String[]{
+            "with-statistics"
+    });
+
     private QueryToken setToken(QueryTokenType type, String value) {
         this.token = new QueryToken(type, value);
         return this.token;
@@ -99,6 +103,14 @@ public class QueryLexer {
         this.skipSpace();
         if (this.index >= this.query.length) {
             return this.setToken(QueryTokenType.EOF, null);
+        }
+
+        // OPTION
+        for(String option : optionKeywords) {
+            if(this.checkSequence(option)) {
+                this.index += option.length();
+                return this.setToken(QueryTokenType.OPTION, option);
+            }
         }
 
         // VALUE

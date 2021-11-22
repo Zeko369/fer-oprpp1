@@ -5,6 +5,14 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class QueryLexerTest {
+    // exam
+    @Test
+    void testWithStatistics() {
+        QueryLexer lexer = new QueryLexer("with-statistics");
+        assertEquals(QueryTokenType.OPTION, lexer.getNextToken().getType());
+        assertEquals("with-statistics", lexer.getToken().getValue());
+    }
+
     @Test
     void testEmptyQuery() {
         QueryLexer lexer = new QueryLexer("");

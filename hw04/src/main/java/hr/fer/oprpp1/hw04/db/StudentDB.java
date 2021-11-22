@@ -97,20 +97,37 @@ public class StudentDB {
                 System.err.println("This query will always return 0 rows");
             }
 
+            List<StudentRecord> filtered;
             if (parser.isDirectQuery()) {
                 System.out.println("Using index for record retrieval.");
 
                 StudentRecord student = sdb.forJMBAG(parser.getQueriedJMBAG());
                 if (student == null || !parser.getFilter().accepts(student)) {
-                    StudentRecordFormatter.format(List.of()).forEach(System.out::println);
+                    filtered = List.of();
                 } else {
-                    StudentRecordFormatter.format(student).forEach(System.out::println);
+                    filtered = List.of(student);
                 }
-
-                return;
+            } else {
+                filtered = sdb.filter(parser.getFilter());
             }
 
-            StudentRecordFormatter.format(sdb.filter(parser.getFilter())).forEach(System.out::println);
+            StudentRecordFormatter.format(filtered).forEach(System.out::println);
+
+            if (parser.getWithStatistic()) {
+                double average = 0;
+                int[] grades = new int[5];
+
+                for (StudentRecord student : filtered) {
+                    average += student.getFinalGrade();
+                    grades[student.getFinalGrade() - 1]++;
+                }
+
+                System.out.printf("Average grade is %.2f\n", average / filtered.size());
+                System.out.println("Grades:");
+                for(int i = 0; i < grades.length; i++) {
+                    System.out.printf("%d: %d%n", i + 1, grades[i]);
+                }
+            }
         } catch (QueryParserException e) {
             System.out.println("Error parsing query.");
         }
