@@ -3,3 +3,9 @@ target/
 hw*-*.zip
 .DS_Store
 jmbag.sh
+
+midterm/hw*
+final/hw*
+
+midterm.zip
+final.zip

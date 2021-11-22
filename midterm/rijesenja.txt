@@ -1,0 +1,169 @@
+# Task 1
+
+```
+private static int calculate(String expression) {
+  ObjectStack stack = new ObjectStack();
+
+  for (String v : expression.split(" ")) {
+      if (v.trim().length() > 0) {
+          try {
+              stack.push(Integer.parseInt(v));
+          } catch (NumberFormatException ex) {
+              if(v.equals("sqr")) {
+                  stack.push(eval(2, (int) stack.pop(), "pow"));
+              } else {
+                  stack.push(eval((int) stack.pop(), (int) stack.pop(), v));
+              }
+          }
+      }
+  }
+
+  if (stack.size() != 1) {
+      throw new InvalidExpression("Wrong number of elements");
+  }
+
+  return (int) stack.pop();
+}
+
+private static int eval(int a, int b, String operation) {
+  return switch (operation) {
+      case "+" -> b + a;
+      case "-" -> b - a;
+      case "/" -> b / a;
+      case "*" -> b * a;
+      case "%" -> b % a;
+      case "pow" -> (int) Math.pow(b, a);
+      default -> throw new InvalidExpression("Wrong operation");
+  };
+}
+```
+
+--------------------------------------------------------------------------------
+
+# Task 2
+
+```
+package hr.fer.oprpp1.custom.collections;
+
+public interface IModifier<T, K> {
+    T modify(K t);
+}
+
+// Collection.java
+    /**
+     * Add modified copies values from one list to another but first passing it through a modifier function
+     *
+     * @param <K>      typeof other collection
+     * @param c1       other collection copied from
+     * @param modifier the modifier
+     */
+    default <K> void addModified(Collection<K> c1, IModifier<T, K> modifier) {
+        c1.forEach(e -> this.add(modifier.modify(e)));
+    }
+```
+
+# Task 3
+```
+// QueryLexer.java
+private static final List<String> optionKeywords = List.of(new String[]{
+        "with-statistics"
+});
+
+public QueryToken getNextToken() {
+    this.skipSpace();
+    if (this.index >= this.query.length) {
+        return this.setToken(QueryTokenType.EOF, null);
+    }
+
+    // OPTION
+    for (String option : optionKeywords) {
+        if (this.checkSequence(option)) {
+            this.index += option.length();
+            return this.setToken(QueryTokenType.OPTION, option);
+        }
+    }
+
+    // ...
+}
+
+public class QueryParser {
+    private List<ConditionalExpression> query = new ArrayList<>();
+
+    // should be a list or a class/record
+    private boolean withStatistic = false; // new
+
+    /**
+     * Gets with statistic.
+     *
+     * @return the with statistic
+     */
+    public boolean getWithStatistic() {
+        return this.withStatistic;
+    }
+
+    // ...
+
+    private void parse(String query) throws QueryParserException {
+        QueryLexer lexer = new QueryLexer(query);
+        QueryToken token = lexer.getNextToken();
+
+        while (!token.isEOF()) {
+            if (token.getType() == QueryTokenType.OPTION) {
+                //    if we had multiple options, we would have to check if they are valid
+//                if (!token.getValue().equals("with-statistics")) {
+//                    throw new QueryParserException("Invalid option");
+//                }
+
+                this.withStatistic = true;
+
+                token = lexer.getNextToken();
+                continue;
+            }
+
+            // ...
+        }
+    }
+}
+
+QueryTokenType enum -> new option
+/**
+* Query option token type
+*/
+OPTION,
+
+
+StudentDB.java -> main
+
+// ...
+List<StudentRecord> filtered;
+if (parser.isDirectQuery()) {
+    System.out.println("Using index for record retrieval.");
+
+    StudentRecord student = sdb.forJMBAG(parser.getQueriedJMBAG());
+    if (student == null || !parser.getFilter().accepts(student)) {
+        filtered = List.of();
+    } else {
+        filtered = List.of(student);
+    }
+} else {
+    filtered = sdb.filter(parser.getFilter());
+}
+
+StudentRecordFormatter.format(filtered).forEach(System.out::println);
+
+if (parser.getWithStatistic()) {
+    double average = 0;
+    int[] grades = new int[5];
+
+    for (StudentRecord student : filtered) {
+        average += student.getFinalGrade();
+        grades[student.getFinalGrade() - 1]++;
+    }
+
+    System.out.printf("Average grade is %.2f\n", average / filtered.size());
+    System.out.println("Grades:");
+    for(int i = 0; i < grades.length; i++) {
+        System.out.printf("%d: %d%n", i + 1, grades[i]);
+    }
+}
+````

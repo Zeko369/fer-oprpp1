@@ -1,0 +1,269 @@
+diff --git a/hw01/src/main/java/hr/fer/oprpp1/custom/collections/demo/StackDemo.java b/hw01/src/main/java/hr/fer/oprpp1/custom/collections/demo/StackDemo.java
+index 4fd8f1c..462a5c2 100644
+--- a/hw01/src/main/java/hr/fer/oprpp1/custom/collections/demo/StackDemo.java
++++ b/hw01/src/main/java/hr/fer/oprpp1/custom/collections/demo/StackDemo.java
+@@ -44,7 +44,11 @@ public class StackDemo {
+                 try {
+                     stack.push(Integer.parseInt(v));
+                 } catch (NumberFormatException ex) {
+-                    stack.push(eval((int) stack.pop(), (int) stack.pop(), v));
++                    if(v.equals("sqr")) {
++                        stack.push(eval(2, (int) stack.pop(), "pow"));
++                    } else {
++                        stack.push(eval((int) stack.pop(), (int) stack.pop(), v));
++                    }
+                 }
+             }
+         }
+@@ -63,6 +67,7 @@ public class StackDemo {
+             case "/" -> b / a;
+             case "*" -> b * a;
+             case "%" -> b % a;
++            case "pow" -> (int) Math.pow(b, a);
+             default -> throw new InvalidExpression("Wrong operation");
+         };
+     }
+diff --git a/hw03/src/main/java/hr/fer/oprpp1/custom/collections/Collection.java b/hw03/src/main/java/hr/fer/oprpp1/custom/collections/Collection.java
+index 293dcfb..b98e503 100644
+--- a/hw03/src/main/java/hr/fer/oprpp1/custom/collections/Collection.java
++++ b/hw03/src/main/java/hr/fer/oprpp1/custom/collections/Collection.java
+@@ -8,6 +8,19 @@ package hr.fer.oprpp1.custom.collections;
+  * @version 1.0
+  */
+ public interface Collection<T> {
++    // NEW EXAM STUFF
++
++    /**
++     * Add modified copies values from one list to another but first passing it through a modifier function
++     *
++     * @param <K>      typeof other collection
++     * @param c1       other collection copied from
++     * @param modifier the modifier
++     */
++    default <K> void addModified(Collection<K> c1, IModifier<T, K> modifier) {
++        c1.forEach(e -> this.add(modifier.modify(e)));
++    }
++
+     /**
+      * Create elements getter elements getter.
+      *
+diff --git a/hw04/src/main/java/hr/fer/oprpp1/hw04/db/QueryParser/QueryLexer.java b/hw04/src/main/java/hr/fer/oprpp1/hw04/db/QueryParser/QueryLexer.java
+index 62a79d7..0ca4721 100644
+--- a/hw04/src/main/java/hr/fer/oprpp1/hw04/db/QueryParser/QueryLexer.java
++++ b/hw04/src/main/java/hr/fer/oprpp1/hw04/db/QueryParser/QueryLexer.java
+@@ -40,6 +40,10 @@ public class QueryLexer {
+             "AND"
+     });
+ 
++    private static final List<String> optionKeywords = List.of(new String[]{
++            "with-statistics"
++    });
++
+     private QueryToken setToken(QueryTokenType type, String value) {
+         this.token = new QueryToken(type, value);
+         return this.token;
+@@ -101,6 +105,14 @@ public class QueryLexer {
+             return this.setToken(QueryTokenType.EOF, null);
+         }
+ 
++        // OPTION
++        for(String option : optionKeywords) {
++            if(this.checkSequence(option)) {
++                this.index += option.length();
++                return this.setToken(QueryTokenType.OPTION, option);
++            }
++        }
++
+         // VALUE
+         if (this.getCurrent() == '"') {
+             StringBuilder sb = new StringBuilder();
+diff --git a/hw04/src/main/java/hr/fer/oprpp1/hw04/db/QueryParser/QueryParser.java b/hw04/src/main/java/hr/fer/oprpp1/hw04/db/QueryParser/QueryParser.java
+index a1d0e60..b7c3cc6 100644
+--- a/hw04/src/main/java/hr/fer/oprpp1/hw04/db/QueryParser/QueryParser.java
++++ b/hw04/src/main/java/hr/fer/oprpp1/hw04/db/QueryParser/QueryParser.java
+@@ -18,6 +18,9 @@ import java.util.stream.Collectors;
+ public class QueryParser {
+     private List<ConditionalExpression> query = new ArrayList<>();
+ 
++    // should be a list or a class/record
++    private boolean withStatistic = false;
++
+     /**
+      * ConditionalExpression with JMBAG=value if found, or null
+      */
+@@ -59,6 +62,18 @@ public class QueryParser {
+         QueryToken token = lexer.getNextToken();
+ 
+         while (!token.isEOF()) {
++            if (token.getType() == QueryTokenType.OPTION) {
++//                if we had multiple options, we would have to check if they are valid
++//                if (!token.getValue().equals("with-statistics")) {
++//                    throw new QueryParserException("Invalid option");
++//                }
++
++                this.withStatistic = true;
++
++                token = lexer.getNextToken();
++                continue;
++            }
++
+             if (token.getType() == QueryTokenType.LOGICAL_OPERATOR) {
+                 if (this.query.size() == 0) {
+                     throw new QueryParserException("Unexpected logical operator");
+@@ -149,4 +164,13 @@ public class QueryParser {
+             return true;
+         };
+     }
++
++    /**
++     * Gets with statistic.
++     *
++     * @return the with statistic
++     */
++    public boolean getWithStatistic() {
++        return this.withStatistic;
++    }
+ }
+diff --git a/hw04/src/main/java/hr/fer/oprpp1/hw04/db/QueryParser/QueryTokenType.java b/hw04/src/main/java/hr/fer/oprpp1/hw04/db/QueryParser/QueryTokenType.java
+index 9a2fc9c..8030295 100644
+--- a/hw04/src/main/java/hr/fer/oprpp1/hw04/db/QueryParser/QueryTokenType.java
++++ b/hw04/src/main/java/hr/fer/oprpp1/hw04/db/QueryParser/QueryTokenType.java
+@@ -29,7 +29,12 @@ public enum QueryTokenType {
+     /**
+      * Eof query token type.
+      */
+-    EOF
++    EOF,
++
++    /**
++     * Query option token type
++     */
++    OPTION,
+ 
+     // TODO: Maybe add later for finalGrade
+     // INTEGER, and convert VALUE into STRING
+diff --git a/hw04/src/main/java/hr/fer/oprpp1/hw04/db/StudentDB.java b/hw04/src/main/java/hr/fer/oprpp1/hw04/db/StudentDB.java
+index 331bfb3..16e29b4 100644
+--- a/hw04/src/main/java/hr/fer/oprpp1/hw04/db/StudentDB.java
++++ b/hw04/src/main/java/hr/fer/oprpp1/hw04/db/StudentDB.java
+@@ -97,20 +97,37 @@ public class StudentDB {
+                 System.err.println("This query will always return 0 rows");
+             }
+ 
++            List<StudentRecord> filtered;
+             if (parser.isDirectQuery()) {
+                 System.out.println("Using index for record retrieval.");
+ 
+                 StudentRecord student = sdb.forJMBAG(parser.getQueriedJMBAG());
+                 if (student == null || !parser.getFilter().accepts(student)) {
+-                    StudentRecordFormatter.format(List.of()).forEach(System.out::println);
++                    filtered = List.of();
+                 } else {
+-                    StudentRecordFormatter.format(student).forEach(System.out::println);
++                    filtered = List.of(student);
+                 }
+-
+-                return;
++            } else {
++                filtered = sdb.filter(parser.getFilter());
+             }
+ 
+-            StudentRecordFormatter.format(sdb.filter(parser.getFilter())).forEach(System.out::println);
++            StudentRecordFormatter.format(filtered).forEach(System.out::println);
++
++            if (parser.getWithStatistic()) {
++                double average = 0;
++                int[] grades = new int[5];
++
++                for (StudentRecord student : filtered) {
++                    average += student.getFinalGrade();
++                    grades[student.getFinalGrade() - 1]++;
++                }
++
++                System.out.printf("Average grade is %.2f\n", average / filtered.size());
++                System.out.println("Grades:");
++                for(int i = 0; i < grades.length; i++) {
++                    System.out.printf("%d: %d%n", i + 1, grades[i]);
++                }
++            }
+         } catch (QueryParserException e) {
+             System.out.println("Error parsing query.");
+         }
+diff --git a/hw04/src/test/java/hr/fer/oprpp1/hw04/db/QueryParser/QueryLexerTest.java b/hw04/src/test/java/hr/fer/oprpp1/hw04/db/QueryParser/QueryLexerTest.java
+index 76e1287..a3d5400 100644
+--- a/hw04/src/test/java/hr/fer/oprpp1/hw04/db/QueryParser/QueryLexerTest.java
++++ b/hw04/src/test/java/hr/fer/oprpp1/hw04/db/QueryParser/QueryLexerTest.java
+@@ -5,6 +5,14 @@ import org.junit.jupiter.api.Test;
+ import static org.junit.jupiter.api.Assertions.*;
+ 
+ public class QueryLexerTest {
++    // exam
++    @Test
++    void testWithStatistics() {
++        QueryLexer lexer = new QueryLexer("with-statistics");
++        assertEquals(QueryTokenType.OPTION, lexer.getNextToken().getType());
++        assertEquals("with-statistics", lexer.getToken().getValue());
++    }
++
+     @Test
+     void testEmptyQuery() {
+         QueryLexer lexer = new QueryLexer("");
+diff --git a/hw04/src/test/java/hr/fer/oprpp1/hw04/db/QueryParser/QueryParserTest.java b/hw04/src/test/java/hr/fer/oprpp1/hw04/db/QueryParser/QueryParserTest.java
+index 6e69002..57a6ebd 100644
+--- a/hw04/src/test/java/hr/fer/oprpp1/hw04/db/QueryParser/QueryParserTest.java
++++ b/hw04/src/test/java/hr/fer/oprpp1/hw04/db/QueryParser/QueryParserTest.java
+@@ -9,6 +9,19 @@ import org.junit.jupiter.api.Test;
+ import static org.junit.jupiter.api.Assertions.*;
+ 
+ public class QueryParserTest {
++    // EXAM:
++    @Test
++    void testWithStatistics() {
++       QueryParser parser = new QueryParser("firstName = \"fooBar\" with-statistics");
++
++        assertEquals(1, parser.getQuery().size());
++        assertEquals(FieldValueGetters.FIRST_NAME, parser.getQuery().get(0).getFieldGetter());
++        assertEquals(ComparisonOperators.EQUALS, parser.getQuery().get(0).getComparisonOperator());
++        assertEquals("fooBar", parser.getQuery().get(0).getStringLiteral());
++
++        assertTrue(parser.getWithStatistic());
++    }
++
+     @Test
+     void testSimpleQuery() {
+         QueryParser parser = new QueryParser("firstName = \"fooBar\"");
+diff --git a/hw04/src/test/java/hr/fer/oprpp1/hw04/db/StudentDBTest.java b/hw04/src/test/java/hr/fer/oprpp1/hw04/db/StudentDBTest.java
+index 532bdb9..98ce91e 100644
+--- a/hw04/src/test/java/hr/fer/oprpp1/hw04/db/StudentDBTest.java
++++ b/hw04/src/test/java/hr/fer/oprpp1/hw04/db/StudentDBTest.java
+@@ -42,6 +42,30 @@ public class StudentDBTest {
+         System.setErr(DEFAULT_STDERR);
+     }
+ 
++    // EXAM
++    @Test
++    void testWithStatistics() throws Exception {
++        System.setIn(new ByteArrayInputStream("query jmbag = \"0000000001\" with-statistics\n".getBytes()));
++
++        int status = SystemLambda.catchSystemExit(() -> StudentDB.main(new String[]{}));
++        assertEquals(0, status);
++
++        assertStdOut("Welcome to the student database.\n" +
++                "> Using index for record retrieval.\n" +
++                "+============+===========+=======+===+\n" +
++                "| 0000000001 | Akšamović | Marin | 2 |\n" +
++                "+============+===========+=======+===+\n" +
++                "Records selected: 1\n" +
++                "Average grade is 2.00\n" +
++                "Grades:\n" +
++                "1: 0\n" +
++                "2: 1\n" +
++                "3: 0\n" +
++                "4: 0\n" +
++                "5: 0\n" +
++                "> Exiting...");
++    }
++
+     @Test
+     void testRunQueryNoQueryKeyword() {
+         StudentDB.runQuery("firstName = \"notFound\"", this.sdb);
