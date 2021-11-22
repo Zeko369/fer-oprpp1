@@ -12,7 +12,7 @@ public class QueryParserTest {
     // EXAM:
     @Test
     void testWithStatistics() {
-       QueryParser parser = new QueryParser("firstName = \"fooBar\" with-statistics");
+        QueryParser parser = new QueryParser("firstName = \"fooBar\" with-statistics");
 
         assertEquals(1, parser.getQuery().size());
         assertEquals(FieldValueGetters.FIRST_NAME, parser.getQuery().get(0).getFieldGetter());
@@ -20,6 +20,11 @@ public class QueryParserTest {
         assertEquals("fooBar", parser.getQuery().get(0).getStringLiteral());
 
         assertTrue(parser.getWithStatistic());
+    }
+
+    @Test
+    void testWithStatisticsThrows() {
+        assertThrows(QueryParserException.class, () -> new QueryParser("with-statistics firstName = \"fooBar\""));
     }
 
     @Test
