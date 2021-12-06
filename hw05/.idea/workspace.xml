@@ -4,14 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="73582f10-00da-4c42-9535-266fa0fddb62" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hw04/.idea/runConfigurations.xml" beforeDir="false" />
+    <list default="true" id="73582f10-00da-4c42-9535-266fa0fddb62" name="Changes" comment="[HW05] - Init + Crypto util">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/oprpp1/hw05/crypto/Util.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/oprpp1/hw05/crypto/Util.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager">
+    <option name="groupingKeys">
+      <option value="directory" />
+      <option value="module" />
+    </option>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -79,8 +85,23 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1638804926012</updated>
-      <workItem from="1638804926765" duration="707000" />
+      <workItem from="1638804926765" duration="808000" />
     </task>
+    <task id="LOCAL-00001" summary="[HW04] - .idea files">
+      <created>1638805705922</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1638805705923</updated>
+    </task>
+    <task id="LOCAL-00002" summary="[HW05] - Init + Crypto util">
+      <created>1638805727852</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1638805727852</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -96,5 +117,11 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="[]" />
+    <MESSAGE value="[HW04] - .idea files" />
+    <MESSAGE value="[HW05] - Init + Crypto util" />
+    <option name="LAST_COMMIT_MESSAGE" value="[HW05] - Init + Crypto util" />
   </component>
 </project>

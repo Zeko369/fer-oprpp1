@@ -1,7 +1,5 @@
 package hr.fer.oprpp1.hw05.crypto;
 
-import java.nio.charset.StandardCharsets;
-
 public class Util {
     public static byte[] hexToByte(String data) {
         if (data.length() % 2 == 1) {
