@@ -18,8 +18,76 @@ public class LsShellCommand implements ShellCommand {
 
     public static void main(String[] args) {
         LsShellCommand ls = new LsShellCommand();
-        ls.executeCommand(null, "/home/franzekan/Advent-of-code-2021");
+        ls.executeCommand(new Environment() {
+            @Override
+            public String readLine() throws ShellIOException {
+                return null;
+            }
+
+            @Override
+            public void write(String text) throws ShellIOException {
+
+            }
+
+            @Override
+            public void writeln(String text) throws ShellIOException {
+                System.out.println(text);
+            }
+
+            @Override
+            public SortedMap<String, ShellCommand> commands() {
+                return null;
+            }
+
+            @Override
+            public Character getMultilineSymbol() {
+                return null;
+            }
+
+            @Override
+            public void setMultilineSymbol(Character symbol) {
+
+            }
+
+            @Override
+            public Character getPromptSymbol() {
+                return null;
+            }
+
+            @Override
+            public void setPromptSymbol(Character symbol) {
+
+            }
+
+            @Override
+            public Character getMorelinesSymbol() {
+                return null;
+            }
+
+            @Override
+            public void setMorelinesSymbol(Character symbol) {
+
+            }
+        }, "/home/franzekan/Advent-of-code-2021");
     }
+
+    private static class FileRow {
+        public final String permissions;
+        public final String fileSize;
+        public final String date;
+        public final String fileName;
+
+        public FileRow(File file, String permissions, String date) {
+            this.permissions = permissions;
+
+            String size = Long.valueOf(file.length()).toString();
+            this.fileSize = " ".repeat(10 - size.length()) + size;
+
+            this.date = date;
+            this.fileName = file.getName();
+        }
+    }
+
 
     @Override
     public ShellStatus executeCommand(Environment env, String arguments) {
@@ -29,39 +97,38 @@ public class LsShellCommand implements ShellCommand {
         }
 
         File[] files = dir.listFiles();
-        assert files != null;
-
-        class TmpFile {
-            public final String permissions;
-            public final String date;
-            public final File file;
-
-            public TmpFile(File file, String permissions, String date) {
-                this.permissions = permissions;
-                this.date = date;
-                this.file = file;
-            }
+        if (files == null) {
+            throw new ShellIOException("Can't read files");
         }
 
-        Arrays.stream(files).sorted(Comparator.comparing(File::getName)).map(f -> {
-            String sb = (f.isDirectory() ? "d" : "-") + (f.canRead() ? "r" : "-") + (f.canWrite() ? "w" : "-") + (f.canExecute() ? "x" : "-");
-
-            BasicFileAttributeView faView = Files.getFileAttributeView(f.toPath(), BasicFileAttributeView.class, LinkOption.NOFOLLOW_LINKS);
-            String formattedDateTime;
-            try {
-                BasicFileAttributes attributes = faView.readAttributes();
-                FileTime fileTime = attributes.creationTime();
-
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                formattedDateTime = sdf.format(new Date(fileTime.toMillis()));
-            } catch (IOException e) {
-                formattedDateTime = "-1";
-            }
-
-            return (new TmpFile(f, sb, formattedDateTime));
-        }).forEach(obj -> System.out.printf("%s %s%s %s %s\n", obj.permissions, " ".repeat(10 - Long.valueOf(obj.file.length()).toString().length()), obj.file.length(), obj.date, obj.file.getName()));
+        Arrays.stream(files)
+                .sorted(Comparator.comparing(File::getName))
+                .map(f -> new FileRow(f, this.getPermissions(f), this.getFileCreatedAt(f)))
+                .map(f -> String.format("%s %s %s %s", f.permissions, f.fileSize, f.date, f.fileName))
+                .forEach(env::writeln);
 
         return ShellStatus.CONTINUE;
+    }
+
+    private String getPermissions(File file) {
+        return (file.isDirectory() ? "d" : "-")
+                + (file.canRead() ? "r" : "-")
+                + (file.canWrite() ? "w" : "-")
+                + (file.canExecute() ? "x" : "-");
+    }
+
+    private String getFileCreatedAt(File file) {
+        BasicFileAttributeView faView = Files.getFileAttributeView(file.toPath(), BasicFileAttributeView.class, LinkOption.NOFOLLOW_LINKS);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        try {
+            BasicFileAttributes attributes = faView.readAttributes();
+            FileTime fileTime = attributes.creationTime();
+
+            return sdf.format(new Date(fileTime.toMillis()));
+        } catch (IOException e) {
+            return sdf.format(new Date(0));
+        }
     }
 
     @Override
