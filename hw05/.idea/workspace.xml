@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="73582f10-00da-4c42-9535-266fa0fddb62" name="Changes" comment="[HW05] - Decrypted files">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="73582f10-00da-4c42-9535-266fa0fddb62" name="Changes" comment="[HW05] - Init part 2 shell" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -109,7 +107,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1638804926012</updated>
-      <workItem from="1638804926765" duration="7001000" />
+      <workItem from="1638804926765" duration="7026000" />
     </task>
     <task id="LOCAL-00001" summary="[HW04] - .idea files">
       <created>1638805705922</created>
@@ -146,7 +144,14 @@
       <option name="project" value="LOCAL" />
       <updated>1638809876331</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="[HW05] - Init part 2 shell">
+      <created>1638873107988</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1638873107988</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -170,7 +175,8 @@
     <MESSAGE value="[HW05] - Remove unsued import" />
     <MESSAGE value="[HW05] - Finish part1" />
     <MESSAGE value="[HW05] - Decrypted files" />
-    <option name="LAST_COMMIT_MESSAGE" value="[HW05] - Decrypted files" />
+    <MESSAGE value="[HW05] - Init part 2 shell" />
+    <option name="LAST_COMMIT_MESSAGE" value="[HW05] - Init part 2 shell" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
