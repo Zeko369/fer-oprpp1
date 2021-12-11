@@ -5,6 +5,11 @@ import java.util.List;
 import java.util.Objects;
 
 public class ArgumentParser {
+    public static String singleParamParse(String arguments) {
+        String[] args = ArgumentParser.parse(arguments, 1);
+        return args[0];
+    }
+
     public static String[] parse(String arguments, int min, int max) {
         if (Objects.requireNonNull(arguments).length() == 0 && min == 0) {
             return new String[0];

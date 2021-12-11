@@ -16,11 +16,12 @@ public class TerminalEnvironment implements Environment {
     public TerminalEnvironment() {
         SortedMap<String, ShellCommand> mutableCommandsMap = new TreeMap<>();
         List.of(new ShellCommand[]{
+                new CatShellCommand(),
                 new CharsetsShellCommand(),
                 new ExitShellCommand(),
                 new HexdumpShellCommand(),
                 new LsShellCommand(),
-                new MkdirShellCommand()
+                new MkdirShellCommand(),
         }).forEach(command -> mutableCommandsMap.put(command.getCommandName(), command));
 
         this.commandsMap = Collections.unmodifiableSortedMap(mutableCommandsMap);
