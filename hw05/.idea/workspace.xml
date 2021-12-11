@@ -4,9 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="73582f10-00da-4c42-9535-266fa0fddb62" name="Changes" comment="[HW05] - arguments parser">
+    <list default="true" id="73582f10-00da-4c42-9535-266fa0fddb62" name="Changes" comment="[HW05] - Mkdir">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/commands/LsShellCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/commands/LsShellCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/ArgumentParser/ArgumentParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/ArgumentParser/ArgumentParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/MyShell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/MyShell.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/ShellIOException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/ShellIOException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/hr/fer/zemris/java/hw06/shell/ArgumentParser/ArgumentParserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/hr/fer/zemris/java/hw06/shell/ArgumentParser/ArgumentParserTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,8 +84,14 @@
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/java/hr/fer/oprpp1/hw05/crypto" />
     </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="hr.fer.zemris.java.hw06.shell.ArgumentParser" />
+    </key>
   </component>
-  <component name="RunManager" selected="Application.HexdumpShellCommand">
+  <component name="RunManager" selected="JUnit.ArgumentParserTest">
     <configuration name="Crypto" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="hr.fer.oprpp1.hw05.crypto.Crypto" />
       <module name="hw05" />
@@ -158,8 +167,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.HexdumpShellCommand" />
         <item itemvalue="JUnit.ArgumentParserTest" />
+        <item itemvalue="Application.HexdumpShellCommand" />
         <item itemvalue="JUnit.ArgumentParserTest.simpleTestWithQuotes" />
         <item itemvalue="JUnit.ArgumentParserTest.simpleTest" />
         <item itemvalue="Application.Crypto" />
@@ -176,7 +185,7 @@
       <updated>1638804926012</updated>
       <workItem from="1638804926765" duration="7026000" />
       <workItem from="1639239956234" duration="81000" />
-      <workItem from="1639240060499" duration="5162000" />
+      <workItem from="1639240060499" duration="6333000" />
     </task>
     <task id="LOCAL-00001" summary="[HW04] - .idea files">
       <created>1638805705922</created>
@@ -227,7 +236,21 @@
       <option name="project" value="LOCAL" />
       <updated>1639246422457</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="[HW05] - Hexdump">
+      <created>1639248237650</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1639248237650</updated>
+    </task>
+    <task id="LOCAL-00009" summary="[HW05] - Mkdir">
+      <created>1639248245118</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1639248245118</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -253,7 +276,9 @@
     <MESSAGE value="[HW05] - Decrypted files" />
     <MESSAGE value="[HW05] - Init part 2 shell" />
     <MESSAGE value="[HW05] - arguments parser" />
-    <option name="LAST_COMMIT_MESSAGE" value="[HW05] - arguments parser" />
+    <MESSAGE value="[HW05] - Hexdump" />
+    <MESSAGE value="[HW05] - Mkdir" />
+    <option name="LAST_COMMIT_MESSAGE" value="[HW05] - Mkdir" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
