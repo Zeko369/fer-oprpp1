@@ -4,12 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="73582f10-00da-4c42-9535-266fa0fddb62" name="Changes" comment="[HW05] - Mkdir">
+    <list default="true" id="73582f10-00da-4c42-9535-266fa0fddb62" name="Changes" comment="[HW05] - Refactor args + readLine">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/ArgumentParser/ArgumentParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/ArgumentParser/ArgumentParser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/MyShell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/MyShell.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/ShellIOException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/ShellIOException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/hr/fer/zemris/java/hw06/shell/ArgumentParser/ArgumentParserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/hr/fer/zemris/java/hw06/shell/ArgumentParser/ArgumentParserTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/TerminalEnvironment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/TerminalEnvironment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/commands/HexdumpShellCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/commands/HexdumpShellCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/commands/LsShellCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/commands/LsShellCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/commands/MkdirShellCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/commands/MkdirShellCommand.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,13 +93,13 @@
       <recent name="hr.fer.zemris.java.hw06.shell.ArgumentParser" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ArgumentParserTest">
-    <configuration name="Crypto" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="hr.fer.oprpp1.hw05.crypto.Crypto" />
+  <component name="RunManager" selected="Application.MyShell">
+    <configuration name="HexdumpShellCommand" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="hr.fer.zemris.java.hw06.shell.commands.HexdumpShellCommand" />
       <module name="hw05" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="hr.fer.oprpp1.hw05.crypto.*" />
+          <option name="PATTERN" value="hr.fer.zemris.java.hw06.shell.commands.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -105,12 +107,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="HexdumpShellCommand" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="hr.fer.zemris.java.hw06.shell.commands.HexdumpShellCommand" />
+    <configuration name="MyShell" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="hr.fer.zemris.java.hw06.shell.MyShell" />
       <module name="hw05" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="hr.fer.zemris.java.hw06.shell.commands.*" />
+          <option name="PATTERN" value="hr.fer.zemris.java.hw06.shell.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -167,11 +169,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.MyShell" />
         <item itemvalue="JUnit.ArgumentParserTest" />
         <item itemvalue="Application.HexdumpShellCommand" />
         <item itemvalue="JUnit.ArgumentParserTest.simpleTestWithQuotes" />
         <item itemvalue="JUnit.ArgumentParserTest.simpleTest" />
-        <item itemvalue="Application.Crypto" />
       </list>
     </recent_temporary>
   </component>
@@ -185,7 +187,7 @@
       <updated>1638804926012</updated>
       <workItem from="1638804926765" duration="7026000" />
       <workItem from="1639239956234" duration="81000" />
-      <workItem from="1639240060499" duration="6333000" />
+      <workItem from="1639240060499" duration="8666000" />
     </task>
     <task id="LOCAL-00001" summary="[HW04] - .idea files">
       <created>1638805705922</created>
@@ -250,7 +252,21 @@
       <option name="project" value="LOCAL" />
       <updated>1639248245118</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="[HW05] - Fix arg parser">
+      <created>1639249449447</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1639249449447</updated>
+    </task>
+    <task id="LOCAL-00011" summary="[HW05] - Setup terminal env">
+      <created>1639249458571</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1639249458571</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -278,7 +294,10 @@
     <MESSAGE value="[HW05] - arguments parser" />
     <MESSAGE value="[HW05] - Hexdump" />
     <MESSAGE value="[HW05] - Mkdir" />
-    <option name="LAST_COMMIT_MESSAGE" value="[HW05] - Mkdir" />
+    <MESSAGE value="[HW05] - Fix arg parser" />
+    <MESSAGE value="[HW05] - Setup terminal env" />
+    <MESSAGE value="[HW05] - Refactor args + readLine" />
+    <option name="LAST_COMMIT_MESSAGE" value="[HW05] - Refactor args + readLine" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

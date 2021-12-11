@@ -6,7 +6,7 @@ import java.util.Objects;
 
 public class ArgumentParser {
     public static String[] parse(String arguments, int min, int max) {
-        if (Objects.requireNonNull(arguments).length() == 0) {
+        if (Objects.requireNonNull(arguments).length() == 0 && min == 0) {
             return new String[0];
         }
 
@@ -33,7 +33,7 @@ public class ArgumentParser {
                 if (!inQuotes && i + 1 < arguments.length() && arguments.charAt(i + 1) != ' ') {
                     throw new ArgumentParserException("Argument must be separated by space.");
                 }
-            } else if (arguments.charAt(i) == ' ' && !inQuotes) {
+            } else if (arguments.charAt(i) == ' ' && !inQuotes && sb.length() > 0) {
                 args.add(sb.toString());
                 sb = new StringBuilder();
             } else {

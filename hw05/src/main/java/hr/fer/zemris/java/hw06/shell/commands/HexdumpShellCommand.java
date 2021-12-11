@@ -70,8 +70,10 @@ public class HexdumpShellCommand implements ShellCommand {
 
     @Override
     public ShellStatus executeCommand(Environment env, String arguments) {
-        String args = ArgumentParser.parse(arguments, 1)[0];
-        File file = new File(args);
+        String[] args = ArgumentParser.parse(arguments, 1);
+        String filePath = args[0];
+
+        File file = new File(filePath);
         if (!file.exists()) {
             env.writeln("File not found");
             return ShellStatus.CONTINUE;

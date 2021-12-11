@@ -7,10 +7,11 @@ import java.util.*;
 public class TerminalEnvironment implements Environment {
     private final SortedMap<String, ShellCommand> commandsMap;
 
-    private Character promptSymbol;
-    private Character multilineSymbol;
-    private Character morelinesSymbol;
+    private Character promptSymbol = '>';
+    private Character multilineSymbol = '|';
+    private Character morelinesSymbol = '\\';
 
+    private final Scanner sc;
 
     public TerminalEnvironment() {
         SortedMap<String, ShellCommand> mutableCommandsMap = new TreeMap<>();
@@ -23,15 +24,21 @@ public class TerminalEnvironment implements Environment {
         }).forEach(command -> mutableCommandsMap.put(command.getCommandName(), command));
 
         this.commandsMap = Collections.unmodifiableSortedMap(mutableCommandsMap);
+        this.sc = new Scanner(System.in);
     }
 
     @Override
     public String readLine() throws ShellIOException {
-        try (Scanner scanner = new Scanner(System.in)) {
-            return scanner.nextLine();
-        } catch (Exception e) {
-            throw new ShellIOException(e);
+        System.out.printf("%s ", this.promptSymbol);
+
+        StringBuilder line = new StringBuilder(this.sc.nextLine());
+
+        while (line.toString().endsWith(String.valueOf(this.morelinesSymbol))) {
+            System.out.printf("%s ", this.multilineSymbol);
+            line.append(this.sc.nextLine());
         }
+
+        return line.toString();
     }
 
     @Override
