@@ -1,5 +1,6 @@
 package hr.fer.zemris.java.hw06.shell.commands;
 
+import hr.fer.zemris.java.hw06.shell.ArgumentParser.ArgumentParser;
 import hr.fer.zemris.java.hw06.shell.Environment;
 import hr.fer.zemris.java.hw06.shell.ShellIOException;
 import hr.fer.zemris.java.hw06.shell.ShellStatus;
@@ -15,62 +16,6 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class LsShellCommand implements ShellCommand {
-
-    public static void main(String[] args) {
-        LsShellCommand ls = new LsShellCommand();
-        ls.executeCommand(new Environment() {
-            @Override
-            public String readLine() throws ShellIOException {
-                return null;
-            }
-
-            @Override
-            public void write(String text) throws ShellIOException {
-
-            }
-
-            @Override
-            public void writeln(String text) throws ShellIOException {
-                System.out.println(text);
-            }
-
-            @Override
-            public SortedMap<String, ShellCommand> commands() {
-                return null;
-            }
-
-            @Override
-            public Character getMultilineSymbol() {
-                return null;
-            }
-
-            @Override
-            public void setMultilineSymbol(Character symbol) {
-
-            }
-
-            @Override
-            public Character getPromptSymbol() {
-                return null;
-            }
-
-            @Override
-            public void setPromptSymbol(Character symbol) {
-
-            }
-
-            @Override
-            public Character getMorelinesSymbol() {
-                return null;
-            }
-
-            @Override
-            public void setMorelinesSymbol(Character symbol) {
-
-            }
-        }, "/home/franzekan/Advent-of-code-2021");
-    }
-
     private static class FileRow {
         public final String permissions;
         public final String fileSize;
@@ -91,7 +36,8 @@ public class LsShellCommand implements ShellCommand {
 
     @Override
     public ShellStatus executeCommand(Environment env, String arguments) {
-        File dir = new File(arguments);
+        String[] parsedArgs = ArgumentParser.parse(arguments, 1);
+        File dir = new File(parsedArgs[0]);
         if (!dir.isDirectory()) {
             throw new ShellIOException("Given path is not a directory.");
         }
