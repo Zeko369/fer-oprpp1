@@ -36,8 +36,8 @@ public class LsShellCommand implements ShellCommand {
 
     @Override
     public ShellStatus executeCommand(Environment env, String arguments) {
-        String[] parsedArgs = ArgumentParser.parse(arguments, 1);
-        File dir = new File(parsedArgs[0]);
+        String filePath = ArgumentParser.parse(arguments, 1)[0];
+        File dir = new File(filePath);
         if (!dir.isDirectory()) {
             throw new ShellIOException("Given path is not a directory.");
         }
