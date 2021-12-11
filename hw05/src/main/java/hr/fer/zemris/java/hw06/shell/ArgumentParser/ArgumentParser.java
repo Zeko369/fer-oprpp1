@@ -29,6 +29,10 @@ public class ArgumentParser {
                     sb = new StringBuilder();
                 }
                 inQuotes = !inQuotes;
+
+                if (!inQuotes && i + 1 < arguments.length() && arguments.charAt(i + 1) != ' ') {
+                    throw new ArgumentParserException("Argument must be separated by space.");
+                }
             } else if (arguments.charAt(i) == ' ' && !inQuotes) {
                 args.add(sb.toString());
                 sb = new StringBuilder();

@@ -55,4 +55,9 @@ public class ArgumentParserTest {
         String[] out = ArgumentParser.parse("", 0);
         assertEquals(0, out.length);
     }
+
+    @Test
+    void failAfterQuote() {
+        assertThrows(ArgumentParserException.class, () -> ArgumentParser.parse("\"foo\".bar", 1));
+    }
 }
