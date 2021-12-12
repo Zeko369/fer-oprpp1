@@ -27,9 +27,15 @@ public class MyShell {
             try {
                 status = cmd.executeCommand(env, cmdArgs);
             } catch (ArgumentParserException e) {
-                System.out.println(e.getMessage());
-            } catch (ShellIOException e) {
-                e.printStackTrace();
+                env.errorln(e.getMessage());
+            } catch (Exception e) {
+                if (e instanceof ShellIOException) {
+                    env.errorln("ShellIO Error occurred");
+                } else {
+                    env.errorln("Error occurred");
+                }
+
+                status = ShellStatus.TERMINATE;
             }
         }
 

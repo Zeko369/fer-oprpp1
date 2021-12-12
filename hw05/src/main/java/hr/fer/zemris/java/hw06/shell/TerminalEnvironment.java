@@ -20,6 +20,7 @@ public class TerminalEnvironment implements Environment {
                 new CharsetsShellCommand(),
                 new CopyShellCommand(),
                 new ExitShellCommand(),
+                new HelpShellCommand(),
                 new HexdumpShellCommand(),
                 new LsShellCommand(),
                 new MkdirShellCommand(),
