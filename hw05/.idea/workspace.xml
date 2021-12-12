@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="73582f10-00da-4c42-9535-266fa0fddb62" name="Changes" comment="[HW05] - Symbol command">
-      <change afterPath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/commands/SymbolShellCommand.java" afterDir="false" />
+    <list default="true" id="73582f10-00da-4c42-9535-266fa0fddb62" name="Changes" comment="[HW05] - Implement charsets in cat">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/MyShell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/MyShell.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/TerminalEnvironment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/TerminalEnvironment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/commands/CatShellCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/commands/CatShellCommand.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -187,7 +185,7 @@
       <updated>1638804926012</updated>
       <workItem from="1638804926765" duration="7026000" />
       <workItem from="1639239956234" duration="81000" />
-      <workItem from="1639240060499" duration="15834000" />
+      <workItem from="1639240060499" duration="16326000" />
     </task>
     <task id="LOCAL-00001" summary="[HW04] - .idea files">
       <created>1638805705922</created>
@@ -294,7 +292,21 @@
       <option name="project" value="LOCAL" />
       <updated>1639268069342</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="[HW05] - Symbol command">
+      <created>1639269758270</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1639269758270</updated>
+    </task>
+    <task id="LOCAL-00017" summary="[HW05] - Color print">
+      <created>1639269771806</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1639269771806</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -329,7 +341,9 @@
     <MESSAGE value="[HW05] - CopyCommand" />
     <MESSAGE value="[HW05] - ErrorLn + proxy print to Tree" />
     <MESSAGE value="[HW05] - Symbol command" />
-    <option name="LAST_COMMIT_MESSAGE" value="[HW05] - Symbol command" />
+    <MESSAGE value="[HW05] - Color print" />
+    <MESSAGE value="[HW05] - Implement charsets in cat" />
+    <option name="LAST_COMMIT_MESSAGE" value="[HW05] - Implement charsets in cat" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
