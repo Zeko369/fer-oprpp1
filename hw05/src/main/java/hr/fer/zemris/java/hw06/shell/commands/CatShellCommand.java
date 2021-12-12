@@ -20,7 +20,7 @@ public class CatShellCommand implements ShellCommand {
         });
 
         if (res == FileLoader.FileLoaderResponse.NOT_FOUND) {
-            env.writeln("File " + filePath + " not found.");
+            env.errorln("File " + filePath + " not found.");
         }
 
         return ShellStatus.CONTINUE;

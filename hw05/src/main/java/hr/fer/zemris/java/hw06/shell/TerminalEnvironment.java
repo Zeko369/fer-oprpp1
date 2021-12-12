@@ -23,6 +23,7 @@ public class TerminalEnvironment implements Environment {
                 new HexdumpShellCommand(),
                 new LsShellCommand(),
                 new MkdirShellCommand(),
+                new TreeShellCommand(),
         }).forEach(command -> mutableCommandsMap.put(command.getCommandName(), command));
 
         this.commandsMap = Collections.unmodifiableSortedMap(mutableCommandsMap);
@@ -51,6 +52,11 @@ public class TerminalEnvironment implements Environment {
     @Override
     public void writeln(String text) throws ShellIOException {
         System.out.println(text);
+    }
+
+    @Override
+    public void errorln(String text) throws ShellIOException {
+        System.err.println(text);
     }
 
     @Override

@@ -11,6 +11,8 @@ public interface Environment {
 
     void writeln(String text) throws ShellIOException;
 
+    void errorln(String text) throws ShellIOException;
+
     SortedMap<String, ShellCommand> commands();
 
     Character getMultilineSymbol();

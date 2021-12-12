@@ -2,7 +2,6 @@ package hr.fer.zemris.java.hw06.shell.commands;
 
 import hr.fer.zemris.java.hw06.shell.ArgumentParser.ArgumentParser;
 import hr.fer.zemris.java.hw06.shell.Environment;
-import hr.fer.zemris.java.hw06.shell.ShellIOException;
 import hr.fer.zemris.java.hw06.shell.ShellStatus;
 
 import java.io.File;
@@ -41,12 +40,14 @@ public class LsShellCommand implements ShellCommand {
 
         File dir = new File(filePath);
         if (!dir.isDirectory()) {
-            throw new ShellIOException("Given path is not a directory.");
+            env.errorln("Given path is not a directory.");
+            return ShellStatus.CONTINUE;
         }
 
         File[] files = dir.listFiles();
         if (files == null) {
-            throw new ShellIOException("Can't read files");
+            env.errorln("Can't read files");
+            return ShellStatus.CONTINUE;
         }
 
         Arrays.stream(files)

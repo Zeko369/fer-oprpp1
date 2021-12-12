@@ -13,10 +13,10 @@ public class MkdirShellCommand implements ShellCommand {
     public ShellStatus executeCommand(Environment env, String arguments) {
         String[] args = ArgumentParser.parse(arguments, 1);
         String folderPath = args[0];
-        
+
         File file = new File(folderPath);
         if (file.exists()) {
-            env.writeln("File already exists.");
+            env.errorln("File already exists.");
             return ShellStatus.CONTINUE;
         }
 
@@ -24,7 +24,7 @@ public class MkdirShellCommand implements ShellCommand {
             return ShellStatus.CONTINUE;
         }
 
-        env.writeln("Unable to create directory.");
+        env.errorln("Unable to create directory.");
         return ShellStatus.CONTINUE;
     }
 

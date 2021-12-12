@@ -20,12 +20,12 @@ public class CopyShellCommand implements ShellCommand {
 
         File src = new File(args[0]);
         if (!src.exists()) {
-            env.writeln("File " + args[0] + " does not exist.");
+            env.errorln("File " + args[0] + " does not exist.");
             return ShellStatus.CONTINUE;
         }
 
         if (src.isDirectory()) {
-            env.writeln("Cannot copy a directory.");
+            env.errorln("Cannot copy a directory.");
             return ShellStatus.CONTINUE;
         }
 
@@ -38,7 +38,7 @@ public class CopyShellCommand implements ShellCommand {
             env.write("File " + args[1] + " already exists. Overwrite? (y/n) ");
             String answer = env.readLine();
             if (!answer.equalsIgnoreCase("y")) {
-                env.writeln("Copy cancelled.");
+                env.errorln("Copy cancelled.");
                 return ShellStatus.CONTINUE;
             }
         }
