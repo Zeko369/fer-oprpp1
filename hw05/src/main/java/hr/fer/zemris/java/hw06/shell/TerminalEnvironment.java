@@ -18,6 +18,7 @@ public class TerminalEnvironment implements Environment {
         List.of(new ShellCommand[]{
                 new CatShellCommand(),
                 new CharsetsShellCommand(),
+                new CopyShellCommand(),
                 new ExitShellCommand(),
                 new HexdumpShellCommand(),
                 new LsShellCommand(),

@@ -13,7 +13,7 @@ public class FileLoader {
     }
 
     public interface FileLoaderListener {
-        void onBytes(byte[] bytes);
+        void onBytes(byte[] bytes) throws IOException;
     }
 
     private final String path;
