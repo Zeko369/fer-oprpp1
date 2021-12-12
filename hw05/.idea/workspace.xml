@@ -4,15 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="73582f10-00da-4c42-9535-266fa0fddb62" name="Changes" comment="[HW05] - ErrorLn + proxy print to Tree">
-      <change afterPath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/commands/TreeShellCommand.java" afterDir="false" />
+    <list default="true" id="73582f10-00da-4c42-9535-266fa0fddb62" name="Changes" comment="[HW05] - Symbol command">
+      <change afterPath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/commands/SymbolShellCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/Environment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/Environment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/MyShell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/MyShell.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/TerminalEnvironment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/TerminalEnvironment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/commands/CatShellCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/commands/CatShellCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/commands/CopyShellCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/commands/CopyShellCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/commands/LsShellCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/commands/LsShellCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/commands/MkdirShellCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/commands/MkdirShellCommand.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -191,7 +187,7 @@
       <updated>1638804926012</updated>
       <workItem from="1638804926765" duration="7026000" />
       <workItem from="1639239956234" duration="81000" />
-      <workItem from="1639240060499" duration="14148000" />
+      <workItem from="1639240060499" duration="15834000" />
     </task>
     <task id="LOCAL-00001" summary="[HW04] - .idea files">
       <created>1638805705922</created>
@@ -291,7 +287,14 @@
       <option name="project" value="LOCAL" />
       <updated>1639267220782</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="[HW05] - ErrorLn + proxy print to Tree">
+      <created>1639268069342</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1639268069342</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -325,7 +328,8 @@
     <MESSAGE value="[HW05] - FileLoader" />
     <MESSAGE value="[HW05] - CopyCommand" />
     <MESSAGE value="[HW05] - ErrorLn + proxy print to Tree" />
-    <option name="LAST_COMMIT_MESSAGE" value="[HW05] - ErrorLn + proxy print to Tree" />
+    <MESSAGE value="[HW05] - Symbol command" />
+    <option name="LAST_COMMIT_MESSAGE" value="[HW05] - Symbol command" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

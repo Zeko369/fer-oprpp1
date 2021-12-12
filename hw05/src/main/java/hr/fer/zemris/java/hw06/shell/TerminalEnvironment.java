@@ -23,6 +23,7 @@ public class TerminalEnvironment implements Environment {
                 new HexdumpShellCommand(),
                 new LsShellCommand(),
                 new MkdirShellCommand(),
+                new SymbolShellCommand(),
                 new TreeShellCommand(),
         }).forEach(command -> mutableCommandsMap.put(command.getCommandName(), command));
 
@@ -35,8 +36,9 @@ public class TerminalEnvironment implements Environment {
         System.out.printf("%s ", this.promptSymbol);
 
         StringBuilder line = new StringBuilder(this.sc.nextLine());
-
         while (line.toString().endsWith(String.valueOf(this.morelinesSymbol))) {
+            line.deleteCharAt(line.length() - 1);
+
             System.out.printf("%s ", this.multilineSymbol);
             line.append(this.sc.nextLine());
         }
@@ -56,7 +58,8 @@ public class TerminalEnvironment implements Environment {
 
     @Override
     public void errorln(String text) throws ShellIOException {
-        System.err.println(text);
+        // TODO: Figure out sync between stdout and stderr
+        System.out.println(PrintColorUtils.colorPrint(text, PrintColorUtils.Color.RED));
     }
 
     @Override

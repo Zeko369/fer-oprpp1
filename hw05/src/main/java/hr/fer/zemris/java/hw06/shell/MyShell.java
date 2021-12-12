@@ -6,7 +6,7 @@ import hr.fer.zemris.java.hw06.shell.commands.ShellCommand;
 public class MyShell {
     public static void main(String[] args) {
         Environment env = new TerminalEnvironment();
-        env.writeln("Welcome to MyShell v 1.0");
+        env.writeln(PrintColorUtils.colorPrint("Welcome to MyShell v 1.0", PrintColorUtils.Color.CYAN));
 
         ShellStatus status = ShellStatus.CONTINUE;
         while (status != ShellStatus.TERMINATE) {
@@ -32,5 +32,7 @@ public class MyShell {
                 e.printStackTrace();
             }
         }
+
+        env.writeln(PrintColorUtils.colorPrint("Goodbye!", PrintColorUtils.Color.PURPLE));
     }
 }
