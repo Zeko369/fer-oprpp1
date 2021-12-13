@@ -26,9 +26,17 @@
 
     <dependencies>
         <dependency>
+            <groupId>hr.fer.zemis.java</groupId>
+            <artifactId>fractals</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/fractal-viewer-1.0.jar</systemPath>
+        </dependency>
+
+        <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>5.8.1</version>
+            <version>5.8.2</version>
             <scope>test</scope>
         </dependency>
 
