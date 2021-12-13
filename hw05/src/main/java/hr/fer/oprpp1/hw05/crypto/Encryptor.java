@@ -51,18 +51,20 @@ public class Encryptor {
         try (FileOutputStream fos = new FileOutputStream(outFile);
              FileInputStream fis = new FileInputStream(srcFile)
         ) {
-            BufferedOutputStream bos = new BufferedOutputStream(fos);
             BufferedInputStream bis = new BufferedInputStream(fis);
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
 
             int mode = this.mode == EncryptorMode.ENCRYPT ? Cipher.ENCRYPT_MODE : Cipher.DECRYPT_MODE;
             cipher.init(mode, keySpec, paramSpec);
 
-            while (bis.available() > 0) {
-                bos.write(cipher.update(bis.readNBytes(FileLoader.READ_BLOCK)));
+            byte[] buffer = new byte[FileLoader.READ_BLOCK];
+            int count;
+
+            while ((count = bis.read(buffer)) != -1) {
+                fos.write(cipher.update(buffer, 0, count));
             }
 
-            bos.write(cipher.doFinal());
+            fos.write(cipher.doFinal());
         } catch (FileNotFoundException e) {
             System.err.println("File not found");
         } catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
@@ -70,7 +72,9 @@ public class Encryptor {
         } catch (InvalidKeyException e) {
             System.err.println("Invalid key");
         } catch (IllegalBlockSizeException | BadPaddingException | InvalidAlgorithmParameterException e) {
+            e.printStackTrace();
             System.err.println("Bad format: Invalid block size / padding / arguments don't meet requirements");
+            System.err.println("Probably wrong key/iv");
         } catch (IOException e) {
             System.err.println("Error while reading / writing file");
         }

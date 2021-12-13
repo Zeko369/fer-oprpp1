@@ -8,6 +8,8 @@ import java.util.Scanner;
  * @author franzekan
  */
 public class PromptInput {
+    private static final Scanner sc = new Scanner(System.in);
+
     /**
      * Gets user input.
      *
@@ -16,8 +18,6 @@ public class PromptInput {
      */
     public static String getUserInput(String prompt) {
         System.out.print(prompt);
-        try (Scanner scanner = new Scanner(System.in)) {
-            return scanner.nextLine();
-        }
+        return sc.nextLine();
     }
 }
