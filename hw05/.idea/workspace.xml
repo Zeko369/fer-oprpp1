@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="73582f10-00da-4c42-9535-266fa0fddb62" name="Changes" comment="[HW05] - Implement charsets in cat">
+    <list default="true" id="73582f10-00da-4c42-9535-266fa0fddb62" name="Changes" comment="[HW05] - Help command">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/MyShell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/MyShell.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/TerminalEnvironment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/TerminalEnvironment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/foo.txt" beforeDir="false" afterPath="$PROJECT_DIR$/foo.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/ArgumentParser/ArgumentParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/ArgumentParser/ArgumentParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/commands/LsShellCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/commands/LsShellCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/commands/MkdirShellCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/commands/MkdirShellCommand.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,6 +28,7 @@
         <option value="Enum" />
         <option value="Interface" />
         <option value="Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
@@ -43,6 +46,9 @@
       <filtered-out-file-type name="TAG" />
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
+  </component>
+  <component name="GitToolBoxStore">
+    <option name="projectConfigVersion" value="4" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -64,6 +70,8 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/src/test/java/hr/fer/zemris/java/hw06/shell" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -89,6 +97,7 @@
       <recent name="" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="hr.fer.zemris.java.hw06.shell.commands" />
       <recent name="hr.fer.zemris.java.hw06.shell.ArgumentParser" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -96,38 +105,12 @@
     </key>
   </component>
   <component name="RunManager" selected="Application.MyShell">
-    <configuration name="HexdumpShellCommand" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="hr.fer.zemris.java.hw06.shell.commands.HexdumpShellCommand" />
-      <module name="hw05" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="hr.fer.zemris.java.hw06.shell.commands.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="MyShell" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="hr.fer.zemris.java.hw06.shell.MyShell" />
       <module name="hw05" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="hr.fer.zemris.java.hw06.shell.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TreeShellCommand" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="hr.fer.zemris.java.hw06.shell.commands.TreeShellCommand" />
-      <module name="hw05" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="hr.fer.zemris.java.hw06.shell.commands.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -150,18 +133,45 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ArgumentParserTest.simpleTestWithQuotes" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ExitShellCommandTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="hw05" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="hr.fer.zemris.java.hw06.shell.ArgumentParser.*" />
+          <option name="PATTERN" value="hr.fer.zemris.java.hw06.shell.commands.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="hr.fer.zemris.java.hw06.shell.ArgumentParser" />
-      <option name="MAIN_CLASS_NAME" value="hr.fer.zemris.java.hw06.shell.ArgumentParser.ArgumentParserTest" />
-      <option name="METHOD_NAME" value="simpleTestWithQuotes" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="PACKAGE_NAME" value="hr.fer.zemris.java.hw06.shell.commands" />
+      <option name="MAIN_CLASS_NAME" value="hr.fer.zemris.java.hw06.shell.commands.ExitShellCommandTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="hr.fer.oprpp1.hw05.crypto in hw05" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="hw05" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="hr.fer.oprpp1.hw05.crypto.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="hr.fer.oprpp1.hw05.crypto" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="hr.fer.zemris.java.hw06.shell in hw05" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="hw05" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="hr.fer.zemris.java.hw06.shell.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="hr.fer.zemris.java.hw06.shell" />
+      <option name="TEST_OBJECT" value="package" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -169,10 +179,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.MyShell" />
-        <item itemvalue="Application.TreeShellCommand" />
         <item itemvalue="JUnit.ArgumentParserTest" />
-        <item itemvalue="Application.HexdumpShellCommand" />
-        <item itemvalue="JUnit.ArgumentParserTest.simpleTestWithQuotes" />
+        <item itemvalue="JUnit.hr.fer.oprpp1.hw05.crypto in hw05" />
+        <item itemvalue="JUnit.hr.fer.zemris.java.hw06.shell in hw05" />
+        <item itemvalue="JUnit.ExitShellCommandTest" />
       </list>
     </recent_temporary>
   </component>
@@ -186,7 +196,8 @@
       <updated>1638804926012</updated>
       <workItem from="1638804926765" duration="7026000" />
       <workItem from="1639239956234" duration="81000" />
-      <workItem from="1639240060499" duration="20553000" />
+      <workItem from="1639240060499" duration="28984000" />
+      <workItem from="1639408337466" duration="265000" />
     </task>
     <task id="LOCAL-00001" summary="[HW04] - .idea files">
       <created>1638805705922</created>
@@ -314,7 +325,14 @@
       <option name="project" value="LOCAL" />
       <updated>1639270252218</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="[HW05] - Help command">
+      <created>1639330986126</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1639330986126</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -351,13 +369,20 @@
     <MESSAGE value="[HW05] - Symbol command" />
     <MESSAGE value="[HW05] - Color print" />
     <MESSAGE value="[HW05] - Implement charsets in cat" />
-    <option name="LAST_COMMIT_MESSAGE" value="[HW05] - Implement charsets in cat" />
+    <MESSAGE value="[HW05] - Help command" />
+    <option name="LAST_COMMIT_MESSAGE" value="[HW05] - Help command" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
     <select />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/hw05$hr_fer_zemris_java_hw06_shell_in_hw05.ic" NAME="hr.fer.zemris.java.hw06.shell in hw05 Coverage Results" MODIFIED="1639331296321" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>hr.fer.zemris.java.hw06.shell.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/hw05$hr_fer_oprpp1_hw05_crypto_in_hw05.ic" NAME="hr.fer.oprpp1.hw05.crypto in hw05 Coverage Results" MODIFIED="1639331497795" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>hr.fer.oprpp1.hw05.crypto.*</FILTER>
+    </SUITE>
     <SUITE FILE_PATH="coverage/hw05$Crypto.ic" NAME="Crypto Coverage Results" MODIFIED="1638809888617" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>hr.fer.oprpp1.hw05.crypto.*</FILTER>
     </SUITE>

@@ -15,8 +15,8 @@ public class ArgumentParser {
             return new String[0];
         }
 
-        if (min <= 0 || max <= 0) {
-            throw new IllegalArgumentException("Min/Max must be greater than 0.");
+        if (min < 0 || max < 0) {
+            throw new IllegalArgumentException("Min/Max must be positive.");
         }
 
         if (min > max) {

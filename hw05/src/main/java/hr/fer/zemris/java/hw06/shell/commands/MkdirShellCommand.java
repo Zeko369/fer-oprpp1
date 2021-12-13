@@ -11,8 +11,7 @@ import java.util.List;
 public class MkdirShellCommand implements ShellCommand {
     @Override
     public ShellStatus executeCommand(Environment env, String arguments) {
-        String[] args = ArgumentParser.parse(arguments, 1);
-        String folderPath = args[0];
+        String folderPath = ArgumentParser.singleParamParse(arguments);
 
         File file = new File(folderPath);
         if (file.exists()) {
