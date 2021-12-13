@@ -8,7 +8,15 @@ import hr.fer.zemris.java.hw06.shell.commands.shared.FileLoader;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * <code>hexdump</code> command, used for printing out the hex value of the file
+ *
+ * @author franzekan
+ */
 public class HexdumpShellCommand implements ShellCommand {
+    /**
+     * The constant BYTES_PER_LINE.
+     */
     public static final int BYTES_PER_LINE = 16;
 
     @Override

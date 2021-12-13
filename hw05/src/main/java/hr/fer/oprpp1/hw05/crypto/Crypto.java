@@ -1,6 +1,16 @@
 package hr.fer.oprpp1.hw05.crypto;
 
+/**
+ * Main entry point into our simple crypto CLI program.
+ *
+ * @author franzekan
+ */
 public class Crypto {
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         if (args.length < 2) {
             System.err.println("Expected at least 2 arguments");

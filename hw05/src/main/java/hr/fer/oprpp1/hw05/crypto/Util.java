@@ -1,7 +1,19 @@
 package hr.fer.oprpp1.hw05.crypto;
 
+/**
+ * The type Util.
+ *
+ * @author franzekan
+ */
 public class Util {
-    public static byte[] hexToByte(String data) {
+    /**
+     * Hex to byte[].
+     *
+     * @param data the data
+     * @return the byte []
+     * @throws IllegalArgumentException if len of data is not even
+     */
+    public static byte[] hexToByte(String data) throws IllegalArgumentException {
         if (data.length() % 2 == 1) {
             throw new IllegalArgumentException();
         }
@@ -15,6 +27,12 @@ public class Util {
         return result;
     }
 
+    /**
+     * Byte[] to hex string.
+     *
+     * @param data the data
+     * @return the string
+     */
     public static String byteToHex(byte[] data) {
         StringBuilder sb = new StringBuilder();
         for (byte b : data) {

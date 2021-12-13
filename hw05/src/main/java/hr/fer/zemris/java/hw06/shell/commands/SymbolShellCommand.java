@@ -6,6 +6,11 @@ import hr.fer.zemris.java.hw06.shell.ShellStatus;
 
 import java.util.List;
 
+/**
+ * <code>symbol</code> command, used for changing prompt/multiline/morelines symbol.
+ *
+ * @author franzekan
+ */
 public class SymbolShellCommand implements ShellCommand {
     private static class InvalidSymbolNameException extends RuntimeException {
     }
@@ -32,7 +37,7 @@ public class SymbolShellCommand implements ShellCommand {
         return ShellStatus.CONTINUE;
     }
 
-    Character getSymbol(Environment env, String symbolName) {
+    private Character getSymbol(Environment env, String symbolName) {
         return switch (symbolName) {
             case "PROMPT" -> env.getPromptSymbol();
             case "MULTILINE" -> env.getMultilineSymbol();
@@ -41,7 +46,7 @@ public class SymbolShellCommand implements ShellCommand {
         };
     }
 
-    void changeSymbol(Environment env, String symbolName, String symbolValue) {
+    private void changeSymbol(Environment env, String symbolName, String symbolValue) {
         env.writeln(String.format("Symbol for %s changed from '%c' to '%c'",
                 symbolName,
                 this.getSymbol(env, symbolName),

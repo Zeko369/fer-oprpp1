@@ -15,8 +15,18 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * <code>tree</code> command, used for printing out the directory tree.
+ *
+ * @author franzekan
+ */
 public class TreeShellCommand implements ShellCommand {
     private interface PrintCallback {
+        /**
+         * Print.
+         *
+         * @param s the s
+         */
         void print(String s);
     }
 
@@ -24,6 +34,11 @@ public class TreeShellCommand implements ShellCommand {
         private int depth = 0;
         private final PrintCallback callback;
 
+        /**
+         * Instantiates a new Tree walker.
+         *
+         * @param callback the callback
+         */
         public TreeWalker(PrintCallback callback) {
             this.callback = callback;
         }

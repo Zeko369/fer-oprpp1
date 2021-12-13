@@ -4,6 +4,11 @@ import hr.fer.zemris.java.hw06.shell.commands.*;
 
 import java.util.*;
 
+/**
+ * Implementation of {@link Environment} that is used for the shell.
+ *
+ * @author franzekan
+ */
 public class TerminalEnvironment implements Environment {
     private final SortedMap<String, ShellCommand> commandsMap;
 
@@ -13,6 +18,9 @@ public class TerminalEnvironment implements Environment {
 
     private final Scanner sc;
 
+    /**
+     * Instantiates a new Terminal environment.
+     */
     public TerminalEnvironment() {
         SortedMap<String, ShellCommand> mutableCommandsMap = new TreeMap<>();
         List.of(new ShellCommand[]{

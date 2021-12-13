@@ -3,7 +3,17 @@ package hr.fer.zemris.java.hw06.shell;
 import hr.fer.zemris.java.hw06.shell.ArgumentParser.ArgumentParserException;
 import hr.fer.zemris.java.hw06.shell.commands.ShellCommand;
 
+/**
+ * Entry point to out shell
+ *
+ * @author franzekan
+ */
 public class MyShell {
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         Environment env = new TerminalEnvironment();
         env.writeln(PrintColorUtils.colorPrint("Welcome to MyShell v 1.0", PrintColorUtils.Color.CYAN));

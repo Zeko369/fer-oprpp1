@@ -8,6 +8,11 @@ import java.io.File;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * <code>mkdir</code> command, used for creating directories.
+ *
+ * @author franzekan
+ */
 public class MkdirShellCommand implements ShellCommand {
     @Override
     public ShellStatus executeCommand(Environment env, String arguments) {

@@ -7,6 +7,11 @@ import hr.fer.zemris.java.hw06.shell.ShellStatus;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * <code>exit</code> command, used for exiting the shell.
+ *
+ * @author franzekan
+ */
 public class ExitShellCommand implements ShellCommand {
     @Override
     public ShellStatus executeCommand(Environment env, String arguments) {

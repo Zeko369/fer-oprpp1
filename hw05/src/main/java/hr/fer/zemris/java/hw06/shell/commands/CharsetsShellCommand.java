@@ -8,6 +8,11 @@ import java.nio.charset.Charset;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * <code>charsets</code> command, used for printing all available charsets.
+ *
+ * @author franzekan
+ */
 public class CharsetsShellCommand implements ShellCommand {
     @Override
     public ShellStatus executeCommand(Environment env, String arguments) {

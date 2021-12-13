@@ -4,13 +4,37 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Util for parsing arguments
+ *
+ * @author franzekan
+ */
 public class ArgumentParser {
-    public static String singleParamParse(String arguments) {
+    /**
+     * Single param parse string.
+     *
+     * @param arguments the arguments
+     * @return the string
+     * @throws NullPointerException    if arguments is null
+     * @throws ArgumentParserException if there is too many/few arguments or if there was an error parsing the arguments
+     */
+    public static String singleParamParse(String arguments) throws NullPointerException, ArgumentParserException {
         String[] args = ArgumentParser.parse(arguments, 1);
         return args[0];
     }
 
-    public static String[] parse(String arguments, int min, int max) {
+    /**
+     * Parse any number of arguments (min and max limits).
+     *
+     * @param arguments the arguments
+     * @param min       the min
+     * @param max       the max
+     * @return the string [ ]
+     * @throws IllegalArgumentException if min > max or one of them is 0
+     * @throws NullPointerException     if arguments is null
+     * @throws ArgumentParserException  if there is too many/few arguments or if there was an error parsing the arguments
+     */
+    public static String[] parse(String arguments, int min, int max) throws IllegalArgumentException, NullPointerException, ArgumentParserException {
         if (Objects.requireNonNull(arguments).length() == 0 && min == 0) {
             return new String[0];
         }
@@ -61,7 +85,17 @@ public class ArgumentParser {
         return args.toArray(new String[0]);
     }
 
-    public static String[] parse(String arguments, int count) {
+    /**
+     * Parse specific number of arguments (exact count).
+     *
+     * @param arguments the arguments
+     * @param count     the count
+     * @return the string [ ]
+     * @throws IllegalArgumentException if count < 0
+     * @throws NullPointerException     if arguments is null
+     * @throws ArgumentParserException  if there is too many/few arguments or if there was an error parsing the arguments
+     */
+    public static String[] parse(String arguments, int count) throws IllegalArgumentException, NullPointerException, ArgumentParserException {
         return ArgumentParser.parse(arguments, count, count);
     }
 }

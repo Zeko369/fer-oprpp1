@@ -14,13 +14,37 @@ import java.nio.file.attribute.FileTime;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+/**
+ * <code>ls</code> command, used for listing all the files/directories in a specific directory.
+ *
+ * @author franzekan
+ */
 public class LsShellCommand implements ShellCommand {
     private static class FileRow {
+        /**
+         * The Permissions.
+         */
         public final String permissions;
+        /**
+         * The File size.
+         */
         public final String fileSize;
+        /**
+         * The Date.
+         */
         public final String date;
+        /**
+         * The File name.
+         */
         public final String fileName;
 
+        /**
+         * Instantiates a new File row.
+         *
+         * @param file        the file
+         * @param permissions the permissions
+         * @param date        the date
+         */
         public FileRow(File file, String permissions, String date) {
             this.permissions = permissions;
 

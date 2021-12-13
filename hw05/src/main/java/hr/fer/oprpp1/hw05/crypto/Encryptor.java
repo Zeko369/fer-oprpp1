@@ -12,17 +12,35 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.AlgorithmParameterSpec;
 
+/**
+ * Class used for encrypting and decrypting files.
+ *
+ * @author franzekan
+ */
 public class Encryptor {
     private final EncryptorMode mode;
     private final String srcFilename;
     private final String outFilename;
 
+    /**
+     * Instantiates a new Encryptor.
+     *
+     * @param mode        the mode
+     * @param srcFilename the src filename
+     * @param outFilename the out filename
+     */
     public Encryptor(EncryptorMode mode, String srcFilename, String outFilename) {
         this.mode = mode;
         this.srcFilename = srcFilename;
         this.outFilename = outFilename;
     }
 
+    /**
+     * Encrypt or decrypt the file.
+     *
+     * @param pass the pass
+     * @param iv   the iv
+     */
     public void run(String pass, String iv) {
         SecretKeySpec keySpec = new SecretKeySpec(Util.hexToByte(pass), "AES");
         AlgorithmParameterSpec paramSpec = new IvParameterSpec(Util.hexToByte(iv));
@@ -40,7 +58,7 @@ public class Encryptor {
             int mode = this.mode == EncryptorMode.ENCRYPT ? Cipher.ENCRYPT_MODE : Cipher.DECRYPT_MODE;
             cipher.init(mode, keySpec, paramSpec);
 
-            while(bis.available() > 0) {
+            while (bis.available() > 0) {
                 bos.write(cipher.update(bis.readNBytes(FileLoader.READ_BLOCK)));
             }
 

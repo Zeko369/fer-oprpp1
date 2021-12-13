@@ -2,10 +2,29 @@ package hr.fer.zemris.java.hw06.shell;
 
 import java.util.SortedMap;
 
+/**
+ * Util for formatting color escape sequences.
+ *
+ * @author franzekan
+ */
 public class PrintColorUtils {
+    /**
+     * The enum Color.
+     *
+     * @author franzekan
+     */
     public enum Color {
+        /**
+         * Red color.
+         */
         RED,
+        /**
+         * Cyan color.
+         */
         CYAN,
+        /**
+         * Purple color.
+         */
         PURPLE
     }
 
@@ -18,6 +37,13 @@ public class PrintColorUtils {
         COLORS.put(Color.PURPLE, "\u001B[35m");
     }
 
+    /**
+     * Color print string.
+     *
+     * @param text  the text
+     * @param color the color
+     * @return the string
+     */
     public static String colorPrint(String text, Color color) {
         return COLORS.get(color) + text + RESET;
     }

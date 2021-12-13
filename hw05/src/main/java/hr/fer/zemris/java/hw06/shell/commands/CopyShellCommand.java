@@ -13,6 +13,11 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * <code>copy</code> command, used for copying files
+ *
+ * @author franzekan
+ */
 public class CopyShellCommand implements ShellCommand {
     @Override
     public ShellStatus executeCommand(Environment env, String arguments) {

@@ -6,6 +6,11 @@ import hr.fer.zemris.java.hw06.shell.ShellStatus;
 
 import java.util.List;
 
+/**
+ * <code>help</code> command, used for listing all commands or getting help for a specific command.
+ *
+ * @author franzekan
+ */
 public class HelpShellCommand implements ShellCommand {
     @Override
     public ShellStatus executeCommand(Environment env, String arguments) {

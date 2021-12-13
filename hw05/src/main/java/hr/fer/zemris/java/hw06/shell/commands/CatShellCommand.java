@@ -11,6 +11,11 @@ import java.nio.charset.CharsetDecoder;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * <code>cat</code> command, used for printing files
+ *
+ * @author franzekan
+ */
 public class CatShellCommand implements ShellCommand {
     @Override
     public ShellStatus executeCommand(Environment env, String arguments) {
