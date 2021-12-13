@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="73582f10-00da-4c42-9535-266fa0fddb62" name="Changes" comment="[HW05] - JavaDOCs">
+    <list default="true" id="73582f10-00da-4c42-9535-266fa0fddb62" name="Changes" comment="[HW05] - Fixes on crypto">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/oprpp1/hw05/crypto/Crypto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/oprpp1/hw05/crypto/Crypto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/oprpp1/hw05/crypto/Encryptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/oprpp1/hw05/crypto/Encryptor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/oprpp1/hw05/crypto/PromptInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/oprpp1/hw05/crypto/PromptInput.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/MyShell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/MyShell.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/commands/CatShellCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/commands/CatShellCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/commands/HexdumpShellCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hr/fer/zemris/java/hw06/shell/commands/HexdumpShellCommand.java" afterDir="false" />
@@ -253,7 +250,7 @@
       <workItem from="1638804926765" duration="7026000" />
       <workItem from="1639239956234" duration="81000" />
       <workItem from="1639240060499" duration="28984000" />
-      <workItem from="1639408337466" duration="3537000" />
+      <workItem from="1639408337466" duration="3577000" />
     </task>
     <task id="LOCAL-00001" summary="[HW04] - .idea files">
       <created>1638805705922</created>
@@ -409,7 +406,21 @@
       <option name="project" value="LOCAL" />
       <updated>1639409661362</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="[HW05] - Fixes on crypto">
+      <created>1639411893739</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1639411893739</updated>
+    </task>
+    <task id="LOCAL-00024" summary="[HW05] - Fixes on crypto">
+      <created>1639411897089</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1639411897089</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -450,7 +461,8 @@
     <MESSAGE value="[HW05] - Some cleanuo" />
     <MESSAGE value="[HW05] - Some cleanup" />
     <MESSAGE value="[HW05] - JavaDOCs" />
-    <option name="LAST_COMMIT_MESSAGE" value="[HW05] - JavaDOCs" />
+    <MESSAGE value="[HW05] - Fixes on crypto" />
+    <option name="LAST_COMMIT_MESSAGE" value="[HW05] - Fixes on crypto" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

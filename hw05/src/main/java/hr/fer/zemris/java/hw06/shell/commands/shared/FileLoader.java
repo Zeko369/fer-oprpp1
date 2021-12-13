@@ -92,8 +92,8 @@ public class FileLoader {
             return FileLoaderResponse.DONE;
         } catch (FileNotFoundException ex) {
             return FileLoaderResponse.NOT_FOUND;
-        } catch (IOException e) {
-            throw new ShellIOException(e.getMessage());
+        } catch (Exception e) {
+            throw new ShellIOException(e);
         }
     }
 }

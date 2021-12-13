@@ -33,7 +33,7 @@ public class HexdumpShellCommand implements ShellCommand {
                 sb.append(String.format("%08X ", iter));
 
                 for (int i = 0; i < BYTES_PER_LINE; i++) {
-                    sb.append(bytes.length < i ? "  " : String.format("%02X", bytes[i]));
+                    sb.append(bytes.length - 1 < i ? "  " : String.format("%02X", bytes[i]));
                     sb.append(i == BYTES_PER_LINE / 2 - 1 ? "|" : " ");
                 }
 

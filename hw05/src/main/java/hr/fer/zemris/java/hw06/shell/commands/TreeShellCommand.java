@@ -85,7 +85,7 @@ public class TreeShellCommand implements ShellCommand {
             return ShellStatus.CONTINUE;
         }
 
-        TreeWalker walker = new TreeWalker(env::writeln);
+        TreeWalker walker = new TreeWalker(env::write);
         try {
             Files.walkFileTree(tree.toPath(), walker);
             return ShellStatus.CONTINUE;

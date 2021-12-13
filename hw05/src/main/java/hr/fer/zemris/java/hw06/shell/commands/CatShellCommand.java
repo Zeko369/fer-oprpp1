@@ -6,6 +6,7 @@ import hr.fer.zemris.java.hw06.shell.ShellStatus;
 import hr.fer.zemris.java.hw06.shell.commands.shared.FileLoader;
 
 import java.nio.ByteBuffer;
+import java.nio.charset.CharacterCodingException;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
 import java.util.Collections;
@@ -25,8 +26,13 @@ public class CatShellCommand implements ShellCommand {
         CharsetDecoder decoder = (args.length == 2 ? Charset.forName(args[1]) : Charset.defaultCharset()).newDecoder();
 
         FileLoader fileLoader = new FileLoader(filePath);
-        FileLoader.FileLoaderResponse res = fileLoader.loadFile(bytes ->
-                env.write(decoder.decode(ByteBuffer.wrap(bytes)).toString())
+        FileLoader.FileLoaderResponse res = fileLoader.loadFile(bytes -> {
+                    try {
+                        env.write(decoder.decode(ByteBuffer.wrap(bytes)).toString());
+                    } catch (CharacterCodingException e) {
+                        env.errorln("Error while decoding file to charset");
+                    }
+                }
         );
         env.writeln("");
 
