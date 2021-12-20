@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="73582f10-00da-4c42-9535-266fa0fddb62" name="Changes" comment="[HW05] - Fixes on shell">
-      <change beforePath="$PROJECT_DIR$/../hw-06/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../hw-06/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -245,7 +245,7 @@
       <workItem from="1638804926765" duration="7026000" />
       <workItem from="1639239956234" duration="81000" />
       <workItem from="1639240060499" duration="28984000" />
-      <workItem from="1639408337466" duration="4283000" />
+      <workItem from="1639408337466" duration="5483000" />
     </task>
     <task id="LOCAL-00001" summary="[HW04] - .idea files">
       <created>1638805705922</created>
