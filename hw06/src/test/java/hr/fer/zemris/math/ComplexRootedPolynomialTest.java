@@ -4,6 +4,11 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Test for complex math stuff
+ *
+ * @author franzekan
+ */
 class ComplexRootedPolynomialTest {
     @Test
     void testAll() {
