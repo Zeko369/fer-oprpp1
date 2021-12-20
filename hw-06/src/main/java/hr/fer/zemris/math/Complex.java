@@ -1,7 +1,9 @@
 package hr.fer.zemris.math;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.ArrayList;
+import java.util.stream.IntStream;
 
 public class Complex {
     public static final Complex ZERO = new Complex(0, 0);
@@ -13,14 +15,62 @@ public class Complex {
     private final double real;
     private final double imaginary;
 
-    public Complex() {
-        this.real = 0;
-        this.imaginary = 0;
-    }
-
     public Complex(double re, double im) {
         this.real = re;
         this.imaginary = im;
+    }
+
+    public Complex(Complex other) {
+        this(other.real, other.imaginary);
+    }
+
+    public Complex() {
+        this(0, 0);
+    }
+
+    public double getReal() {
+        return real;
+    }
+
+    public double getImaginary() {
+        return imaginary;
+    }
+
+    private static double parseImaginary(String str) {
+        if (str.equals("i")) {
+            return 1;
+        }
+        return Double.parseDouble(str.substring(1));
+    }
+
+    public static Complex fromString(String raw) {
+        if (Objects.requireNonNull(raw).isEmpty()) {
+            throw new IllegalArgumentException("Empty string is not a valid complex number.");
+        }
+
+        String[] parts = raw.split("\\s+");
+        if (parts.length == 1) {
+            if (parts[0].charAt(0) == 'i') {
+                return new Complex(0, parseImaginary(parts[0]));
+            }
+
+            return new Complex(Double.parseDouble(parts[0]), 0);
+        } else if (parts.length == 3) {
+            double real = Double.parseDouble(parts[0]);
+
+            if (!parts[2].startsWith("i")) {
+                throw new IllegalArgumentException("Invalid complex number, second part must start with 'i'");
+            }
+
+            double imaginary = parseImaginary(parts[2]);
+            if (parts[1].equals("-")) {
+                imaginary *= -1;
+            }
+
+            return new Complex(real, imaginary);
+        } else {
+            throw new IllegalArgumentException("Invalid complex number format.");
+        }
     }
 
     public double module() {
@@ -51,17 +101,35 @@ public class Complex {
     }
 
     public Complex power(int n) {
-        return new Complex(Math.pow(module(), n), n * Math.atan2(imaginary, real));
+        Complex tmp = new Complex(this);
+        for (int i = 0; i < n; i++) {
+            tmp = tmp.multiply(this);
+        }
+        return tmp;
     }
 
     public List<Complex> root(int n) {
-        List<Complex> roots = new ArrayList<>();
+        if (n < 0) {
+            throw new IllegalArgumentException("Power must be non-negative.");
+        }
 
-        return roots;
+        double mag = Math.pow(Math.sqrt(real * real + imaginary * imaginary), 1.0 / 2);
+        double initialAngle = Math.atan2(imaginary, real);
+
+        return IntStream.range(0, n)
+                .boxed()
+                .map(i -> (initialAngle + 2 * i * Math.PI) / n)
+                .map(ang -> new Complex(mag * Math.cos(ang), mag * Math.sin(ang)))
+                .toList();
+    }
+
+    public double distance(Complex other) {
+        return this.sub(other).module();
     }
 
     @Override
     public String toString() {
-        return String.format("(%s+%si)", this.real, this.imaginary);
+        String prefix = this.imaginary < 0 ? "-" : "+";
+        return String.format("%s%si%s", this.real, prefix, Math.abs(this.imaginary));
     }
 }
