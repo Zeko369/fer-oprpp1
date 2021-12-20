@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="73582f10-00da-4c42-9535-266fa0fddb62" name="Changes" comment="[HW05] - Fixes on shell">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hw07/src/main/java/hr/fer/zemris/java/gui/layouts/CalcLayout.java" beforeDir="false" afterPath="$PROJECT_DIR$/../hw07/src/main/java/hr/fer/zemris/java/gui/layouts/CalcLayout.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,7 +102,7 @@
       <recent name="hr.fer.zemris.java.hw06.shell.commands" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Crypto - decrypt">
+  <component name="RunManager" selected="Application.MyShell">
     <configuration name="Crypto - checksha" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="hr.fer.oprpp1.hw05.crypto.Crypto" />
       <module name="hw05" />
@@ -246,6 +247,7 @@
       <workItem from="1639239956234" duration="81000" />
       <workItem from="1639240060499" duration="28984000" />
       <workItem from="1639408337466" duration="5483000" />
+      <workItem from="1640028345571" duration="1558000" />
     </task>
     <task id="LOCAL-00001" summary="[HW04] - .idea files">
       <created>1638805705922</created>
