@@ -70,7 +70,7 @@ public class ComplexPolynomial {
     public Complex apply(Complex z) {
         Complex result = this.factors[0];
         for (int i = 1; i < this.factors.length; i++) {
-            result = result.add(z.power(i-1).multiply(this.factors[i]));
+            result = result.add(z.power(i - 1).multiply(this.factors[i]));
         }
 
         return result;
@@ -86,7 +86,7 @@ public class ComplexPolynomial {
                 break;
             }
 
-            sb.append(String.format("(%s)z^%d+", this.factors[i], i));
+            sb.append(String.format("(%s)*z^%d+", this.factors[i], i));
         }
 
         return sb.toString();
