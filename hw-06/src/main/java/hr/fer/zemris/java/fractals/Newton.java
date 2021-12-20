@@ -10,7 +10,17 @@ import hr.fer.zemris.math.ComplexRootedPolynomial;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
+/**
+ * Class implementing the Newton-Raphson fractal.
+ *
+ * @author franzekan
+ */
 public class Newton {
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         System.out.println("Welcome to Newton-Raphson iteration-based fractal viewer.");
         System.out.println("Please enter at least two roots, one root per line. Enter 'done' when done.");
@@ -23,6 +33,11 @@ public class Newton {
         private final ComplexPolynomial cp;
         private final ComplexRootedPolynomial crp;
 
+        /**
+         * Instantiates a new Single threaded fractal producer.
+         *
+         * @param crp the crp
+         */
         public SingleThreadedFractalProducer(ComplexRootedPolynomial crp) {
             this.crp = crp;
             this.cp = crp.toComplexPolynom();

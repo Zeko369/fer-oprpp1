@@ -12,7 +12,17 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+/**
+ * Class implementing the Newton fractal with parallelization.
+ *
+ * @author franzekan
+ */
 public class NewtonParallel {
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         System.out.println("Welcome to Newton-Raphson iteration-based fractal viewer.");
         System.out.println("Please enter at least two roots, one root per line. Enter 'done' when done.");
@@ -29,6 +39,13 @@ public class NewtonParallel {
         private final ComplexRootedPolynomial crp;
         private final BlockingQueue<NewtonRunnable> queue = new LinkedBlockingQueue<>();
 
+        /**
+         * Instantiates a new Multi worker producer.
+         *
+         * @param crp     the crp
+         * @param workers the workers
+         * @param tracks  the tracks
+         */
         public MultiWorkerProducer(ComplexRootedPolynomial crp, int workers, int tracks) {
             this.workers = workers;
             this.tracks = tracks;
@@ -36,6 +53,11 @@ public class NewtonParallel {
         }
 
         private interface InterruptedThrowableRunnable {
+            /**
+             * Call.
+             *
+             * @throws InterruptedException the interrupted exception
+             */
             void call() throws InterruptedException;
         }
 

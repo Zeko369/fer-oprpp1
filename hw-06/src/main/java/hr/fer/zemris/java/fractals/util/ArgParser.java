@@ -1,5 +1,10 @@
 package hr.fer.zemris.java.fractals.util;
 
+/**
+ * Arg parser util used to parse command line arguments.
+ *
+ * @author franzekan
+ */
 public class ArgParser {
     private int workers = Runtime.getRuntime().availableProcessors();
     private int tracks = workers * 4;
@@ -13,6 +18,11 @@ public class ArgParser {
         return Integer.parseInt(parsed[1]);
     }
 
+    /**
+     * Instantiates a new Arg parser.
+     *
+     * @param args the args
+     */
     public ArgParser(String[] args) {
         if (args.length == 0) {
             return;
@@ -27,10 +37,20 @@ public class ArgParser {
         }
     }
 
+    /**
+     * Gets workers.
+     *
+     * @return the workers
+     */
     public int getWorkers() {
         return this.workers;
     }
 
+    /**
+     * Gets tracks.
+     *
+     * @return the tracks
+     */
     public int getTracks() {
         return this.tracks;
     }

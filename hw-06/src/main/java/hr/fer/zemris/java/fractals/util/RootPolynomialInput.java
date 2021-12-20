@@ -7,7 +7,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Utility class for constructing a complex rooted polynomial from user input.
+ *
+ * @author franzekan
+ */
 public class RootPolynomialInput {
+    /**
+     * Load from stdin
+     *
+     * @return the complex rooted polynomial
+     */
     public static ComplexRootedPolynomial loadFromInput() {
         List<Complex> nums = new ArrayList<>();
         Scanner sc = new Scanner(System.in);

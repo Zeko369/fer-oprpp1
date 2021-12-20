@@ -6,12 +6,26 @@ import hr.fer.zemris.math.ComplexRootedPolynomial;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
+/**
+ * The type Newton runnable.
+ *
+ * @author franzekan
+ */
 public class NewtonRunnable implements Runnable {
     private final ComplexRootedPolynomial crp;
     private final ComplexPolynomial cp;
 
+    /**
+     * The constant ROOT_THRESHOLD.
+     */
     public static final double ROOT_THRESHOLD = 0.002;
+    /**
+     * The constant CONVERGENCE_THRESHOLD.
+     */
     public static final double CONVERGENCE_THRESHOLD = 0.0001;
+    /**
+     * The constant MAX_ITER.
+     */
     public static final int MAX_ITER = 16 * 16 * 16 * 16;
 
     private final double reMin, reMax;
@@ -22,8 +36,26 @@ public class NewtonRunnable implements Runnable {
     private final short[] image;
     private final AtomicBoolean cancel;
 
+    /**
+     * The constant EMPTY.
+     */
     public static NewtonRunnable EMPTY = new NewtonRunnable();
 
+    /**
+     * Instantiates a new Newton runnable.
+     *
+     * @param crp    the crp
+     * @param reMin  the re min
+     * @param reMax  the re max
+     * @param imMin  the im min
+     * @param imMax  the im max
+     * @param width  the width
+     * @param height the height
+     * @param yMin   the y min
+     * @param yMax   the y max
+     * @param image  the image
+     * @param cancel the cancel
+     */
     public NewtonRunnable(ComplexRootedPolynomial crp,
                           double reMin, double reMax, double imMin, double imMax,
                           int width, int height,
@@ -45,6 +77,9 @@ public class NewtonRunnable implements Runnable {
         this.cancel = cancel;
     }
 
+    /**
+     * Instantiates a new Newton runnable.
+     */
     public NewtonRunnable() {
         this(null, 0, 0, 0, 0, 0, 0, 0, 0, null, null);
     }
