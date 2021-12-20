@@ -7,7 +7,7 @@ import hr.fer.zemris.math.ComplexRootedPolynomial;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * The type Newton runnable.
+ * Helper for calculating Newton fractal.
  *
  * @author franzekan
  */
