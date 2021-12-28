@@ -13,7 +13,7 @@ public class DemoFrame1 extends JFrame {
 
     public DemoFrame1() {
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        this.setPreferredSize(new Dimension(800, 600));
+        this.setPreferredSize(new Dimension(500, 500));
         this.initGUI();
         this.pack();
     }
@@ -27,6 +27,10 @@ public class DemoFrame1 extends JFrame {
         cp.add(l("tekst kraći"), new RCPosition(4, 2));
         cp.add(l("tekst srednji"), new RCPosition(4, 5));
         cp.add(l("tekst"), new RCPosition(4, 7));
+
+        for (int i = 0; i < CalcLayout.COLUMNS; i++) {
+            cp.add(l("tekst"), new RCPosition(5, i + 1));
+        }
     }
 
     private JLabel l(String text) {

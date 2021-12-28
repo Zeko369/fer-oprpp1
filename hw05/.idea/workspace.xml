@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="73582f10-00da-4c42-9535-266fa0fddb62" name="Changes" comment="[HW05] - Fixes on shell">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hw07/src/main/java/hr/fer/zemris/java/gui/layouts/CalcLayout.java" beforeDir="false" afterPath="$PROJECT_DIR$/../hw07/src/main/java/hr/fer/zemris/java/gui/layouts/CalcLayout.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -228,8 +227,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.MyShell" />
-        <item itemvalue="Application.Crypto - checksha" />
         <item itemvalue="JUnit.All in hw05" />
+        <item itemvalue="Application.Crypto - checksha" />
         <item itemvalue="JUnit.ArgumentParserTest" />
         <item itemvalue="JUnit.hr.fer.oprpp1.hw05.crypto in hw05" />
       </list>
@@ -248,6 +247,8 @@
       <workItem from="1639240060499" duration="28984000" />
       <workItem from="1639408337466" duration="5483000" />
       <workItem from="1640028345571" duration="1558000" />
+      <workItem from="1640185004610" duration="192000" />
+      <workItem from="1640185245382" duration="881000" />
     </task>
     <task id="LOCAL-00001" summary="[HW04] - .idea files">
       <created>1638805705922</created>

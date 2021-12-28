@@ -1,12 +1,10 @@
 package hr.fer.zemris.java.gui.layouts;
 
 
-import java.awt.Component;
-import java.awt.LayoutManager2;
-import java.awt.Dimension;
-import java.awt.Container;
+import java.awt.*;
 
 import java.util.*;
+import java.util.List;
 
 public class CalcLayout implements LayoutManager2 {
     public final static int ROWS = 5;
@@ -39,6 +37,9 @@ public class CalcLayout implements LayoutManager2 {
             RCPosition position = RCPosition.fromObj(constraints);
 
             if (!position.valid(COLUMNS, ROWS)) {
+                System.out.println(position);
+                System.out.println(COLUMNS);
+                System.out.println(ROWS);
                 throw new CalcLayoutException("Invalid position");
             }
 
@@ -52,13 +53,8 @@ public class CalcLayout implements LayoutManager2 {
 
             this.children.put(comp, position);
         } catch (RCPositionParseException ex) {
-            throw new CalcLayoutException("Invalid constraints: " + ex.getMessage());
+            throw new IllegalArgumentException("Invalid constraints: " + ex.getMessage());
         }
-    }
-
-    @Override
-    public Dimension maximumLayoutSize(Container target) {
-        return null;
     }
 
     @Override
@@ -86,40 +82,102 @@ public class CalcLayout implements LayoutManager2 {
         this.children.remove(comp);
     }
 
-    @Override
-    public Dimension preferredLayoutSize(Container parent) {
-        List<Dimension> dimensions = Arrays.stream(parent.getComponents()).map(Component::getPreferredSize).toList();
-        Optional<Dimension> maxH = dimensions.stream().min((a, b) -> (int) (a.getHeight() - b.getHeight()));
-        Optional<Dimension> maxW = dimensions.stream().min((a, b) -> (int) (a.getWidth() - b.getWidth()));
+    private interface SizeTypeGetter {
+        Dimension getSize(Component comp);
+    }
+
+    private Dimension calculateDimensions(Container parent, SizeTypeGetter sizeTypeGetter) {
+        Insets insets = parent.getInsets();
+
+        List<Dimension> dimensions = Arrays.stream(parent.getComponents())
+                .map(comp -> {
+                    Dimension d = sizeTypeGetter.getSize(comp);
+                    if (this.children.get(comp).equals(RESULT_FIELD)) {
+                        d.width = (d.width - this.spacing * 4) / 5;
+                    }
+
+                    return d;
+                })
+                .toList();
+        Optional<Dimension> maxH = dimensions.stream().max((a, b) -> (int) (a.getHeight() - b.getHeight()));
+        Optional<Dimension> maxW = dimensions.stream().max((a, b) -> (int) (a.getWidth() - b.getWidth()));
 
         if (maxH.isEmpty() || maxW.isEmpty()) {
             throw new RuntimeException("Error here?");
         }
 
-        return new Dimension(maxW.get().width * COLUMNS + spacing * (COLUMNS - 1), maxH.get().height * ROWS + spacing * (ROWS - 1));
+        return new Dimension(
+                Math.round(maxW.get().width * COLUMNS + (COLUMNS - 1) * this.spacing + insets.left + insets.right),
+                Math.round(maxH.get().height * ROWS + (ROWS - 1) * this.spacing + insets.top + insets.bottom)
+        );
+    }
+
+    @Override
+    public Dimension preferredLayoutSize(Container parent) {
+        return calculateDimensions(parent, Component::getPreferredSize);
     }
 
     @Override
     public Dimension minimumLayoutSize(Container parent) {
-        return null;
+        return calculateDimensions(parent, Component::getMinimumSize);
+    }
+
+    @Override
+    public Dimension maximumLayoutSize(Container target) {
+        return calculateDimensions(target, Component::getMaximumSize);
+    }
+
+    private Dimension getCurrentInnerSize(Container parent) {
+        Insets insets = parent.getInsets();
+        int width = parent.getWidth() - insets.left - insets.right - (COLUMNS - 1) * this.spacing;
+        int height = parent.getHeight() - insets.top - insets.bottom - (ROWS - 1) * this.spacing;
+
+        return new Dimension(Math.max(width / COLUMNS, 0), Math.max(height / ROWS, 0));
+    }
+
+    private static final int[][] offsets = new int[][]{
+            new int[]{0, 0, 0, 0, 0, 0, 0},
+            new int[]{0, 0, 0, 0, 0, 0, 1},
+            new int[]{1, 0, 0, 0, 0, 0, 1},
+            new int[]{1, 0, 0, 1, 0, 0, 1},
+            new int[]{1, 0, 1, 0, 1, 0, 1},
+            new int[]{1, 1, 0, 1, 0, 1, 1},
+            new int[]{1, 1, 1, 0, 1, 1, 1},
+    };
+
+    private int getOffsetTillHere(int offsetCount, int index) {
+        int width = 0;
+        if (offsetCount > 0) {
+            for (int i = 0; i < index; i++) {
+                width += offsets[offsetCount][i];
+            }
+        }
+        return width;
     }
 
     @Override
     public void layoutContainer(Container parent) {
-        Dimension tmp = this.preferredLayoutSize(parent);
+        Insets insets = parent.getInsets();
+        Dimension d = this.getCurrentInnerSize(parent);
 
-        int width = tmp.width / COLUMNS;
-        int height = tmp.height / ROWS;
-
+        int offsetCount = (parent.getWidth() - this.spacing * (COLUMNS - 1)) % COLUMNS;
         for (Map.Entry<Component, RCPosition> entry : this.children.entrySet()) {
             Component component = entry.getKey();
             RCPosition position = entry.getValue();
 
             /* (1,1) - (1,5)*/
             if (position.equals(RESULT_FIELD)) {
-                component.setBounds(0, 0, width * 5, height);
+                int width = d.width * (COLUMNS - 2) + this.spacing * (COLUMNS - 3);
+                width += offsets[offsetCount][0];
+
+                component.setBounds(insets.left, insets.top, width, d.height);
             } else {
-                component.setBounds(width * position.getColumn() + (position.getColumn() - 1) * spacing, height * position.getRow() + (position.getRow() - 1) * spacing, width, height);
+                component.setBounds(
+                        insets.left + (position.getColumn() - 1) * (d.width + this.spacing) + getOffsetTillHere(offsetCount, position.getColumn() - 1),
+                        insets.top + (position.getRow() - 1) * (d.height + this.spacing),
+                        d.width + offsets[offsetCount][position.getColumn() - 1],
+                        d.height
+                );
             }
         }
     }
