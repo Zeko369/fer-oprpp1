@@ -2,6 +2,7 @@ package hr.fer.zemris.java.gui.calc;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import hr.fer.zemris.java.gui.calc.model.CalcModelImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -17,7 +18,8 @@ public class CalcModelTest {
 	
 	private static CalcModel newCalcModel() {
 		// Zamijenite ovo tako da vraća primjerak Vaše implementacije modela.
-		return new DummyCalcModel();
+//		return new DummyCalcModel();
+		return new CalcModelImpl();
 	}
 
 	@BeforeEach
@@ -56,16 +58,14 @@ public class CalcModelTest {
 
 	@Test
 	public void pointWhenNoNumberThrows() {
-		assertThrows(CalculatorInputException.class, ()->{
-			model.insertDecimalPoint();
-		});
+		assertThrows(CalculatorInputException.class, ()-> model.insertDecimalPoint());
 	}
 
 	@Test
 	public void pointWhenNoNumberAndNegativeSignThrows() {
 		model.swapSign();
 
-		assertThrows(CalculatorInputException.class, ()->{model.insertDecimalPoint();});
+		assertThrows(CalculatorInputException.class, ()-> model.insertDecimalPoint());
 	}
 
 	@Test
@@ -194,9 +194,7 @@ public class CalcModelTest {
 		model.insertDecimalPoint();
 		model.insertDigit(3);
 		
-		assertThrows(CalculatorInputException.class, ()->{
-			model.insertDecimalPoint();
-		});
+		assertThrows(CalculatorInputException.class, ()-> model.insertDecimalPoint());
 	}
 
 	// Pokušaj dodavanja nove znamenke kojom bi broj postao prevelik
@@ -208,16 +206,12 @@ public class CalcModelTest {
 			model.insertDigit(9);
 		}
 
-		assertThrows(CalculatorInputException.class, ()->{
-			model.insertDigit(9);
-		});
+		assertThrows(CalculatorInputException.class, ()-> model.insertDigit(9));
 	}
 	
 	@Test()
 	public void readingActiveOperandWhenNotSet() {
-		assertThrows(IllegalStateException.class, ()->{
-			model.getActiveOperand();
-		});
+		assertThrows(IllegalStateException.class, ()-> model.getActiveOperand());
 	}
 	
 	@Test
