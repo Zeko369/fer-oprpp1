@@ -165,10 +165,10 @@ public class CalcLayout implements LayoutManager2 {
             Component component = entry.getKey();
             RCPosition position = entry.getValue();
 
-            /* (1,1) - (1,5)*/
+            /* (1,1) - (1,5) */
             if (position.equals(RESULT_FIELD)) {
                 int width = d.width * (COLUMNS - 2) + this.spacing * (COLUMNS - 3);
-                width += offsets[offsetCount][0];
+                width += getOffsetTillHere(offsetCount, 5);
 
                 component.setBounds(insets.left, insets.top, width, d.height);
             } else {
