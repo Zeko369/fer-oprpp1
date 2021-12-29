@@ -13,7 +13,7 @@ public class CalcLayout implements LayoutManager2 {
     private final Map<Component, RCPosition> children = new HashMap<>();
     private final int spacing;
 
-    private static final RCPosition RESULT_FIELD = new RCPosition(1, 1);
+    public static final RCPosition RESULT_FIELD = new RCPosition(1, 1);
 
     public CalcLayout(int spacing) {
         if (spacing < 0) {
