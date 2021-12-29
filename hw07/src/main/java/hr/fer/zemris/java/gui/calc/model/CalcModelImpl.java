@@ -112,7 +112,7 @@ public class CalcModelImpl implements CalcModel {
         this.value = Double.parseDouble(tmp);
         this.display = tmp;
 
-        if (this.value > Double.MAX_VALUE) {
+        if (this.value > Double.MAX_VALUE || this.value < -Double.MAX_VALUE || Double.isNaN(this.value)) {
             throw new CalculatorInputException("Invalid number");
         }
     }
