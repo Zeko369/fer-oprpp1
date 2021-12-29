@@ -12,13 +12,20 @@ public class Button extends JButton {
         this.setOpaque(true);
         this.setBackground(BG_COLOR);
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        this.setFont(getFont().deriveFont(30f));
     }
 
-    public Button(int number, CalcModel model) {
+    public Button(String text) {
         this();
+        this.setText(text);
+    }
 
-        this.setFont(getFont().deriveFont(30f));
-        this.setText(String.valueOf(number));
-        this.addActionListener(e -> model.insertDigit(number));
+    public Button(String text, Runnable action) {
+        this(text);
+        this.addActionListener(e -> action.run());
+    }
+
+    public Button(CalcModel model, int number) {
+        this(String.valueOf(number), () -> model.insertDigit(number));
     }
 }

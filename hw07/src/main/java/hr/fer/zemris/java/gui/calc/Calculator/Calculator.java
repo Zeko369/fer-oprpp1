@@ -32,16 +32,31 @@ public class Calculator extends JFrame {
         Container cp = getContentPane();
         cp.setLayout(new CalcLayout(16));
 
-        JLabel label = new JLabel("0");
+        // DISPLAY
+        JLabel label = new Display(this.model);
         cp.add(label, CalcLayout.RESULT_FIELD);
-        this.model.addCalcValueListener(new CalcValueListenerImpl(label));
 
+        JButton btn = new Button("clr");
+        btn.addActionListener(e -> this.model.clear());
+        cp.add(btn, new RCPosition(1, 7));
+
+        // DIGITS
         for (int i = 2; i >= 0; i--) {
             for (int j = 0; j < 3; j++) {
-                int tmp = i * 3 + j + 1;
-                cp.add(new Button(tmp, this.model), new RCPosition(2 + 2 - i, 3 + j));
+                cp.add(new Button(this.model, i * 3 + j + 1), new RCPosition(2 + 2 - i, 3 + j));
             }
         }
-        cp.add(new Button(0, this.model), new RCPosition(5, 3));
+        cp.add(new Button(this.model, 0), new RCPosition(5, 3));
+
+        cp.add(new Button("+/-", this.model::swapSign), new RCPosition(5, 4));
+        cp.add(new Button(".", this.model::insertDecimalPoint), new RCPosition(5, 5));
+
+        // OPERATORS
+        String[] symbols = {"+", "-", "*", "/"};
+        for(int i = 0; i < 4; i++) {
+            cp.add(new Button( symbols[i]), new RCPosition(i + 2, 6));
+        }
+
+        cp.add(new Button("="), new RCPosition(1, 6));
     }
 }
