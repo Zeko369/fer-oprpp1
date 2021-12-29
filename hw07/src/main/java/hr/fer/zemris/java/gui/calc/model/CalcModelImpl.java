@@ -26,6 +26,12 @@ public class CalcModelImpl implements CalcModel {
         this.listeners.remove(l);
     }
 
+    private void notifyListeners() {
+        for (CalcValueListener l : listeners) {
+            l.valueChanged(this);
+        }
+    }
+
     @Override
     public double getValue() {
         return this.value;
@@ -38,6 +44,8 @@ public class CalcModelImpl implements CalcModel {
         this.editable = false;
 
         // TODO: check NaN -inf, +inf
+
+        this.notifyListeners();
     }
 
     @Override
@@ -49,6 +57,8 @@ public class CalcModelImpl implements CalcModel {
     public void clear() {
         this.display = "";
         this.value = 0;
+
+        this.notifyListeners();
     }
 
     @Override
@@ -57,6 +67,8 @@ public class CalcModelImpl implements CalcModel {
         this.pendingOperation = null;
         this.activeOperand = null;
         this.editable = true;
+
+        this.notifyListeners();
     }
 
     private void checkEditable() {
@@ -78,6 +90,8 @@ public class CalcModelImpl implements CalcModel {
                 this.display = "-" + this.display;
             }
         }
+
+        this.notifyListeners();
     }
 
     @Override
@@ -93,6 +107,7 @@ public class CalcModelImpl implements CalcModel {
         }
 
         this.display += ".";
+        this.notifyListeners();
     }
 
     @Override
@@ -115,6 +130,8 @@ public class CalcModelImpl implements CalcModel {
         if (this.value > Double.MAX_VALUE || this.value < -Double.MAX_VALUE || Double.isNaN(this.value)) {
             throw new CalculatorInputException("Invalid number");
         }
+
+        this.notifyListeners();
     }
 
     @Override
