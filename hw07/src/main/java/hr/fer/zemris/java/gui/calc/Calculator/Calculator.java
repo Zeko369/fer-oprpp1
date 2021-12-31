@@ -2,7 +2,6 @@ package hr.fer.zemris.java.gui.calc.Calculator;
 
 import hr.fer.zemris.java.gui.calc.model.CalcModel;
 import hr.fer.zemris.java.gui.calc.model.CalcModelImpl;
-import hr.fer.zemris.java.gui.calc.model.CalcValueListenerImpl;
 import hr.fer.zemris.java.gui.layouts.CalcLayout;
 import hr.fer.zemris.java.gui.layouts.RCPosition;
 
