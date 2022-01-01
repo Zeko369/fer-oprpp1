@@ -171,7 +171,8 @@ public class CalcModelImpl implements CalcModel {
     @Override
     public String toString() {
         if (this.display.isEmpty()) {
-            return this.positive ? "0" : "-0";
+            return "";
+//            return this.positive ? "0" : "-0";
         }
 
         return this.display;

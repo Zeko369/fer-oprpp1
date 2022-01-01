@@ -48,12 +48,16 @@ public class Calculator extends JFrame {
         cp.add(new Button(this.model, 0), new RCPosition(5, 3));
 
         cp.add(new Button("+/-", this.model::swapSign), new RCPosition(5, 4));
-        cp.add(new Button(".", this.model::insertDecimalPoint), new RCPosition(5, 5));
+
+        Button dotButton = new Button(".", this.model::insertDecimalPoint);
+        dotButton.setEnabled(false);
+        this.model.addCalcValueListener(val -> dotButton.setEnabled(val.toString().length() > 0 && !val.toString().contains(".")));
+        cp.add(dotButton, new RCPosition(5, 5));
 
         // OPERATORS
         String[] symbols = {"+", "-", "*", "/"};
-        for(int i = 0; i < 4; i++) {
-            cp.add(new Button( symbols[i]), new RCPosition(i + 2, 6));
+        for (int i = 0; i < 4; i++) {
+            cp.add(new Button(symbols[i]), new RCPosition(i + 2, 6));
         }
 
         cp.add(new Button("="), new RCPosition(1, 6));
