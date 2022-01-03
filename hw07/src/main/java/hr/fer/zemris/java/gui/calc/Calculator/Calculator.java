@@ -7,24 +7,44 @@ import hr.fer.zemris.java.gui.layouts.RCPosition;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Arrays;
+
+// laptop side (-1000, 600)
+// topLeft (0, 0)
 
 public class Calculator extends JFrame {
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new Calculator().setVisible(true));
+        System.out.println(Arrays.toString(args));
+
+        Point origin = new Point(0, 0);
+        if (args.length == 2) {
+            try {
+                origin = new Point(Integer.parseInt(args[0]), Integer.parseInt(args[1]));
+            } catch (NumberFormatException e) {
+                System.err.println("Couldn't parse arguments, using default position");
+            }
+        }
+
+        Point finalOrigin = origin;
+        SwingUtilities.invokeLater(() -> new Calculator(finalOrigin).setVisible(true));
     }
 
     private final CalcModel model;
 
     public Calculator() {
-        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Java Calculator v1.0");
+        this(new Point(0, 0));
+    }
 
-        setLocation(80, 80);
-        setSize(800, 600);
+    public Calculator(Point location) {
+        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        this.setTitle("Java Calculator v1.0");
+
+        this.setLocation(location);
+        this.setSize(800, 600);
 
         this.model = new CalcModelImpl();
 
-        initGUI();
+        this.initGUI();
     }
 
     private void initGUI() {
