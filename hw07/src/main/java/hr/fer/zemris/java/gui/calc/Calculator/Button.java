@@ -25,6 +25,7 @@ public class Button extends JButton {
         this.addActionListener(e -> action.run());
     }
 
+    // Digit constructor
     public Button(CalcModel model, int number) {
         this(String.valueOf(number), () -> model.insertDigit(number));
     }
