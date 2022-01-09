@@ -1,4 +1,4 @@
-package hr.fer.oprpp1.hw08.jnotepadpp.models;
+package hr.fer.oprpp1.hw08.jnotepadpp.model;
 
 import javax.swing.JTextArea;
 import java.nio.file.Path;

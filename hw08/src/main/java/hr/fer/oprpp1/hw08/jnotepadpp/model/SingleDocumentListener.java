@@ -1,4 +1,4 @@
-package hr.fer.oprpp1.hw08.jnotepadpp.models;
+package hr.fer.oprpp1.hw08.jnotepadpp.model;
 
 public interface SingleDocumentListener {
     void documentModifyStatusUpdated(SingleDocumentModel model);

@@ -1,7 +1,7 @@
 package hr.fer.oprpp1.hw08.jnotepadpp;
 
-import hr.fer.oprpp1.hw08.jnotepadpp.models.DefaultMultipleDocumentModel;
-import hr.fer.oprpp1.hw08.jnotepadpp.models.MultipleDocumentModel;
+import hr.fer.oprpp1.hw08.jnotepadpp.model.DefaultMultipleDocumentModel;
+import hr.fer.oprpp1.hw08.jnotepadpp.model.MultipleDocumentModel;
 
 import javax.swing.*;
 import java.awt.*;
