@@ -34,4 +34,3 @@ public class JNotepadPP extends JFrame {
         this.setJMenuBar(new MenuBar(this.mdm, this.flp));
     }
 }
-

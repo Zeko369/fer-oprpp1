@@ -1,6 +1,6 @@
 package hr.fer.oprpp1.hw08.jnotepadpp.i18n;
 
-public class LocalizationProviderBridge extends AbstractLocalizationProvider {
+public class LocalizationProviderBridge extends AbstractLocalizationProvider implements ILocalizationProvider {
     private boolean connected;
     private final ILocalizationProvider provider;
 
@@ -13,14 +13,14 @@ public class LocalizationProviderBridge extends AbstractLocalizationProvider {
     public void disconnect() {
         if (this.connected) {
             this.connected = false;
-            this.listeners.remove(this.listener);
+            this.provider.removeLocalizationListener(this.listener);
         }
     }
 
     public void connect() {
         if (!this.connected) {
             this.connected = true;
-            this.listeners.add(this.listener);
+            this.provider.addLocalizationListener(this.listener);
         }
     }
 

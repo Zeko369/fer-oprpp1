@@ -1,6 +1,7 @@
 package hr.fer.oprpp1.hw08.jnotepadpp.i18n;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public abstract class AbstractLocalizationProvider implements ILocalizationProvider {
@@ -16,5 +17,13 @@ public abstract class AbstractLocalizationProvider implements ILocalizationProvi
 
     public void fire() {
         this.listeners.forEach(ILocalizationListener::localizationChanged);
+    }
+
+    @Override
+    public Language[] getSupportedLanguages() {
+        return new Language[]{
+                Language.en,
+                Language.hr
+        };
     }
 }

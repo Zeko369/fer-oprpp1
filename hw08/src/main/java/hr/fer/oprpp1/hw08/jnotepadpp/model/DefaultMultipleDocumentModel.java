@@ -16,6 +16,9 @@ public class DefaultMultipleDocumentModel extends JTabbedPane implements Multipl
         this.listeners = new ArrayList<>();
         this.documents = new ArrayList<>();
 
+        // TODO: Remove
+        this.createNewDocument();
+
         this.addChangeListener(e -> {
             SingleDocumentModel before = this.currentIndex == -1 ? null : this.documents.get(this.currentIndex);
             SingleDocumentModel after = this.documents.get(this.getSelectedIndex());

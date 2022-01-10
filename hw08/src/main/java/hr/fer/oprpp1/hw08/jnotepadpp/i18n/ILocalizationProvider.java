@@ -6,5 +6,7 @@ public interface ILocalizationProvider {
     void addLocalizationListener(ILocalizationListener listener);
     void removeLocalizationListener(ILocalizationListener listener);
 
+    Language[] getSupportedLanguages();
+
     void fire();
 }

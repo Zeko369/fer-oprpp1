@@ -1,4 +1,4 @@
-package hr.fer.oprpp1.hw08.jnotepadpp.i18n.components;
+package hr.fer.oprpp1.hw08.jnotepadpp.i18n.utils;
 
 import hr.fer.oprpp1.hw08.jnotepadpp.i18n.ILocalizationProvider;
 

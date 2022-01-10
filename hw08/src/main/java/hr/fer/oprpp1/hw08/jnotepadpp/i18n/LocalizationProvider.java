@@ -11,11 +11,11 @@ public class LocalizationProvider extends AbstractLocalizationProvider {
 
     private LocalizationProvider() {
         this.language = Language.en;
-        this.bundle = this.getBundle(this.language);
+        this.bundle = this.getBundle();
     }
 
-    private ResourceBundle getBundle(Language language) {
-        Locale l = new Locale(language.toString());
+    private ResourceBundle getBundle() {
+        Locale l = new Locale(this.language.toString());
         return ResourceBundle.getBundle("i18n.translations", l);
     }
 
@@ -29,7 +29,7 @@ public class LocalizationProvider extends AbstractLocalizationProvider {
 
     public void setLanguage(Language language) {
         this.language = language;
-        this.bundle = this.getBundle(this.language);
+        this.bundle = this.getBundle();
 
         this.fire();
     }
