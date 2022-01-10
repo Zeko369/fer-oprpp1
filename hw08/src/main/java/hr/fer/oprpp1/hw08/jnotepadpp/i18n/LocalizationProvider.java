@@ -9,16 +9,17 @@ public class LocalizationProvider extends AbstractLocalizationProvider {
 
     private final static LocalizationProvider instance = new LocalizationProvider();
 
-    public LocalizationProvider() {
+    private LocalizationProvider() {
         this.language = Language.en;
         this.bundle = this.getBundle(this.language);
     }
 
     private ResourceBundle getBundle(Language language) {
-        return ResourceBundle.getBundle("translations", Locale.forLanguageTag(language.toString()));
+        Locale l = new Locale(language.toString());
+        return ResourceBundle.getBundle("i18n.translations", l);
     }
 
-    public LocalizationProvider getInstance() {
+    public static LocalizationProvider getInstance() {
         return LocalizationProvider.instance;
     }
 
