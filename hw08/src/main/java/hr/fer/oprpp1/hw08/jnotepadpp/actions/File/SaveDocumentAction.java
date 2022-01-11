@@ -8,8 +8,8 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
-public class SaveFile extends BaseAction {
-    public SaveFile(MultipleDocumentModel mdm, ILocalizationProvider lp) {
+public class SaveDocumentAction extends BaseAction {
+    public SaveDocumentAction(MultipleDocumentModel mdm, ILocalizationProvider lp) {
         super(mdm, lp, "save");
 
         this.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control S"));

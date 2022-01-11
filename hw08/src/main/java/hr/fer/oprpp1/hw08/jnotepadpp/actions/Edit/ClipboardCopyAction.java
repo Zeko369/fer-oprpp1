@@ -6,13 +6,18 @@ import hr.fer.oprpp1.hw08.jnotepadpp.model.MultipleDocumentModel;
 
 import java.awt.event.ActionEvent;
 
-public class Copy extends BaseAction {
-    public Copy(MultipleDocumentModel mdm, ILocalizationProvider lp) {
+public class ClipboardCopyAction extends BaseAction {
+    public ClipboardCopyAction(MultipleDocumentModel mdm, ILocalizationProvider lp) {
         super(mdm, lp, "copy");
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
+    }
+
+    @Override
+    public boolean isDisableable() {
+        return true;
     }
 }

@@ -6,13 +6,13 @@ import hr.fer.oprpp1.hw08.jnotepadpp.model.MultipleDocumentModel;
 
 import java.awt.event.ActionEvent;
 
-public class CloseFile extends BaseAction {
-    public CloseFile(MultipleDocumentModel mdm, ILocalizationProvider lp) {
-        super(mdm, lp, "close");
+public class OpenDocumentAction extends BaseAction {
+    public OpenDocumentAction(MultipleDocumentModel mdm, ILocalizationProvider lp) {
+        super(mdm, lp, "open");
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        this.mdm.closeDocument(this.mdm.getCurrentDocument());
+
     }
 }

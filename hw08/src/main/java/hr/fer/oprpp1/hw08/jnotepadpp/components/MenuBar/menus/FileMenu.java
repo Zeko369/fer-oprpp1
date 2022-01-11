@@ -11,10 +11,11 @@ public class FileMenu extends LocalizedJMenu {
     public FileMenu(MultipleDocumentModel mdm, ILocalizationProvider lp, JFrame app) {
         super("file_menu", lp);
 
-        this.add(new NewFile(mdm, lp));
-        this.add(new SaveFile(mdm, lp));
-        this.add(new SaveAsFile(mdm, lp));
-        this.add(new CloseFile(mdm, lp));
+        this.add(new NewDocumentAction(mdm, lp));
+        this.add(new OpenDocumentAction(mdm, lp));
+        this.add(new SaveDocumentAction(mdm, lp));
+        this.add(new SaveAsDocumentAction(mdm, lp));
+        this.add(new CloseDocumentAction(mdm, lp));
 
         this.add(new JPopupMenu.Separator());
         this.add(new ExitAction(mdm, lp, app));

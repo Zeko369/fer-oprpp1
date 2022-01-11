@@ -15,4 +15,8 @@ public abstract class BaseAction extends LocalizableAction {
     public BaseAction(ILocalizationProvider lp, String key) {
         this(null, lp, key);
     }
+
+    public boolean isDisableable() {
+        return false;
+    }
 }

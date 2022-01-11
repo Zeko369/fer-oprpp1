@@ -8,8 +8,8 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
-public class SaveAsFile extends BaseAction {
-    public SaveAsFile(MultipleDocumentModel mdm, ILocalizationProvider lp) {
+public class SaveAsDocumentAction extends BaseAction {
+    public SaveAsDocumentAction(MultipleDocumentModel mdm, ILocalizationProvider lp) {
         super(mdm, lp, "save_as");
 
         this.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control shift S"));

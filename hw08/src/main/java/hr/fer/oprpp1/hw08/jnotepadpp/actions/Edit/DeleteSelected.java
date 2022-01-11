@@ -15,4 +15,9 @@ public class DeleteSelected extends BaseAction {
     public void actionPerformed(ActionEvent e) {
 
     }
+
+    @Override
+    public boolean isDisableable() {
+        return true;
+    }
 }
