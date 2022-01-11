@@ -1,5 +1,7 @@
 package hr.fer.oprpp1.hw08.jnotepadpp.model;
 
+import hr.fer.oprpp1.hw08.jnotepadpp.model.util.IconLoader;
+
 import javax.swing.*;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -12,9 +14,14 @@ public class DefaultMultipleDocumentModel extends JTabbedPane implements Multipl
 
     private final List<MultipleDocumentListener> listeners;
 
+    private final static IconLoader loader = new IconLoader();
+    private final static ImageIcon modifiedIcon = DefaultMultipleDocumentModel.loader.loadIcon("/icons/modified.png");
+    private final static ImageIcon unmodifiedIcon = DefaultMultipleDocumentModel.loader.loadIcon("/icons/unmodified.png");
+
     public DefaultMultipleDocumentModel() {
         this.listeners = new ArrayList<>();
         this.documents = new ArrayList<>();
+
 
         // TODO: Remove
         this.createNewDocument();
@@ -40,6 +47,31 @@ public class DefaultMultipleDocumentModel extends JTabbedPane implements Multipl
 
         String filename = "[untitled]";
         this.addTab(filename, new JScrollPane(doc.getTextComponent()));
+        this.setIconAt(this.currentIndex, DefaultMultipleDocumentModel.unmodifiedIcon);
+
+        doc.addSingleDocumentListener(new SingleDocumentListener() {
+            private int getIndex() {
+                return DefaultMultipleDocumentModel.this.documents.indexOf(doc);
+            }
+
+            @Override
+            public void documentModifyStatusUpdated(SingleDocumentModel model) {
+                DefaultMultipleDocumentModel.this.setIconAt(
+                        this.getIndex(),
+                        doc.isModified() ? DefaultMultipleDocumentModel.modifiedIcon : DefaultMultipleDocumentModel.unmodifiedIcon
+                );
+            }
+
+            @Override
+            public void documentFilePathUpdated(SingleDocumentModel model) {
+                String text = model.getFilePath() == null ? "unnamed" : String.valueOf(model.getFilePath().getFileName());
+
+                DefaultMultipleDocumentModel.this.setTitleAt(this.getIndex(), text);
+                DefaultMultipleDocumentModel.this.setToolTipTextAt(this.getIndex(), text);
+
+                DefaultMultipleDocumentModel.this.listeners.forEach(l -> l.currentDocumentChanged(model, model));
+            }
+        });
 
         return doc;
     }

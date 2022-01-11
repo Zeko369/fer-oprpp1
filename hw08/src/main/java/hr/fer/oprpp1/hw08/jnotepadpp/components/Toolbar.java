@@ -1,5 +1,6 @@
 package hr.fer.oprpp1.hw08.jnotepadpp.components;
 
+import hr.fer.oprpp1.hw08.jnotepadpp.Managers.DisableManager;
 import hr.fer.oprpp1.hw08.jnotepadpp.actions.BaseAction;
 import hr.fer.oprpp1.hw08.jnotepadpp.actions.Edit.ClipboardCopyAction;
 import hr.fer.oprpp1.hw08.jnotepadpp.actions.Edit.ClipboardCutAction;
@@ -7,7 +8,6 @@ import hr.fer.oprpp1.hw08.jnotepadpp.actions.Edit.ClipboardPasteAction;
 import hr.fer.oprpp1.hw08.jnotepadpp.actions.File.*;
 import hr.fer.oprpp1.hw08.jnotepadpp.i18n.ILocalizationProvider;
 import hr.fer.oprpp1.hw08.jnotepadpp.i18n.components.LocalizedJToolBar;
-import hr.fer.oprpp1.hw08.jnotepadpp.listeners.DisableManager;
 import hr.fer.oprpp1.hw08.jnotepadpp.model.MultipleDocumentModel;
 
 import javax.swing.*;

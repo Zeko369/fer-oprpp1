@@ -1,4 +1,4 @@
-package hr.fer.oprpp1.hw08.jnotepadpp.listeners;
+package hr.fer.oprpp1.hw08.jnotepadpp.Managers;
 
 import hr.fer.oprpp1.hw08.jnotepadpp.actions.BaseAction;
 
