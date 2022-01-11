@@ -38,7 +38,10 @@ public class Toolbar extends LocalizedJToolBar {
     }
 
     private void addAction(BaseAction action) {
-        this.actions.add(action);
+        if (action.isDisableable()) {
+            this.actions.add(action);
+        }
+
         this.add(new JButton(action));
     }
 }
