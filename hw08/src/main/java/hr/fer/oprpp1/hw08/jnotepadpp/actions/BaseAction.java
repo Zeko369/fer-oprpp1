@@ -11,4 +11,8 @@ public abstract class BaseAction extends LocalizableAction {
         super(key, lp);
         this.mdm = mdm;
     }
+
+    public BaseAction(ILocalizationProvider lp, String key) {
+        this(null, lp, key);
+    }
 }

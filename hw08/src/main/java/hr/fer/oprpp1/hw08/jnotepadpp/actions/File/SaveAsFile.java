@@ -1,8 +1,7 @@
-package hr.fer.oprpp1.hw08.jnotepadpp.actions.FileMenu;
+package hr.fer.oprpp1.hw08.jnotepadpp.actions.File;
 
 import hr.fer.oprpp1.hw08.jnotepadpp.actions.BaseAction;
 import hr.fer.oprpp1.hw08.jnotepadpp.i18n.ILocalizationProvider;
-import hr.fer.oprpp1.hw08.jnotepadpp.i18n.utils.LocalizableAction;
 import hr.fer.oprpp1.hw08.jnotepadpp.model.MultipleDocumentModel;
 
 import javax.swing.*;

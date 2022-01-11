@@ -1,8 +1,9 @@
 package hr.fer.oprpp1.hw08.jnotepadpp;
 
-import hr.fer.oprpp1.hw08.jnotepadpp.components.MenuBar;
+import hr.fer.oprpp1.hw08.jnotepadpp.components.MenuBar.MenuBar;
 import hr.fer.oprpp1.hw08.jnotepadpp.i18n.FormLocalizationProvider;
 import hr.fer.oprpp1.hw08.jnotepadpp.i18n.LocalizationProvider;
+import hr.fer.oprpp1.hw08.jnotepadpp.listeners.CloseWindowListener;
 import hr.fer.oprpp1.hw08.jnotepadpp.model.DefaultMultipleDocumentModel;
 import hr.fer.oprpp1.hw08.jnotepadpp.model.MultipleDocumentModel;
 
@@ -23,14 +24,16 @@ public class JNotepadPP extends JFrame {
 
         this.setLocation(0, 0);
         this.setSize(1000, 1200);
+        this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
         this.initGUI();
+        this.addWindowListener(new CloseWindowListener(this.mdm, this));
     }
 
     private void initGUI() {
         this.getContentPane().setLayout(new BorderLayout());
         this.getContentPane().add(this.mdm.getVisualComponent());
 
-        this.setJMenuBar(new MenuBar(this.mdm, this.flp));
+        this.setJMenuBar(new MenuBar(this.mdm, this.flp, this));
     }
 }
