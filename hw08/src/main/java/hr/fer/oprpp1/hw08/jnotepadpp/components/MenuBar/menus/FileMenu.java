@@ -15,6 +15,7 @@ public class FileMenu extends LocalizedJMenu {
         this.add(new OpenDocumentAction(mdm, lp));
         this.add(new SaveDocumentAction(mdm, lp));
         this.add(new SaveAsDocumentAction(mdm, lp));
+        this.add(new StatsDocumentAction(mdm, lp, app));
         this.add(new CloseDocumentAction(mdm, lp));
 
         this.add(new JPopupMenu.Separator());
