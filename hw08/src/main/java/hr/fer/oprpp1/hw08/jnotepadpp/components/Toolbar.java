@@ -9,6 +9,7 @@ import hr.fer.oprpp1.hw08.jnotepadpp.actions.Edit.Clipboard.CopyAction;
 import hr.fer.oprpp1.hw08.jnotepadpp.actions.Edit.Clipboard.CutAction;
 import hr.fer.oprpp1.hw08.jnotepadpp.actions.Edit.Clipboard.PasteAction;
 import hr.fer.oprpp1.hw08.jnotepadpp.actions.Edit.DeleteSelected;
+import hr.fer.oprpp1.hw08.jnotepadpp.actions.Edit.UniqueLines;
 import hr.fer.oprpp1.hw08.jnotepadpp.actions.File.*;
 import hr.fer.oprpp1.hw08.jnotepadpp.actions.Sort.SortAscending;
 import hr.fer.oprpp1.hw08.jnotepadpp.actions.Sort.SortDescending;
@@ -51,6 +52,7 @@ public class Toolbar extends LocalizedJToolBar {
 
         this.addAction(new SortAscending(mdm, lp));
         this.addAction(new SortDescending(mdm, lp));
+        this.addAction(new UniqueLines(mdm, lp));
 
         dm.addAll(this.actions);
     }
