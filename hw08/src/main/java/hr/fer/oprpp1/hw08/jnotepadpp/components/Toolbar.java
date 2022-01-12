@@ -2,9 +2,12 @@ package hr.fer.oprpp1.hw08.jnotepadpp.components;
 
 import hr.fer.oprpp1.hw08.jnotepadpp.Managers.DisableManager;
 import hr.fer.oprpp1.hw08.jnotepadpp.actions.BaseAction;
-import hr.fer.oprpp1.hw08.jnotepadpp.actions.Edit.ClipboardCopyAction;
-import hr.fer.oprpp1.hw08.jnotepadpp.actions.Edit.ClipboardCutAction;
-import hr.fer.oprpp1.hw08.jnotepadpp.actions.Edit.ClipboardPasteAction;
+import hr.fer.oprpp1.hw08.jnotepadpp.actions.Case.InvertCase;
+import hr.fer.oprpp1.hw08.jnotepadpp.actions.Case.LowerCase;
+import hr.fer.oprpp1.hw08.jnotepadpp.actions.Case.UpperCase;
+import hr.fer.oprpp1.hw08.jnotepadpp.actions.Edit.Clipboard.CopyAction;
+import hr.fer.oprpp1.hw08.jnotepadpp.actions.Edit.Clipboard.CutAction;
+import hr.fer.oprpp1.hw08.jnotepadpp.actions.Edit.Clipboard.PasteAction;
 import hr.fer.oprpp1.hw08.jnotepadpp.actions.File.*;
 import hr.fer.oprpp1.hw08.jnotepadpp.i18n.ILocalizationProvider;
 import hr.fer.oprpp1.hw08.jnotepadpp.i18n.components.LocalizedJToolBar;
@@ -30,9 +33,15 @@ public class Toolbar extends LocalizedJToolBar {
 
         this.addSeparator();
 
-        this.addAction(new ClipboardCutAction(mdm, lp));
-        this.addAction(new ClipboardCopyAction(mdm, lp));
-        this.addAction(new ClipboardPasteAction(mdm, lp));
+        this.addAction(new CutAction(mdm, lp));
+        this.addAction(new CopyAction(mdm, lp));
+        this.addAction(new PasteAction(mdm, lp));
+
+        this.addSeparator();
+
+        this.addAction(new InvertCase(mdm, lp));
+        this.addAction(new UpperCase(mdm, lp));
+        this.addAction(new LowerCase(mdm, lp));
 
         dm.addAll(this.actions);
     }

@@ -5,7 +5,6 @@ import hr.fer.oprpp1.hw08.jnotepadpp.components.StatusBar;
 import hr.fer.oprpp1.hw08.jnotepadpp.model.AbstractMultipleDocumentModalListener;
 import hr.fer.oprpp1.hw08.jnotepadpp.model.MultipleDocumentModel;
 import hr.fer.oprpp1.hw08.jnotepadpp.model.SingleDocumentModel;
-import hr.fer.oprpp1.hw08.jnotepadpp.shared.SelectorHelpers;
 
 import javax.swing.event.CaretListener;
 import java.nio.file.Path;
@@ -30,7 +29,7 @@ public class CurrentDocumentChangedListener extends AbstractMultipleDocumentModa
     }
 
     private boolean shouldDisabled(SingleDocumentModel model) {
-        return SelectorHelpers.get(model.getTextComponent()) != null;
+        return model.getTextComponent().getSelectedText() != null;
     }
 
     private final CaretListener caretListener = e -> {
