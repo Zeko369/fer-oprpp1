@@ -51,6 +51,9 @@ public class DefaultMultipleDocumentModel extends JTabbedPane implements Multipl
         this.currentIndex = this.documents.size() - 1;
 
         String filename = "[untitled]";
+        if (path != null) {
+            filename = path.getFileName().toString();
+        }
         this.addTab(filename, new JScrollPane(doc.getTextComponent()));
         this.setIconAt(this.currentIndex, DefaultMultipleDocumentModel.unmodifiedIcon);
         this.setToolTipTextAt(this.currentIndex, filename);

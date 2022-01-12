@@ -31,8 +31,8 @@ public class Toolbar extends LocalizedJToolBar {
 
         this.addAction(new NewDocumentAction(mdm, lp));
         this.addAction(new OpenDocumentAction(mdm, lp, app));
-        this.addAction(new SaveDocumentAction(mdm, lp));
-        this.addAction(new SaveAsDocumentAction(mdm, lp));
+        this.addAction(new SaveDocumentAction(mdm, lp, app));
+        this.addAction(new SaveAsDocumentAction(mdm, lp, app));
         this.addAction(new CloseDocumentAction(mdm, lp));
 
         this.addSeparator();
