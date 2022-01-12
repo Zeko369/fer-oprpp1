@@ -1,6 +1,8 @@
 package hr.fer.oprpp1.hw08.jnotepadpp.actions.Case;
 
 import hr.fer.oprpp1.hw08.jnotepadpp.actions.BaseAction;
+import hr.fer.oprpp1.hw08.jnotepadpp.actions.Case.shared.CaseEnum;
+import hr.fer.oprpp1.hw08.jnotepadpp.actions.Case.shared.CaseHelper;
 import hr.fer.oprpp1.hw08.jnotepadpp.i18n.ILocalizationProvider;
 import hr.fer.oprpp1.hw08.jnotepadpp.model.MultipleDocumentModel;
 
@@ -13,7 +15,7 @@ public class InvertCase extends BaseAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        CaseHelper.changeCase(this.mdm.getCurrentDocument(), CaseEnum.INVERT);
     }
 
     @Override
