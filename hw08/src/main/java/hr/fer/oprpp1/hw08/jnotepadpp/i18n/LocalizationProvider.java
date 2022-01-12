@@ -27,6 +27,10 @@ public class LocalizationProvider extends AbstractLocalizationProvider {
         return this.language;
     }
 
+    public Locale getLocale() {
+        return new Locale(this.language.toString());
+    }
+
     public void setLanguage(Language language) {
         this.language = language;
         this.bundle = this.getBundle();

@@ -6,10 +6,13 @@ import hr.fer.oprpp1.hw08.jnotepadpp.model.MultipleDocumentModel;
 
 public abstract class BaseAction extends LocalizableAction {
     protected final MultipleDocumentModel mdm;
+    protected final ILocalizationProvider lp;
 
     public BaseAction(MultipleDocumentModel mdm, ILocalizationProvider lp, String key) {
         super(key, lp);
+
         this.mdm = mdm;
+        this.lp = lp;
     }
 
     public BaseAction(ILocalizationProvider lp, String key) {

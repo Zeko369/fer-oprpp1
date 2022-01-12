@@ -1,5 +1,7 @@
 package hr.fer.oprpp1.hw08.jnotepadpp.i18n;
 
+import java.util.Locale;
+
 public class LocalizationProviderBridge extends AbstractLocalizationProvider implements ILocalizationProvider {
     private boolean connected;
     private final ILocalizationProvider provider;
@@ -9,6 +11,7 @@ public class LocalizationProviderBridge extends AbstractLocalizationProvider imp
     public LocalizationProviderBridge(ILocalizationProvider provider) {
         this.provider = provider;
     }
+
 
     public void disconnect() {
         if (this.connected) {
@@ -26,5 +29,10 @@ public class LocalizationProviderBridge extends AbstractLocalizationProvider imp
 
     public String getString(String key) {
         return this.provider.getString(key);
+    }
+
+    @Override
+    public Locale getLocale() {
+        return this.provider.getLocale();
     }
 }

@@ -8,7 +8,10 @@ import hr.fer.oprpp1.hw08.jnotepadpp.actions.Case.UpperCase;
 import hr.fer.oprpp1.hw08.jnotepadpp.actions.Edit.Clipboard.CopyAction;
 import hr.fer.oprpp1.hw08.jnotepadpp.actions.Edit.Clipboard.CutAction;
 import hr.fer.oprpp1.hw08.jnotepadpp.actions.Edit.Clipboard.PasteAction;
+import hr.fer.oprpp1.hw08.jnotepadpp.actions.Edit.DeleteSelected;
 import hr.fer.oprpp1.hw08.jnotepadpp.actions.File.*;
+import hr.fer.oprpp1.hw08.jnotepadpp.actions.Sort.SortAscending;
+import hr.fer.oprpp1.hw08.jnotepadpp.actions.Sort.SortDescending;
 import hr.fer.oprpp1.hw08.jnotepadpp.i18n.ILocalizationProvider;
 import hr.fer.oprpp1.hw08.jnotepadpp.i18n.components.LocalizedJToolBar;
 import hr.fer.oprpp1.hw08.jnotepadpp.model.MultipleDocumentModel;
@@ -33,6 +36,7 @@ public class Toolbar extends LocalizedJToolBar {
 
         this.addSeparator();
 
+        this.addAction(new DeleteSelected(mdm, lp));
         this.addAction(new CutAction(mdm, lp));
         this.addAction(new CopyAction(mdm, lp));
         this.addAction(new PasteAction(mdm, lp));
@@ -42,6 +46,11 @@ public class Toolbar extends LocalizedJToolBar {
         this.addAction(new InvertCase(mdm, lp));
         this.addAction(new UpperCase(mdm, lp));
         this.addAction(new LowerCase(mdm, lp));
+
+        this.addSeparator();
+
+        this.addAction(new SortAscending(mdm, lp));
+        this.addAction(new SortDescending(mdm, lp));
 
         dm.addAll(this.actions);
     }
