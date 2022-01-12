@@ -179,7 +179,7 @@ public class DefaultMultipleDocumentModel extends JTabbedPane implements Multipl
     @Override
     public SingleDocumentModel findForPath(Path path) {
         return this.documents.stream()
-                .filter(d -> d.getFilePath().equals(path))
+                .filter(d -> path.equals(d.getFilePath()))
                 .findFirst()
                 .orElse(null);
     }

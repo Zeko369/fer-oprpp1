@@ -12,7 +12,7 @@ public class FileMenu extends LocalizedJMenu {
         super("file_menu", lp);
 
         this.add(new NewDocumentAction(mdm, lp));
-        this.add(new OpenDocumentAction(mdm, lp));
+        this.add(new OpenDocumentAction(mdm, lp, app));
         this.add(new SaveDocumentAction(mdm, lp));
         this.add(new SaveAsDocumentAction(mdm, lp));
         this.add(new StatsDocumentAction(mdm, lp, app));

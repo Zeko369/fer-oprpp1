@@ -10,9 +10,9 @@ public interface MultipleDocumentModel extends Iterable<SingleDocumentModel> {
 
     SingleDocumentModel getCurrentDocument();
 
-    SingleDocumentModel loadDocument(Path path);
+    SingleDocumentModel loadDocument(Path path) throws FileSystemException;
 
-    void saveDocument(SingleDocumentModel model, Path newPath);
+    void saveDocument(SingleDocumentModel model, Path newPath) throws FileSystemException;
 
     void closeDocument(SingleDocumentModel model);
 

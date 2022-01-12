@@ -24,13 +24,13 @@ import java.util.List;
 public class Toolbar extends LocalizedJToolBar {
     private final List<BaseAction> actions = new ArrayList<>();
 
-    public Toolbar(MultipleDocumentModel mdm, ILocalizationProvider lp, DisableManager dm) {
+    public Toolbar(MultipleDocumentModel mdm, ILocalizationProvider lp, DisableManager dm, JFrame app) {
         super("toolbar", lp);
 
         this.setFloatable(true);
 
         this.addAction(new NewDocumentAction(mdm, lp));
-        this.addAction(new OpenDocumentAction(mdm, lp));
+        this.addAction(new OpenDocumentAction(mdm, lp, app));
         this.addAction(new SaveDocumentAction(mdm, lp));
         this.addAction(new SaveAsDocumentAction(mdm, lp));
         this.addAction(new CloseDocumentAction(mdm, lp));

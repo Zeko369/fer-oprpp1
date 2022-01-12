@@ -52,7 +52,7 @@ public class JNotepadPP extends JFrame {
 
         this.getContentPane().add(this.mdm.getVisualComponent());
 
-        this.getContentPane().add(new Toolbar(this.mdm, this.flp, this.dm), BorderLayout.PAGE_START);
+        this.getContentPane().add(new Toolbar(this.mdm, this.flp, this.dm, this), BorderLayout.PAGE_START);
         this.getContentPane().add(this.sb, BorderLayout.PAGE_END);
     }
 }
