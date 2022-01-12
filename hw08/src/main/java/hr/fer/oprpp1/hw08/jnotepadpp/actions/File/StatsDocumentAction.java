@@ -7,9 +7,19 @@ import hr.fer.oprpp1.hw08.jnotepadpp.model.MultipleDocumentModel;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
+/**
+ * The type Stats document action.
+ */
 public class StatsDocumentAction extends BaseAction {
     private final JFrame app;
 
+    /**
+     * Instantiates a new Stats document action.
+     *
+     * @param mdm the mdm
+     * @param lp  the lp
+     * @param app the app
+     */
     public StatsDocumentAction(MultipleDocumentModel mdm, ILocalizationProvider lp, JFrame app) {
         super(mdm, lp, "stats");
         this.app = app;

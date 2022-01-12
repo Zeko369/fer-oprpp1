@@ -8,9 +8,19 @@ import hr.fer.oprpp1.hw08.jnotepadpp.model.MultipleDocumentModel;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
+/**
+ * The type Open document action.
+ */
 public class OpenDocumentAction extends BaseAction {
     private final JFrame app;
 
+    /**
+     * Instantiates a new Open document action.
+     *
+     * @param mdm the mdm
+     * @param lp  the lp
+     * @param app the app
+     */
     public OpenDocumentAction(MultipleDocumentModel mdm, ILocalizationProvider lp, JFrame app) {
         super(mdm, lp, "open");
         this.app = app;

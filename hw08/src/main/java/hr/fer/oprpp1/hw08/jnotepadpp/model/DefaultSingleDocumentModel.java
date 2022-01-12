@@ -7,6 +7,9 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Default single document model.
+ */
 public class DefaultSingleDocumentModel implements SingleDocumentModel {
     private final JTextArea textComponent;
 
@@ -16,6 +19,12 @@ public class DefaultSingleDocumentModel implements SingleDocumentModel {
 
     private final List<SingleDocumentListener> listeners;
 
+    /**
+     * Instantiates a new Default single document model.
+     *
+     * @param path    the path
+     * @param content the content
+     */
     public DefaultSingleDocumentModel(Path path, String content) {
         this.listeners = new ArrayList<>();
         this.path = path;

@@ -4,7 +4,16 @@ import javax.swing.*;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * The type Icon loader.
+ */
 public class IconLoader {
+    /**
+     * Load icon image icon.
+     *
+     * @param path the path
+     * @return the image icon
+     */
     public ImageIcon loadIcon(String path) {
         InputStream is = this.getClass().getResourceAsStream(path);
         if (is == null) {

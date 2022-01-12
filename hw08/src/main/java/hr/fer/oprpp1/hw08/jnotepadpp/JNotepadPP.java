@@ -14,16 +14,27 @@ import javax.swing.*;
 import java.awt.*;
 import java.nio.file.Path;
 
+/**
+ * The type J notepad pp.
+ */
 public class JNotepadPP extends JFrame {
     private final MultipleDocumentModel mdm;
     private final FormLocalizationProvider flp;
     private final DisableManager dm;
     private final StatusBar sb;
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new JNotepadPP().setVisible(true));
     }
 
+    /**
+     * Instantiates a new J notepad pp.
+     */
     public JNotepadPP() {
         this.setLocation(0, 0);
         this.setSize(1000, 1200);

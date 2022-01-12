@@ -8,7 +8,16 @@ import hr.fer.oprpp1.hw08.jnotepadpp.model.MultipleDocumentModel;
 import javax.swing.text.BadLocationException;
 import java.awt.event.ActionEvent;
 
+/**
+ * The type Sort descending.
+ */
 public class SortDescending extends BaseAction {
+    /**
+     * Instantiates a new Sort descending.
+     *
+     * @param mdm the mdm
+     * @param lp  the lp
+     */
     public SortDescending(MultipleDocumentModel mdm, ILocalizationProvider lp) {
         super(mdm, lp, "descending");
     }

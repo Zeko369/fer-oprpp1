@@ -6,7 +6,16 @@ import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 
+/**
+ * The type Case helper.
+ */
 public class CaseHelper {
+    /**
+     * Change case.
+     *
+     * @param model    the model
+     * @param textCase the text case
+     */
     public static void changeCase(SingleDocumentModel model, CaseEnum textCase) {
         String selectedText = model.getTextComponent().getSelectedText();
         if (selectedText == null) {

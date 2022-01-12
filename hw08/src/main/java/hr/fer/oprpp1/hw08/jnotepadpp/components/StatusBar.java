@@ -11,9 +11,18 @@ import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * The type Status bar.
+ */
 public class StatusBar extends LocalizedJToolBar {
     private final ILocalizationProvider lp;
 
+    /**
+     * Instantiates a new Status bar.
+     *
+     * @param mdm the mdm
+     * @param lp  the lp
+     */
     public StatusBar(MultipleDocumentModel mdm, ILocalizationProvider lp) {
         super("status", lp);
 
@@ -32,6 +41,11 @@ public class StatusBar extends LocalizedJToolBar {
         new Timer(1000, timeListener).start();
     }
 
+    /**
+     * Render.
+     *
+     * @param editor the editor
+     */
     public void render(JTextArea editor) {
         int length = editor.getText().length();
         int col = -1;

@@ -4,7 +4,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * The type Abstract localization provider.
+ */
 public abstract class AbstractLocalizationProvider implements ILocalizationProvider {
+    /**
+     * The Listeners.
+     */
     protected final List<ILocalizationListener> listeners = new ArrayList<>();
 
     public void addLocalizationListener(ILocalizationListener l) {

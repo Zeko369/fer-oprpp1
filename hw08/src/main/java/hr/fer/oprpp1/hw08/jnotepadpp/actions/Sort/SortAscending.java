@@ -9,7 +9,16 @@ import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import java.awt.event.ActionEvent;
 
+/**
+ * The type Sort ascending.
+ */
 public class SortAscending extends BaseAction {
+    /**
+     * Instantiates a new Sort ascending.
+     *
+     * @param mdm the mdm
+     * @param lp  the lp
+     */
     public SortAscending(MultipleDocumentModel mdm, ILocalizationProvider lp) {
         super(mdm, lp, "ascending");
     }

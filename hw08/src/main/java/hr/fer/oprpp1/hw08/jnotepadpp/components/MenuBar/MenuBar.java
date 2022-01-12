@@ -11,9 +11,20 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Menu bar.
+ */
 public class MenuBar extends JMenuBar {
     private final List<BaseAction> actions = new ArrayList<>();
 
+    /**
+     * Instantiates a new Menu bar.
+     *
+     * @param mdm the mdm
+     * @param flp the flp
+     * @param app the app
+     * @param dm  the dm
+     */
     public MenuBar(MultipleDocumentModel mdm, FormLocalizationProvider flp, JFrame app, DisableManager dm) {
         this.addMenuWithListeners(new FileMenu(mdm, flp, app));
         this.addMenuWithListeners(new EditMenu(mdm, flp));

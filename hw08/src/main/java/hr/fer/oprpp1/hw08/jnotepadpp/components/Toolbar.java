@@ -21,9 +21,20 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Toolbar.
+ */
 public class Toolbar extends LocalizedJToolBar {
     private final List<BaseAction> actions = new ArrayList<>();
 
+    /**
+     * Instantiates a new Toolbar.
+     *
+     * @param mdm the mdm
+     * @param lp  the lp
+     * @param dm  the dm
+     * @param app the app
+     */
     public Toolbar(MultipleDocumentModel mdm, ILocalizationProvider lp, DisableManager dm, JFrame app) {
         super("toolbar", lp);
 

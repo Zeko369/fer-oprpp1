@@ -9,9 +9,19 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
+/**
+ * The type Save as document action.
+ */
 public class SaveAsDocumentAction extends BaseAction {
     private final JFrame app;
 
+    /**
+     * Instantiates a new Save as document action.
+     *
+     * @param mdm the mdm
+     * @param lp  the lp
+     * @param app the app
+     */
     public SaveAsDocumentAction(MultipleDocumentModel mdm, ILocalizationProvider lp, JFrame app) {
         super(mdm, lp, "save_as");
 

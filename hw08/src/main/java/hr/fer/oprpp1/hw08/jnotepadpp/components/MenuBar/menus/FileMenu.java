@@ -7,7 +7,17 @@ import hr.fer.oprpp1.hw08.jnotepadpp.model.MultipleDocumentModel;
 
 import javax.swing.*;
 
+/**
+ * The type File menu.
+ */
 public class FileMenu extends LocalizedJMenu {
+    /**
+     * Instantiates a new File menu.
+     *
+     * @param mdm the mdm
+     * @param lp  the lp
+     * @param app the app
+     */
     public FileMenu(MultipleDocumentModel mdm, ILocalizationProvider lp, JFrame app) {
         super("file_menu", lp);
 

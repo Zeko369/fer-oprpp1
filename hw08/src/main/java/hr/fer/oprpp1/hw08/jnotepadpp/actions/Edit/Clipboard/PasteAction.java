@@ -11,7 +11,16 @@ import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 
+/**
+ * The type Paste action.
+ */
 public class PasteAction extends BaseAction {
+    /**
+     * Instantiates a new Paste action.
+     *
+     * @param mdm the mdm
+     * @param lp  the lp
+     */
     public PasteAction(MultipleDocumentModel mdm, ILocalizationProvider lp) {
         super(mdm, lp, "paste");
     }

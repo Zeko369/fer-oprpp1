@@ -7,15 +7,40 @@ import hr.fer.oprpp1.hw08.jnotepadpp.model.SingleDocumentModel;
 import javax.swing.*;
 import java.nio.file.Path;
 
+/**
+ * The type Save helper.
+ */
 public class SaveHelper {
+    /**
+     * Save.
+     *
+     * @param model the model
+     * @param mdm   the mdm
+     * @param app   the app
+     */
     public static void save(SingleDocumentModel model, MultipleDocumentModel mdm, JFrame app) {
         SaveHelper.saveCurrent(mdm, app, false);
     }
 
+    /**
+     * Save as.
+     *
+     * @param model the model
+     * @param mdm   the mdm
+     * @param app   the app
+     */
     public static void saveAs(SingleDocumentModel model, MultipleDocumentModel mdm, JFrame app) {
         SaveHelper.saveCurrent(mdm, app, true);
     }
 
+    /**
+     * Save or cancel boolean.
+     *
+     * @param model the model
+     * @param mdm   the mdm
+     * @param app   the app
+     * @return the boolean
+     */
     public static boolean saveOrCancel(SingleDocumentModel model, MultipleDocumentModel mdm, JFrame app) {
         if (!model.isModified()) {
             return true;
@@ -40,6 +65,13 @@ public class SaveHelper {
         return true;
     }
 
+    /**
+     * Save current.
+     *
+     * @param mdm    the mdm
+     * @param app    the app
+     * @param saveAs the save as
+     */
     public static void saveCurrent(MultipleDocumentModel mdm, JFrame app, boolean saveAs) {
         Path path = null;
         if (mdm.getCurrentDocument().getFilePath() == null || saveAs) {

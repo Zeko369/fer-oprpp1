@@ -8,7 +8,16 @@ import hr.fer.oprpp1.hw08.jnotepadpp.model.MultipleDocumentModel;
 
 import java.awt.event.ActionEvent;
 
+/**
+ * The type Invert case.
+ */
 public class InvertCase extends BaseAction {
+    /**
+     * Instantiates a new Invert case.
+     *
+     * @param mdm the mdm
+     * @param lp  the lp
+     */
     public InvertCase(MultipleDocumentModel mdm, ILocalizationProvider lp) {
         super(mdm, lp, "invert");
     }

@@ -13,7 +13,16 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * The type Unique lines.
+ */
 public class UniqueLines extends BaseAction {
+    /**
+     * Instantiates a new Unique lines.
+     *
+     * @param mdm the mdm
+     * @param lp  the lp
+     */
     public UniqueLines(MultipleDocumentModel mdm, ILocalizationProvider lp) {
         super(mdm, lp, "unique");
     }

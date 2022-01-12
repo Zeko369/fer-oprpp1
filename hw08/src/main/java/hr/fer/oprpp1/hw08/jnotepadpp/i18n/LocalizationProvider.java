@@ -3,6 +3,9 @@ package hr.fer.oprpp1.hw08.jnotepadpp.i18n;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/**
+ * The type Localization provider.
+ */
 public class LocalizationProvider extends AbstractLocalizationProvider {
     private Language language;
     private ResourceBundle bundle;
@@ -19,10 +22,20 @@ public class LocalizationProvider extends AbstractLocalizationProvider {
         return ResourceBundle.getBundle("i18n.translations", l);
     }
 
+    /**
+     * Gets instance.
+     *
+     * @return the instance
+     */
     public static LocalizationProvider getInstance() {
         return LocalizationProvider.instance;
     }
 
+    /**
+     * Gets language.
+     *
+     * @return the language
+     */
     public Language getLanguage() {
         return this.language;
     }
@@ -31,6 +44,11 @@ public class LocalizationProvider extends AbstractLocalizationProvider {
         return new Locale(this.language.toString());
     }
 
+    /**
+     * Sets language.
+     *
+     * @param language the language
+     */
     public void setLanguage(Language language) {
         this.language = language;
         this.bundle = this.getBundle();

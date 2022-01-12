@@ -9,8 +9,19 @@ import hr.fer.oprpp1.hw08.jnotepadpp.model.SingleDocumentModel;
 import javax.swing.event.CaretListener;
 import java.nio.file.Path;
 
+/**
+ * The type Current document changed listener.
+ */
 public class CurrentDocumentChangedListener extends AbstractMultipleDocumentModalListener {
+    /**
+     * The interface Set file title.
+     */
     public interface SetFileTitle {
+        /**
+         * Set.
+         *
+         * @param file the file
+         */
         void set(Path file);
     }
 
@@ -19,6 +30,14 @@ public class CurrentDocumentChangedListener extends AbstractMultipleDocumentModa
     private final StatusBar sb;
     private final SetFileTitle sft;
 
+    /**
+     * Instantiates a new Current document changed listener.
+     *
+     * @param mdm the mdm
+     * @param dm  the dm
+     * @param sb  the sb
+     * @param sft the sft
+     */
     public CurrentDocumentChangedListener(MultipleDocumentModel mdm, DisableManager dm, StatusBar sb, SetFileTitle sft) {
         this.mdm = mdm;
         this.dm = dm;

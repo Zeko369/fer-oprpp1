@@ -7,10 +7,19 @@ import javax.swing.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+/**
+ * The type Close window listener.
+ */
 public class CloseWindowListener extends WindowAdapter {
     private final MultipleDocumentModel mdm;
     private final JFrame app;
 
+    /**
+     * Instantiates a new Close window listener.
+     *
+     * @param mdm the mdm
+     * @param app the app
+     */
     public CloseWindowListener(MultipleDocumentModel mdm, JFrame app) {
         this.mdm = mdm;
         this.app = app;

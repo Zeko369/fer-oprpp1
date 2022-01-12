@@ -9,7 +9,18 @@ import javax.swing.text.BadLocationException;
 import java.text.Collator;
 import java.util.stream.Collectors;
 
+/**
+ * The type Sort util.
+ */
 public class SortUtil {
+    /**
+     * Sort.
+     *
+     * @param mdm       the mdm
+     * @param lp        the lp
+     * @param ascending the ascending
+     * @throws BadLocationException the bad location exception
+     */
     public static void sort(MultipleDocumentModel mdm, ILocalizationProvider lp, boolean ascending) throws BadLocationException {
         JTextArea editor = mdm.getCurrentDocument().getTextComponent();
 

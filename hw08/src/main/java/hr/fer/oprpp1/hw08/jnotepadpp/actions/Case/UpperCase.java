@@ -8,7 +8,16 @@ import hr.fer.oprpp1.hw08.jnotepadpp.model.MultipleDocumentModel;
 
 import java.awt.event.ActionEvent;
 
+/**
+ * The type Upper case.
+ */
 public class UpperCase extends BaseAction {
+    /**
+     * Instantiates a new Upper case.
+     *
+     * @param mdm the mdm
+     * @param lp  the lp
+     */
     public UpperCase(MultipleDocumentModel mdm, ILocalizationProvider lp) {
         super(mdm, lp, "uppercase");
     }

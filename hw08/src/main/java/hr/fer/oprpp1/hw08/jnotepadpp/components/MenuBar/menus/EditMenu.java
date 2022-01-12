@@ -10,7 +10,16 @@ import hr.fer.oprpp1.hw08.jnotepadpp.model.MultipleDocumentModel;
 
 import javax.swing.*;
 
+/**
+ * The type Edit menu.
+ */
 public class EditMenu extends LocalizedJMenu {
+    /**
+     * Instantiates a new Edit menu.
+     *
+     * @param mdm the mdm
+     * @param lp  the lp
+     */
     public EditMenu(MultipleDocumentModel mdm, ILocalizationProvider lp) {
         super("edit_menu", lp);
 

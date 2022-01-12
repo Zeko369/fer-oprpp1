@@ -13,6 +13,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * The type Default multiple document model.
+ */
 public class DefaultMultipleDocumentModel extends JTabbedPane implements MultipleDocumentModel {
     private final List<SingleDocumentModel> documents;
     private int currentIndex = -1;
@@ -23,6 +26,9 @@ public class DefaultMultipleDocumentModel extends JTabbedPane implements Multipl
     private final static ImageIcon modifiedIcon = DefaultMultipleDocumentModel.loader.loadIcon("/icons/modified.png");
     private final static ImageIcon unmodifiedIcon = DefaultMultipleDocumentModel.loader.loadIcon("/icons/unmodified.png");
 
+    /**
+     * Instantiates a new Default multiple document model.
+     */
     public DefaultMultipleDocumentModel() {
         this.listeners = new ArrayList<>();
         this.documents = new ArrayList<>();

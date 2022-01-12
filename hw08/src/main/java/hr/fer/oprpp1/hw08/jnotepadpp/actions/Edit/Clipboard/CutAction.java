@@ -10,7 +10,16 @@ import java.awt.*;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 
+/**
+ * The type Cut action.
+ */
 public class CutAction extends BaseAction {
+    /**
+     * Instantiates a new Cut action.
+     *
+     * @param mdm the mdm
+     * @param lp  the lp
+     */
     public CutAction(MultipleDocumentModel mdm, ILocalizationProvider lp) {
         super(mdm, lp, "cut");
     }

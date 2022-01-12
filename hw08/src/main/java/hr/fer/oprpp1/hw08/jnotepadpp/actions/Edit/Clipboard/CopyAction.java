@@ -8,7 +8,16 @@ import java.awt.*;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.ActionEvent;
 
+/**
+ * The type Copy action.
+ */
 public class CopyAction extends BaseAction {
+    /**
+     * Instantiates a new Copy action.
+     *
+     * @param mdm the mdm
+     * @param lp  the lp
+     */
     public CopyAction(MultipleDocumentModel mdm, ILocalizationProvider lp) {
         super(mdm, lp, "copy");
     }

@@ -7,7 +7,16 @@ import hr.fer.oprpp1.hw08.jnotepadpp.i18n.ILocalizationProvider;
 import hr.fer.oprpp1.hw08.jnotepadpp.i18n.components.LocalizedJMenu;
 import hr.fer.oprpp1.hw08.jnotepadpp.model.MultipleDocumentModel;
 
+/**
+ * The type Case menu.
+ */
 public class CaseMenu extends LocalizedJMenu {
+    /**
+     * Instantiates a new Case menu.
+     *
+     * @param mdm the mdm
+     * @param lp  the lp
+     */
     public CaseMenu(MultipleDocumentModel mdm, ILocalizationProvider lp) {
         super("case_menu", lp);
 

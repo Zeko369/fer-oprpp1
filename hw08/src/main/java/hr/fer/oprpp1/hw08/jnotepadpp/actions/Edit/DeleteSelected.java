@@ -8,7 +8,16 @@ import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import java.awt.event.ActionEvent;
 
+/**
+ * The type Delete selected.
+ */
 public class DeleteSelected extends BaseAction {
+    /**
+     * Instantiates a new Delete selected.
+     *
+     * @param mdm the mdm
+     * @param lp  the lp
+     */
     public DeleteSelected(MultipleDocumentModel mdm, ILocalizationProvider lp) {
         super(mdm, lp, "delete_selected");
     }

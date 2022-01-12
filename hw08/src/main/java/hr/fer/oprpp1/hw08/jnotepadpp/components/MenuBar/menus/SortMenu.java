@@ -7,7 +7,16 @@ import hr.fer.oprpp1.hw08.jnotepadpp.i18n.ILocalizationProvider;
 import hr.fer.oprpp1.hw08.jnotepadpp.i18n.components.LocalizedJMenu;
 import hr.fer.oprpp1.hw08.jnotepadpp.model.MultipleDocumentModel;
 
+/**
+ * The type Sort menu.
+ */
 public class SortMenu extends LocalizedJMenu {
+    /**
+     * Instantiates a new Sort menu.
+     *
+     * @param mdm the mdm
+     * @param lp  the lp
+     */
     public SortMenu(MultipleDocumentModel mdm, ILocalizationProvider lp) {
         super("sort_menu", lp);
 
