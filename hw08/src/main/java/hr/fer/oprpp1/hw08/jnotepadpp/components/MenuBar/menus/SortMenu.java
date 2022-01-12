@@ -1,5 +1,6 @@
 package hr.fer.oprpp1.hw08.jnotepadpp.components.MenuBar.menus;
 
+import hr.fer.oprpp1.hw08.jnotepadpp.actions.Edit.UniqueLines;
 import hr.fer.oprpp1.hw08.jnotepadpp.actions.Sort.SortAscending;
 import hr.fer.oprpp1.hw08.jnotepadpp.actions.Sort.SortDescending;
 import hr.fer.oprpp1.hw08.jnotepadpp.i18n.ILocalizationProvider;
@@ -12,5 +13,9 @@ public class SortMenu extends LocalizedJMenu {
 
         this.add(new SortAscending(mdm, lp));
         this.add(new SortDescending(mdm, lp));
+
+        this.addSeparator();
+
+        this.add(new UniqueLines(mdm, lp));
     }
 }

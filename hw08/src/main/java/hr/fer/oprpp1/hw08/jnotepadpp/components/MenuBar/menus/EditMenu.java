@@ -4,7 +4,6 @@ import hr.fer.oprpp1.hw08.jnotepadpp.actions.Edit.Clipboard.CopyAction;
 import hr.fer.oprpp1.hw08.jnotepadpp.actions.Edit.Clipboard.CutAction;
 import hr.fer.oprpp1.hw08.jnotepadpp.actions.Edit.DeleteSelected;
 import hr.fer.oprpp1.hw08.jnotepadpp.actions.Edit.Clipboard.PasteAction;
-import hr.fer.oprpp1.hw08.jnotepadpp.actions.Edit.UniqueLines;
 import hr.fer.oprpp1.hw08.jnotepadpp.i18n.ILocalizationProvider;
 import hr.fer.oprpp1.hw08.jnotepadpp.i18n.components.LocalizedJMenu;
 import hr.fer.oprpp1.hw08.jnotepadpp.model.MultipleDocumentModel;
@@ -22,6 +21,5 @@ public class EditMenu extends LocalizedJMenu {
         this.add(new JPopupMenu.Separator());
 
         this.add(new DeleteSelected(mdm, lp));
-        this.add(new UniqueLines(mdm, lp));
     }
 }
