@@ -1,6 +1,6 @@
 package hr.fer.oprpp1.hw08.jnotepadpp.components;
 
-import hr.fer.oprpp1.hw08.jnotepadpp.Managers.DisableManager;
+import hr.fer.oprpp1.hw08.jnotepadpp.managers.DisableManager;
 import hr.fer.oprpp1.hw08.jnotepadpp.actions.BaseAction;
 import hr.fer.oprpp1.hw08.jnotepadpp.actions.Case.InvertCase;
 import hr.fer.oprpp1.hw08.jnotepadpp.actions.Case.LowerCase;

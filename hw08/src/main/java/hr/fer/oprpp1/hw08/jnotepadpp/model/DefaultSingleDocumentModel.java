@@ -10,7 +10,7 @@ import java.util.List;
 public class DefaultSingleDocumentModel implements SingleDocumentModel {
     private final JTextArea textComponent;
 
-    private final String initContent;
+    private String initContent;
     private Path path;
     private boolean isModified = false;
 
@@ -42,6 +42,12 @@ public class DefaultSingleDocumentModel implements SingleDocumentModel {
                 DefaultSingleDocumentModel.this.setModified(this.hasChanges());
             }
         });
+    }
+
+    @Override
+    public void setInitialText(String initContent) {
+        this.initContent = initContent;
+        this.setModified(false);
     }
 
     @Override

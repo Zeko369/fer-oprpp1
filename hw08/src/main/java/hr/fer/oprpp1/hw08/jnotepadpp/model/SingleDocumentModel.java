@@ -14,6 +14,8 @@ public interface SingleDocumentModel {
 
     void setModified(boolean modified);
 
+    void setInitialText(String text);
+
     void addSingleDocumentListener(SingleDocumentListener l);
 
     void removeSingleDocumentListener(SingleDocumentListener l);

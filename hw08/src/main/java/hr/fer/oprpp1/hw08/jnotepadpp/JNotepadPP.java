@@ -1,13 +1,12 @@
 package hr.fer.oprpp1.hw08.jnotepadpp;
 
-import hr.fer.oprpp1.hw08.jnotepadpp.Managers.DisableManager;
+import hr.fer.oprpp1.hw08.jnotepadpp.managers.DisableManager;
 import hr.fer.oprpp1.hw08.jnotepadpp.components.MenuBar.MenuBar;
 import hr.fer.oprpp1.hw08.jnotepadpp.components.StatusBar;
 import hr.fer.oprpp1.hw08.jnotepadpp.components.Toolbar;
 import hr.fer.oprpp1.hw08.jnotepadpp.i18n.FormLocalizationProvider;
 import hr.fer.oprpp1.hw08.jnotepadpp.i18n.LocalizationProvider;
 import hr.fer.oprpp1.hw08.jnotepadpp.listeners.CurrentDocumentChangedListener;
-import hr.fer.oprpp1.hw08.jnotepadpp.model.AbstractMultipleDocumentModalListener;
 import hr.fer.oprpp1.hw08.jnotepadpp.listeners.CloseWindowListener;
 import hr.fer.oprpp1.hw08.jnotepadpp.model.*;
 

@@ -1,6 +1,6 @@
 package hr.fer.oprpp1.hw08.jnotepadpp.listeners;
 
-import hr.fer.oprpp1.hw08.jnotepadpp.Managers.DisableManager;
+import hr.fer.oprpp1.hw08.jnotepadpp.managers.DisableManager;
 import hr.fer.oprpp1.hw08.jnotepadpp.components.StatusBar;
 import hr.fer.oprpp1.hw08.jnotepadpp.model.AbstractMultipleDocumentModalListener;
 import hr.fer.oprpp1.hw08.jnotepadpp.model.MultipleDocumentModel;
