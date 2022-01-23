@@ -8,6 +8,7 @@ import hr.fer.oprpp1.hw08.jnotepadpp.model.MultipleDocumentModel;
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 
 /**
  * The type Sort ascending.
@@ -21,6 +22,9 @@ public class SortAscending extends BaseAction {
      */
     public SortAscending(MultipleDocumentModel mdm, ILocalizationProvider lp) {
         super(mdm, lp, "ascending");
+
+        this.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("F5"));
+        this.putValue(Action.MNEMONIC_KEY, KeyEvent.VK_F5);
     }
 
     @Override

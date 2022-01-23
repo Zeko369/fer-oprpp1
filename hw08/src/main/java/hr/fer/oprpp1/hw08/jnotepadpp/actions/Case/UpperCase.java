@@ -6,7 +6,9 @@ import hr.fer.oprpp1.hw08.jnotepadpp.actions.Case.shared.CaseHelper;
 import hr.fer.oprpp1.hw08.jnotepadpp.i18n.ILocalizationProvider;
 import hr.fer.oprpp1.hw08.jnotepadpp.model.MultipleDocumentModel;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 
 /**
  * The type Upper case.
@@ -20,6 +22,9 @@ public class UpperCase extends BaseAction {
      */
     public UpperCase(MultipleDocumentModel mdm, ILocalizationProvider lp) {
         super(mdm, lp, "uppercase");
+
+        this.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control U"));
+        this.putValue(Action.MNEMONIC_KEY, KeyEvent.VK_U);
     }
 
     @Override

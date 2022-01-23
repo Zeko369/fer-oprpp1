@@ -15,7 +15,7 @@ public class DefaultSingleDocumentModel implements SingleDocumentModel {
 
     private String initContent;
     private Path path;
-    private boolean isModified = false;
+    private boolean isModified = true;
 
     private final List<SingleDocumentListener> listeners;
 

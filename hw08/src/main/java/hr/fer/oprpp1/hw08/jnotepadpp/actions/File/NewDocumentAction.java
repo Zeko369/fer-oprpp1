@@ -4,7 +4,9 @@ import hr.fer.oprpp1.hw08.jnotepadpp.actions.BaseAction;
 import hr.fer.oprpp1.hw08.jnotepadpp.i18n.ILocalizationProvider;
 import hr.fer.oprpp1.hw08.jnotepadpp.model.MultipleDocumentModel;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 
 /**
  * The type New document action.
@@ -18,6 +20,9 @@ public class NewDocumentAction extends BaseAction {
      */
     public NewDocumentAction(MultipleDocumentModel mdm, ILocalizationProvider lp) {
         super(mdm, lp, "new");
+
+        this.putValue(Action.ACCELERATOR_KEY, KeyStroke.getKeyStroke("control N"));
+        this.putValue(Action.MNEMONIC_KEY, KeyEvent.VK_N);
     }
 
     @Override

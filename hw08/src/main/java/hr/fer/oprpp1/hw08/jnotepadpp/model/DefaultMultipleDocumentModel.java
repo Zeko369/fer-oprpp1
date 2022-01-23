@@ -23,8 +23,8 @@ public class DefaultMultipleDocumentModel extends JTabbedPane implements Multipl
     private final List<MultipleDocumentListener> listeners;
 
     private final static IconLoader loader = new IconLoader();
-    private final static ImageIcon modifiedIcon = DefaultMultipleDocumentModel.loader.loadIcon("/icons/modified.png");
-    private final static ImageIcon unmodifiedIcon = DefaultMultipleDocumentModel.loader.loadIcon("/icons/unmodified.png");
+    private final static ImageIcon modifiedIcon = DefaultMultipleDocumentModel.loader.loadIcon("/icons/unmodified.png");
+    private final static ImageIcon unmodifiedIcon = DefaultMultipleDocumentModel.loader.loadIcon("/icons/modified.png");
 
     /**
      * Instantiates a new Default multiple document model.
@@ -32,7 +32,6 @@ public class DefaultMultipleDocumentModel extends JTabbedPane implements Multipl
     public DefaultMultipleDocumentModel() {
         this.listeners = new ArrayList<>();
         this.documents = new ArrayList<>();
-
 
         // TODO: Remove
         this.createNewDocument();
@@ -116,7 +115,6 @@ public class DefaultMultipleDocumentModel extends JTabbedPane implements Multipl
         } catch (IOException e) {
             throw new FileSystemException(FileSystemExceptionType.ERROR);
         }
-
     }
 
     @Override

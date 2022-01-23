@@ -16,6 +16,10 @@ public class CloseHelper {
      */
     public static void closeApp(MultipleDocumentModel mdm, JFrame app) {
         for (int i = 0; i < mdm.getNumberOfDocuments(); i++) {
+            if (!mdm.getDocument(i).isModified()) {
+                continue;
+            }
+
             if (!SaveHelper.saveOrCancel(mdm.getDocument(i), mdm, app)) {
                 return;
             }

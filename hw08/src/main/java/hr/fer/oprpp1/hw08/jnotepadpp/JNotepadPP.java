@@ -37,7 +37,7 @@ public class JNotepadPP extends JFrame {
      */
     public JNotepadPP() {
         this.setLocation(0, 0);
-        this.setSize(1000, 1200);
+        this.setSize(1600, 1000);
         this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
         this.mdm = new DefaultMultipleDocumentModel();
