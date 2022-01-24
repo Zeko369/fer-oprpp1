@@ -1,5 +1,6 @@
 package hr.fer.zemris.java.gui.Charts;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class BarChart {
@@ -39,6 +40,12 @@ public class BarChart {
                 throw new IllegalArgumentException("Value has to be between min and max.");
             }
         });
+    }
+
+    public void randomise() {
+        for (XYValue value : this.values) {
+            value.randomise(this.getMinY(), this.getMaxY());
+        }
     }
 
     public List<XYValue> getValues() {

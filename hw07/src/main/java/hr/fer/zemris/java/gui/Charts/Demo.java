@@ -1,5 +1,7 @@
 package hr.fer.zemris.java.gui.Charts;
 
+import hr.fer.zemris.java.gui.Charts.shared.LoadData;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
@@ -17,32 +19,15 @@ public class Demo extends JFrame {
             System.exit(1);
         }
 
-        List<String> lines = Files.readAllLines(Paths.get(args[0]));
-
-        if (lines.size() < 5) {
-            System.err.println("Expected at least 5 lines in data file");
+        LoadData loader = new LoadData();
+        try {
+            loader.getInitialData(args[0]);
+        } catch (LoadData.LoadDataException e) {
+            System.err.println(e.getMessage());
             System.exit(1);
         }
 
-        String xDescription = lines.get(0);
-        String yDescription = lines.get(1);
-
-        List<XYValue> values = Arrays.stream(lines.get(2).split(" "))
-                .map(s -> s.split(","))
-                .map(arr -> new XYValue(Integer.parseInt(arr[0]), Integer.parseInt(arr[1])))
-                .toList();
-
-        int minY = Integer.parseInt(lines.get(3));
-        int maxY = Integer.parseInt(lines.get(4));
-        int step = Integer.parseInt(lines.get(5));
-
-        try {
-            BarChart chart = new BarChart(values, xDescription, yDescription, minY, maxY, step);
-            SwingUtilities.invokeLater(() -> new Demo(chart).setVisible(true));
-        } catch (IllegalArgumentException e) {
-            System.err.println("Error loading data from file");
-            System.err.println(e.getMessage());
-        }
+        SwingUtilities.invokeLater(() -> new Demo(loader.getChart()).setVisible(true));
     }
 
     public Demo(BarChart barChart) {

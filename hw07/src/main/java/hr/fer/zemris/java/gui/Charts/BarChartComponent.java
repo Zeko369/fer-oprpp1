@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class BarChartComponent extends JComponent {
-    private final BarChart barChart;
+    private BarChart barChart;
 
     private final int GAP = 10;
     private static final Color COLOR = Color.ORANGE;
@@ -14,6 +14,11 @@ public class BarChartComponent extends JComponent {
 
     public BarChartComponent(BarChart barChart) {
         this.barChart = barChart;
+    }
+
+    public void setData(BarChart barChart) {
+        this.barChart = barChart;
+        this.repaint();
     }
 
     @Override
@@ -49,7 +54,7 @@ public class BarChartComponent extends JComponent {
             int tmpHeight = value.getY() * graphHeight / yCount / this.barChart.getStepY();
 
             graphics.setColor(COLOR);
-            graphics.fillRect(x, graphHeight - tmpHeight, realStep , tmpHeight);
+            graphics.fillRect(x, graphHeight - tmpHeight, (i == 0 ? -leftPadding : 0) + realStep , tmpHeight);
             graphics.setColor(Color.WHITE);
             graphics.drawLine(x, graphHeight - tmpHeight, x, graphHeight);
 
@@ -91,7 +96,7 @@ public class BarChartComponent extends JComponent {
 
             String tmp = String.valueOf(this.barChart.getStepY() * i + this.barChart.getMinY());
             graphics.setColor(Color.BLACK);
-            graphics.drawString(tmp, GAP, height - i * yStep + yStep);
+            graphics.drawString(tmp, GAP, height - i * yStep);
             graphics.setColor(Color.YELLOW);
         }
 

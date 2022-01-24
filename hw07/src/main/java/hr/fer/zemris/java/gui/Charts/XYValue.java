@@ -6,8 +6,8 @@ package hr.fer.zemris.java.gui.Charts;
  * @author franzekan
  */
 public class XYValue {
-    private final int x;
-    private final int y;
+    private int x;
+    private int y;
 
     /**
      * Instantiates a new Xy value.
@@ -36,5 +36,15 @@ public class XYValue {
      */
     public int getY() {
         return y;
+    }
+
+    public void randomise(int minY, int maxY) {
+        this.x = (int) (Math.random() * 100);
+        this.y = (int) (Math.random() * (maxY - minY)) + minY;
+    }
+
+    @Override
+    public String toString() {
+        return "(" + x + ", " + y + ")";
     }
 }
