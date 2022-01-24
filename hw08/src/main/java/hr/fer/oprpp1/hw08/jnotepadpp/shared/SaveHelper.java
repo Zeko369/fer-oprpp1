@@ -73,7 +73,7 @@ public class SaveHelper {
      * @param saveAs the save as
      */
     public static void saveCurrent(MultipleDocumentModel mdm, JFrame app, boolean saveAs) {
-        Path path = null;
+        Path path = mdm.getCurrentDocument().getFilePath();
         if (mdm.getCurrentDocument().getFilePath() == null || saveAs) {
             String title = String.format("Save%s document", saveAs ? " as" : "");
             JFileChooser jfc = new JFileChooser();

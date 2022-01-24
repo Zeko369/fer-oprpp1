@@ -23,8 +23,8 @@ public class DefaultMultipleDocumentModel extends JTabbedPane implements Multipl
     private final List<MultipleDocumentListener> listeners;
 
     private final static IconLoader loader = new IconLoader();
-    private final static ImageIcon modifiedIcon = DefaultMultipleDocumentModel.loader.loadIcon("/icons/unmodified.png");
-    private final static ImageIcon unmodifiedIcon = DefaultMultipleDocumentModel.loader.loadIcon("/icons/modified.png");
+    private final static ImageIcon modifiedIcon = DefaultMultipleDocumentModel.loader.loadIcon("/icons/modified.png");
+    private final static ImageIcon unmodifiedIcon = DefaultMultipleDocumentModel.loader.loadIcon("/icons/unmodified.png");
 
     /**
      * Instantiates a new Default multiple document model.
@@ -72,7 +72,7 @@ public class DefaultMultipleDocumentModel extends JTabbedPane implements Multipl
             public void documentModifyStatusUpdated(SingleDocumentModel model) {
                 DefaultMultipleDocumentModel.this.setIconAt(
                         this.getIndex(),
-                        doc.isModified() ? DefaultMultipleDocumentModel.modifiedIcon : DefaultMultipleDocumentModel.unmodifiedIcon
+                        !doc.isModified() ? DefaultMultipleDocumentModel.modifiedIcon : DefaultMultipleDocumentModel.unmodifiedIcon
                 );
             }
 
@@ -120,9 +120,10 @@ public class DefaultMultipleDocumentModel extends JTabbedPane implements Multipl
     @Override
     public void saveDocument(SingleDocumentModel model, Path newPath) throws FileSystemException {
         SingleDocumentModel doc = this.findForPath(newPath);
-        if (doc != null) {
-            throw new FileSystemException(FileSystemExceptionType.ALREADY_EXISTS);
-        }
+        // TODO: Handle file open in a different tab with same name
+//        if (doc == null) {
+//            throw new FileSystemException(FileSystemExceptionType.ALREADY_EXISTS);
+//        }
 
         model.setFilePath(newPath == null ? model.getFilePath() : newPath);
         model.setInitialText(model.getTextComponent().getText());
