@@ -1,14 +1,15 @@
 package hr.fer.zemris.java.gui.Charts;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class BarChart {
     private final List<XYValue> values;
 
-    private final String xDescription;
-
-    private final String yDescription;
+    private String xDescription;
+    private String yDescription;
 
     private final int minY;
     private final int maxY;
@@ -46,6 +47,16 @@ public class BarChart {
         for (XYValue value : this.values) {
             value.randomise(this.getMinY(), this.getMaxY());
         }
+
+        StringBuilder newX = new StringBuilder();
+        StringBuilder newY = new StringBuilder();
+        for (int i = 0; i < 10; i++) {
+            newX.append((char) (Math.random() * 26 + 'a'));
+            newY.append((char) (Math.random() * 26 + 'a'));
+        }
+
+        this.xDescription = newX.toString();
+        this.yDescription = newY.toString();
     }
 
     public List<XYValue> getValues() {

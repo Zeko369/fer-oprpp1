@@ -2,6 +2,7 @@ package hr.fer.zemris.java.gui.Charts;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 
 public class BarChartComponent extends JComponent {
     private BarChart barChart;
@@ -34,14 +35,25 @@ public class BarChartComponent extends JComponent {
     }
 
     private void drawMain(Graphics2D graphics) {
-        int leftPadding = graphics.getFontMetrics().stringWidth(String.valueOf(barChart.getMaxY())) + GAP;
-        int bottomPadding = graphics.getFontMetrics().getAscent() + GAP;
+        graphics.setFont(new Font("SansSerif", Font.PLAIN, 16));
+        int leftPadding = graphics.getFontMetrics().stringWidth(String.valueOf(barChart.getMaxY())) + GAP * 3;
+        int bottomPadding = graphics.getFontMetrics().getAscent() + GAP + GAP;
 
         int yCount = (this.barChart.getMaxY() - this.barChart.getMinY()) / this.barChart.getStepY() + 1;
         int xCount = this.barChart.getValues().size();
 
         int graphWidth = this.dimension.width - this.insets.left - this.insets.right - leftPadding - GAP;
         int graphHeight = this.dimension.height - this.insets.top - this.insets.bottom - bottomPadding - GAP;
+
+        graphics.setColor(Color.BLACK);
+        graphics.drawString(barChart.getyDescription(), leftPadding + graphWidth / 2 - graphics.getFontMetrics().stringWidth(barChart.getyDescription())/ 2, GAP * 3 + graphHeight);
+
+        AffineTransform affineTransform = new AffineTransform();
+        affineTransform.rotate(Math.toRadians(90), 0, 0);
+        Font rotatedFont = graphics.getFont().deriveFont(14f).deriveFont(affineTransform);
+        graphics.setFont(rotatedFont);
+        graphics.drawString(barChart.getxDescription(), GAP, GAP * 2);
+        graphics.setFont(new Font("SansSerif", Font.PLAIN, 16));
 
         int realWidth = graphWidth / xCount * xCount;
         int realStep = realWidth / xCount;
@@ -54,7 +66,7 @@ public class BarChartComponent extends JComponent {
             int tmpHeight = value.getY() * graphHeight / yCount / this.barChart.getStepY();
 
             graphics.setColor(COLOR);
-            graphics.fillRect(x, graphHeight - tmpHeight, realStep , tmpHeight);
+            graphics.fillRect(x, graphHeight - tmpHeight, realStep, tmpHeight);
             graphics.setColor(Color.WHITE);
             graphics.drawLine(x, graphHeight - tmpHeight, x, graphHeight);
 
@@ -96,7 +108,7 @@ public class BarChartComponent extends JComponent {
 
             String tmp = String.valueOf(this.barChart.getStepY() * i + this.barChart.getMinY());
             graphics.setColor(Color.BLACK);
-            graphics.drawString(tmp, GAP, height - i * yStep);
+            graphics.drawString(tmp, GAP * 3, height - i * yStep);
             graphics.setColor(Color.YELLOW);
         }
 

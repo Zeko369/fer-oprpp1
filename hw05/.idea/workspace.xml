@@ -5,16 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="73582f10-00da-4c42-9535-266fa0fddb62" name="Changes" comment="[HW05] - Fixes on shell">
-      <change beforePath="$PROJECT_DIR$/../hw04/src/main/java/hr/fer/oprpp1/hw04/db/QueryParser/QueryLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../hw04/src/main/java/hr/fer/oprpp1/hw04/db/QueryParser/QueryLexer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hw04/src/main/java/hr/fer/oprpp1/hw04/db/QueryParser/QueryParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/../hw04/src/main/java/hr/fer/oprpp1/hw04/db/QueryParser/QueryParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hw04/src/main/java/hr/fer/oprpp1/hw04/db/QueryParser/QueryTokenType.java" beforeDir="false" afterPath="$PROJECT_DIR$/../hw04/src/main/java/hr/fer/oprpp1/hw04/db/QueryParser/QueryTokenType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hw04/src/main/java/hr/fer/oprpp1/hw04/db/StudentDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/../hw04/src/main/java/hr/fer/oprpp1/hw04/db/StudentDB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hw04/src/main/resources/database.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../hw04/src/main/resources/database.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../hw07/src/main/java/hr/fer/zemris/java/gui/Charts/BarChart.java" beforeDir="false" afterPath="$PROJECT_DIR$/../hw07/src/main/java/hr/fer/zemris/java/gui/Charts/BarChart.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../hw07/src/main/java/hr/fer/zemris/java/gui/Charts/BarChartComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/../hw07/src/main/java/hr/fer/zemris/java/gui/Charts/BarChartComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hw07/src/main/java/hr/fer/zemris/java/gui/Charts/Demo.java" beforeDir="false" afterPath="$PROJECT_DIR$/../hw07/src/main/java/hr/fer/zemris/java/gui/Charts/Demo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hw07/src/main/java/hr/fer/zemris/java/gui/Charts/XYValue.java" beforeDir="false" afterPath="$PROJECT_DIR$/../hw07/src/main/java/hr/fer/zemris/java/gui/Charts/XYValue.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
