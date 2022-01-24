@@ -148,6 +148,7 @@ public class DefaultMultipleDocumentModel extends JTabbedPane implements Multipl
                 this.listeners.forEach(l -> l.currentDocumentChanged(this.documents.get(0), this.documents.get(1)));
                 this.removeTabAt(0);
                 this.documents.remove(0);
+                return;
             default:
                 for (int i = 0; i < this.documents.size(); i++) {
                     if (this.documents.get(i).equals(model)) {

@@ -33,7 +33,7 @@ public class DefaultSingleDocumentModel implements SingleDocumentModel {
         this.textComponent = new JTextArea(content);
         this.textComponent.getDocument().addDocumentListener(new DocumentListener() {
             private boolean hasChanges() {
-                return DefaultSingleDocumentModel.this.initContent.equals(DefaultSingleDocumentModel.this.textComponent.getText());
+                return !DefaultSingleDocumentModel.this.initContent.equals(DefaultSingleDocumentModel.this.textComponent.getText());
             }
 
             @Override
