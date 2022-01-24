@@ -1,0 +1,355 @@
+diff --git a/hw07/src/main/java/hr/fer/zemris/java/gui/Charts/BarChart.java b/hw07/src/main/java/hr/fer/zemris/java/gui/Charts/BarChart.java
+index 2b8c948..942f18f 100644
+--- a/hw07/src/main/java/hr/fer/zemris/java/gui/Charts/BarChart.java
++++ b/hw07/src/main/java/hr/fer/zemris/java/gui/Charts/BarChart.java
+@@ -1,13 +1,15 @@
+ package hr.fer.zemris.java.gui.Charts;
+ 
++import java.util.ArrayList;
++import java.util.Arrays;
+ import java.util.List;
++import java.util.stream.Collectors;
+ 
+ public class BarChart {
+     private final List<XYValue> values;
+ 
+-    private final String xDescription;
+-
+-    private final String yDescription;
++    private String xDescription;
++    private String yDescription;
+ 
+     private final int minY;
+     private final int maxY;
+@@ -41,6 +43,22 @@ public class BarChart {
+         });
+     }
+ 
++    public void randomise() {
++        for (XYValue value : this.values) {
++            value.randomise(this.getMinY(), this.getMaxY());
++        }
++
++        StringBuilder newX = new StringBuilder();
++        StringBuilder newY = new StringBuilder();
++        for (int i = 0; i < 10; i++) {
++            newX.append((char) (Math.random() * 26 + 'a'));
++            newY.append((char) (Math.random() * 26 + 'a'));
++        }
++
++        this.xDescription = newX.toString();
++        this.yDescription = newY.toString();
++    }
++
+     public List<XYValue> getValues() {
+         return values;
+     }
+diff --git a/hw07/src/main/java/hr/fer/zemris/java/gui/Charts/BarChartComponent.java b/hw07/src/main/java/hr/fer/zemris/java/gui/Charts/BarChartComponent.java
+index d297d46..8dc4451 100644
+--- a/hw07/src/main/java/hr/fer/zemris/java/gui/Charts/BarChartComponent.java
++++ b/hw07/src/main/java/hr/fer/zemris/java/gui/Charts/BarChartComponent.java
+@@ -2,9 +2,10 @@ package hr.fer.zemris.java.gui.Charts;
+ 
+ import javax.swing.*;
+ import java.awt.*;
++import java.awt.geom.AffineTransform;
+ 
+ public class BarChartComponent extends JComponent {
+-    private final BarChart barChart;
++    private BarChart barChart;
+ 
+     private final int GAP = 10;
+     private static final Color COLOR = Color.ORANGE;
+@@ -16,6 +17,11 @@ public class BarChartComponent extends JComponent {
+         this.barChart = barChart;
+     }
+ 
++    public void setData(BarChart barChart) {
++        this.barChart = barChart;
++        this.repaint();
++    }
++
+     @Override
+     protected void paintComponent(Graphics g) {
+         Graphics2D graphics = (Graphics2D) g;
+@@ -29,8 +35,9 @@ public class BarChartComponent extends JComponent {
+     }
+ 
+     private void drawMain(Graphics2D graphics) {
+-        int leftPadding = graphics.getFontMetrics().stringWidth(String.valueOf(barChart.getMaxY())) + GAP;
+-        int bottomPadding = graphics.getFontMetrics().getAscent() + GAP;
++        graphics.setFont(new Font("SansSerif", Font.PLAIN, 16));
++        int leftPadding = graphics.getFontMetrics().stringWidth(String.valueOf(barChart.getMaxY())) + GAP * 3;
++        int bottomPadding = graphics.getFontMetrics().getAscent() + GAP + GAP;
+ 
+         int yCount = (this.barChart.getMaxY() - this.barChart.getMinY()) / this.barChart.getStepY() + 1;
+         int xCount = this.barChart.getValues().size();
+@@ -38,6 +45,16 @@ public class BarChartComponent extends JComponent {
+         int graphWidth = this.dimension.width - this.insets.left - this.insets.right - leftPadding - GAP;
+         int graphHeight = this.dimension.height - this.insets.top - this.insets.bottom - bottomPadding - GAP;
+ 
++        graphics.setColor(Color.BLACK);
++        graphics.drawString(barChart.getyDescription(), leftPadding + graphWidth / 2 - graphics.getFontMetrics().stringWidth(barChart.getyDescription())/ 2, GAP * 3 + graphHeight);
++
++        AffineTransform affineTransform = new AffineTransform();
++        affineTransform.rotate(Math.toRadians(90), 0, 0);
++        Font rotatedFont = graphics.getFont().deriveFont(14f).deriveFont(affineTransform);
++        graphics.setFont(rotatedFont);
++        graphics.drawString(barChart.getxDescription(), GAP, GAP * 2);
++        graphics.setFont(new Font("SansSerif", Font.PLAIN, 16));
++
+         int realWidth = graphWidth / xCount * xCount;
+         int realStep = realWidth / xCount;
+ 
+@@ -45,11 +62,11 @@ public class BarChartComponent extends JComponent {
+ 
+         for (int i = 0; i < this.barChart.getValues().size(); i++) {
+             XYValue value = this.barChart.getValues().get(i);
+-            int x = (i == 0 ? leftPadding : 0) + i * realStep;
++            int x = i * realStep + leftPadding;
+             int tmpHeight = value.getY() * graphHeight / yCount / this.barChart.getStepY();
+ 
+             graphics.setColor(COLOR);
+-            graphics.fillRect(x, graphHeight - tmpHeight, realStep , tmpHeight);
++            graphics.fillRect(x, graphHeight - tmpHeight, realStep, tmpHeight);
+             graphics.setColor(Color.WHITE);
+             graphics.drawLine(x, graphHeight - tmpHeight, x, graphHeight);
+ 
+@@ -87,16 +104,16 @@ public class BarChartComponent extends JComponent {
+         graphics.setFont(graphics.getFont().deriveFont(10f));
+ 
+         for (int i = 0; i < yCount; i++) {
+-            graphics.drawLine(x0, height - i * yStep, xStep * xCount, height - i * yStep);
++            graphics.drawLine(x0, height - i * yStep, x0 + xStep * xCount, height - i * yStep);
+ 
+             String tmp = String.valueOf(this.barChart.getStepY() * i + this.barChart.getMinY());
+             graphics.setColor(Color.BLACK);
+-            graphics.drawString(tmp, GAP, height - i * yStep + yStep);
++            graphics.drawString(tmp, GAP * 3, height - i * yStep);
+             graphics.setColor(Color.YELLOW);
+         }
+ 
+         for (int i = 0; i < xCount; i++) {
+-            graphics.drawLine(width - i * xStep, height, width - i * xStep, height - yStep * yCount);
++            graphics.drawLine(x0 + width - i * xStep, height, x0 + width - i * xStep, height - yStep * yCount);
+         }
+ 
+         graphics.setColor(Color.BLACK);
+diff --git a/hw07/src/main/java/hr/fer/zemris/java/gui/Charts/Demo.java b/hw07/src/main/java/hr/fer/zemris/java/gui/Charts/Demo.java
+index 4bb351a..c03fdc2 100644
+--- a/hw07/src/main/java/hr/fer/zemris/java/gui/Charts/Demo.java
++++ b/hw07/src/main/java/hr/fer/zemris/java/gui/Charts/Demo.java
+@@ -1,5 +1,7 @@
+ package hr.fer.zemris.java.gui.Charts;
+ 
++import hr.fer.zemris.java.gui.Charts.shared.LoadData;
++
+ import javax.swing.*;
+ import java.awt.*;
+ import java.io.IOException;
+@@ -17,32 +19,15 @@ public class Demo extends JFrame {
+             System.exit(1);
+         }
+ 
+-        List<String> lines = Files.readAllLines(Paths.get(args[0]));
+-
+-        if (lines.size() < 5) {
+-            System.err.println("Expected at least 5 lines in data file");
+-            System.exit(1);
+-        }
+-
+-        String xDescription = lines.get(0);
+-        String yDescription = lines.get(1);
+-
+-        List<XYValue> values = Arrays.stream(lines.get(2).split(" "))
+-                .map(s -> s.split(","))
+-                .map(arr -> new XYValue(Integer.parseInt(arr[0]), Integer.parseInt(arr[1])))
+-                .toList();
+-
+-        int minY = Integer.parseInt(lines.get(3));
+-        int maxY = Integer.parseInt(lines.get(4));
+-        int step = Integer.parseInt(lines.get(5));
+-
++        LoadData loader = new LoadData();
+         try {
+-            BarChart chart = new BarChart(values, xDescription, yDescription, minY, maxY, step);
+-            SwingUtilities.invokeLater(() -> new Demo(chart).setVisible(true));
+-        } catch (IllegalArgumentException e) {
+-            System.err.println("Error loading data from file");
++            loader.getInitialData(args[0]);
++        } catch (LoadData.LoadDataException e) {
+             System.err.println(e.getMessage());
++            System.exit(1);
+         }
++
++        SwingUtilities.invokeLater(() -> new Demo(loader.getChart()).setVisible(true));
+     }
+ 
+     public Demo(BarChart barChart) {
+diff --git a/hw07/src/main/java/hr/fer/zemris/java/gui/Charts/Grafovi.java b/hw07/src/main/java/hr/fer/zemris/java/gui/Charts/Grafovi.java
+new file mode 100644
+index 0000000..b750dbc
+--- /dev/null
++++ b/hw07/src/main/java/hr/fer/zemris/java/gui/Charts/Grafovi.java
+@@ -0,0 +1,64 @@
++package hr.fer.zemris.java.gui.Charts;
++
++import hr.fer.zemris.java.gui.Charts.shared.LoadData;
++
++import javax.swing.*;
++import java.awt.*;
++
++public class Grafovi extends JFrame {
++    private final LoadData[] loaders;
++    private final BarChartComponent[] barChartGraphs;
++
++    public static void main(String[] args) {
++        if (args.length != 1) {
++            System.err.println("Usage: java Demo <path to data file>");
++            System.exit(1);
++        }
++
++        SwingUtilities.invokeLater(() -> new Grafovi(args[0]).setVisible(true));
++    }
++
++    public Grafovi(String path) {
++        this.loaders = new LoadData[4];
++        for (int i = 0; i < 4; i++) {
++            this.loaders[i] = new LoadData();
++            this.loaders[i].getInitialData(path);
++        }
++
++        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
++        this.setTitle("Bar chart");
++        this.setSize(800, 600);
++
++        this.barChartGraphs = new BarChartComponent[4];
++
++        this.initGUI();
++    }
++
++    private void initGUI() {
++        this.getContentPane().setLayout(new BorderLayout());
++
++        JPanel graphs = new JPanel(new GridLayout(2, 2));
++        graphs.setLayout(new GridLayout(2, 2));
++        for (int i = 0; i < 4; i++) {
++            this.barChartGraphs[i] = new BarChartComponent(this.loaders[i].getChart());
++            graphs.add(this.barChartGraphs[i]);
++        }
++        this.getContentPane().add(graphs, BorderLayout.CENTER);
++
++        JPanel buttons = new JPanel();
++        buttons.setLayout(new GridLayout(1, 4));
++        for (int i = 0; i < 4; i++) {
++            JButton btn = new JButton("Graph " + (i + 1));
++
++            int finalI = i;
++            btn.addActionListener((e) -> {
++                this.loaders[finalI].randomise();
++                this.barChartGraphs[finalI].setData(this.loaders[finalI].getChart());
++            });
++
++            buttons.add(btn);
++        }
++
++        this.getContentPane().add(buttons, BorderLayout.PAGE_END);
++    }
++}
+diff --git a/hw07/src/main/java/hr/fer/zemris/java/gui/Charts/XYValue.java b/hw07/src/main/java/hr/fer/zemris/java/gui/Charts/XYValue.java
+index 202644c..43108d0 100644
+--- a/hw07/src/main/java/hr/fer/zemris/java/gui/Charts/XYValue.java
++++ b/hw07/src/main/java/hr/fer/zemris/java/gui/Charts/XYValue.java
+@@ -6,8 +6,8 @@ package hr.fer.zemris.java.gui.Charts;
+  * @author franzekan
+  */
+ public class XYValue {
+-    private final int x;
+-    private final int y;
++    private int x;
++    private int y;
+ 
+     /**
+      * Instantiates a new Xy value.
+@@ -37,4 +37,14 @@ public class XYValue {
+     public int getY() {
+         return y;
+     }
++
++    public void randomise(int minY, int maxY) {
++        this.x = (int) (Math.random() * 100);
++        this.y = (int) (Math.random() * (maxY - minY)) + minY;
++    }
++
++    @Override
++    public String toString() {
++        return "(" + x + ", " + y + ")";
++    }
+ }
+diff --git a/hw07/src/main/java/hr/fer/zemris/java/gui/Charts/shared/LoadData.java b/hw07/src/main/java/hr/fer/zemris/java/gui/Charts/shared/LoadData.java
+new file mode 100644
+index 0000000..201ca87
+--- /dev/null
++++ b/hw07/src/main/java/hr/fer/zemris/java/gui/Charts/shared/LoadData.java
+@@ -0,0 +1,61 @@
++package hr.fer.zemris.java.gui.Charts.shared;
++
++import hr.fer.zemris.java.gui.Charts.BarChart;
++import hr.fer.zemris.java.gui.Charts.Demo;
++import hr.fer.zemris.java.gui.Charts.XYValue;
++
++import javax.swing.*;
++import java.io.IOException;
++import java.nio.file.Files;
++import java.nio.file.Paths;
++import java.util.Arrays;
++import java.util.List;
++
++public class LoadData {
++    private BarChart chart;
++
++    public static class LoadDataException extends RuntimeException {
++        public LoadDataException(String message) {
++            super(message);
++        }
++    }
++
++    public BarChart getChart() {
++        return chart;
++    }
++
++    public void getInitialData(String path) {
++        List<String> lines = null;
++        try {
++            lines = Files.readAllLines(Paths.get(path));
++        } catch (IOException e) {
++            throw new LoadDataException("Error opening file");
++        }
++
++        if (lines.size() < 5) {
++            throw new LoadDataException("Not enough lines");
++        }
++
++        String xDescription = lines.get(0);
++        String yDescription = lines.get(1);
++
++        List<XYValue> values = Arrays.stream(lines.get(2).split(" "))
++                .map(s -> s.split(","))
++                .map(arr -> new XYValue(Integer.parseInt(arr[0]), Integer.parseInt(arr[1])))
++                .toList();
++
++        int minY = Integer.parseInt(lines.get(3));
++        int maxY = Integer.parseInt(lines.get(4));
++        int step = Integer.parseInt(lines.get(5));
++
++        try {
++            this.chart = new BarChart(values, xDescription, yDescription, minY, maxY, step);
++        } catch (IllegalArgumentException e) {
++            throw new LoadDataException("Invalid data");
++        }
++    }
++
++    public void randomise() {
++        this.chart.randomise();
++    }
++}

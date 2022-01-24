@@ -1,0 +1,173 @@
+diff --git a/hw04/src/main/java/hr/fer/oprpp1/hw04/db/QueryParser/QueryLexer.java b/hw04/src/main/java/hr/fer/oprpp1/hw04/db/QueryParser/QueryLexer.java
+index 0ca4721..e60615a 100644
+--- a/hw04/src/main/java/hr/fer/oprpp1/hw04/db/QueryParser/QueryLexer.java
++++ b/hw04/src/main/java/hr/fer/oprpp1/hw04/db/QueryParser/QueryLexer.java
+@@ -1,5 +1,6 @@
+ package hr.fer.oprpp1.hw04.db.QueryParser;
+ 
++import java.util.Arrays;
+ import java.util.List;
+ 
+ /**
+@@ -40,10 +41,13 @@ public class QueryLexer {
+             "AND"
+     });
+ 
++    // TODO: remove stuff from exam
+     private static final List<String> optionKeywords = List.of(new String[]{
+             "with-statistics"
+     });
+ 
++    private static final String ORDER_BY_KEYWORD = "orderby";
++
+     private QueryToken setToken(QueryTokenType type, String value) {
+         this.token = new QueryToken(type, value);
+         return this.token;
+@@ -105,9 +109,25 @@ public class QueryLexer {
+             return this.setToken(QueryTokenType.EOF, null);
+         }
+ 
++        if (this.getToken() != null && this.getToken().getType() == QueryTokenType.ORDER_BY) {
++            StringBuilder sb = new StringBuilder();
++            for (int i = this.index; i < this.query.length; i++) {
++                sb.append(this.query[i]);
++            }
++
++            this.index = this.query.length;
++
++            return this.setToken(QueryTokenType.ORDER_BY_LIST, sb.toString());
++        }
++
++        if (this.checkSequence(ORDER_BY_KEYWORD)) {
++            this.index += ORDER_BY_KEYWORD.length();
++            return this.setToken(QueryTokenType.ORDER_BY, "orderBy");
++        }
++
+         // OPTION
+-        for(String option : optionKeywords) {
+-            if(this.checkSequence(option)) {
++        for (String option : optionKeywords) {
++            if (this.checkSequence(option)) {
+                 this.index += option.length();
+                 return this.setToken(QueryTokenType.OPTION, option);
+             }
+diff --git a/hw04/src/main/java/hr/fer/oprpp1/hw04/db/QueryParser/QueryParser.java b/hw04/src/main/java/hr/fer/oprpp1/hw04/db/QueryParser/QueryParser.java
+index 19450ff..d01e2d1 100644
+--- a/hw04/src/main/java/hr/fer/oprpp1/hw04/db/QueryParser/QueryParser.java
++++ b/hw04/src/main/java/hr/fer/oprpp1/hw04/db/QueryParser/QueryParser.java
+@@ -16,11 +16,17 @@ import java.util.stream.Collectors;
+  * @author franzekan
+  */
+ public class QueryParser {
++    public static void main(String[] args) {
++        QueryParser parser = new QueryParser("lastName LIKE \"B*\" orderby lastName, firstName, jmbag");
++    }
++
+     private List<ConditionalExpression> query = new ArrayList<>();
+ 
+     // should be a list or a class/record
+     private boolean withStatistic = false;
+ 
++    private final List<String> orderBy = new ArrayList<>();
++
+     /**
+      * ConditionalExpression with JMBAG=value if found, or null
+      */
+@@ -36,6 +42,7 @@ public class QueryParser {
+         try {
+             this.parse(query);
+         } catch (RuntimeException e) {
+             throw new QueryParserException("Error parsing query");
+         }
+ 
+@@ -71,13 +78,23 @@ public class QueryParser {
+                 this.withStatistic = true;
+ 
+                 token = lexer.getNextToken();
+-                if(token.getType() != QueryTokenType.EOF) {
++                if (token.getType() != QueryTokenType.EOF) {
+                     throw new QueryParserException("Unexpected option");
+                 }
+ 
+                 continue;
+             }
+ 
++            if (token.getType() == QueryTokenType.ORDER_BY) {
++                String tmp = lexer.getNextToken().getValue();
++                for (String field : tmp.split(",")) {
++                    this.orderBy.add(field.trim());
++                }
++
++                token = lexer.getNextToken();
++                continue;
++            }
++
+             if (token.getType() == QueryTokenType.LOGICAL_OPERATOR) {
+                 if (this.query.size() == 0) {
+                     throw new QueryParserException("Unexpected logical operator");
+@@ -91,7 +108,6 @@ public class QueryParser {
+                 throw new QueryParserException("Unexpected type");
+             }
+ 
+-
+             QueryToken operator = lexer.getNextToken();
+             if (operator.getType() != QueryTokenType.OPERATOR) {
+                 throw new QueryParserException("Wrong order, OPERATOR expected");
+@@ -177,4 +193,13 @@ public class QueryParser {
+     public boolean getWithStatistic() {
+         return this.withStatistic;
+     }
++
++    /**
++     * Gets order by.
++     *
++     * @return the order by
++     */
++    public List<String> getOrderBy() {
++        return this.orderBy;
++    }
+ }
+diff --git a/hw04/src/main/java/hr/fer/oprpp1/hw04/db/QueryParser/QueryTokenType.java b/hw04/src/main/java/hr/fer/oprpp1/hw04/db/QueryParser/QueryTokenType.java
+index 8030295..54836cc 100644
+--- a/hw04/src/main/java/hr/fer/oprpp1/hw04/db/QueryParser/QueryTokenType.java
++++ b/hw04/src/main/java/hr/fer/oprpp1/hw04/db/QueryParser/QueryTokenType.java
+@@ -38,4 +38,13 @@ public enum QueryTokenType {
+ 
+     // TODO: Maybe add later for finalGrade
+     // INTEGER, and convert VALUE into STRING
++
++    /**
++     * Order by query token type.
++     */
++    ORDER_BY,
++    /**
++     * Order by list query token type.
++     */
++    ORDER_BY_LIST
+ }
+diff --git a/hw04/src/main/java/hr/fer/oprpp1/hw04/db/StudentDB.java b/hw04/src/main/java/hr/fer/oprpp1/hw04/db/StudentDB.java
+index 16e29b4..b56e519 100644
+--- a/hw04/src/main/java/hr/fer/oprpp1/hw04/db/StudentDB.java
++++ b/hw04/src/main/java/hr/fer/oprpp1/hw04/db/StudentDB.java
+@@ -111,6 +111,24 @@ public class StudentDB {
+                 filtered = sdb.filter(parser.getFilter());
+             }
+ 
++            if (parser.getOrderBy().size() > 0) {
++                List<String> orderBy = parser.getOrderBy();
++                filtered.sort((o1, o2) -> {
++                    for (String s : orderBy) {
++                        String s1 = FieldValueGetters.getByName(s).get(o1);
++                        String s2 = FieldValueGetters.getByName(s).get(o2);
++
++                        if (s1.equals(s2)) {
++                            continue;
++                        }
++
++                        return s1.compareTo(s2);
++                    }
++
++                    return 0;
++                });
++            }
++

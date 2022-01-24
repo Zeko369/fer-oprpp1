@@ -42,7 +42,6 @@ public class QueryParser {
         try {
             this.parse(query);
         } catch (RuntimeException e) {
-            e.printStackTrace();
             throw new QueryParserException("Error parsing query");
         }
 
