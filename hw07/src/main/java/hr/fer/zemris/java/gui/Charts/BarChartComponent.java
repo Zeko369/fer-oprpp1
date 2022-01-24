@@ -50,11 +50,11 @@ public class BarChartComponent extends JComponent {
 
         for (int i = 0; i < this.barChart.getValues().size(); i++) {
             XYValue value = this.barChart.getValues().get(i);
-            int x = (i == 0 ? leftPadding : 0) + i * realStep;
+            int x = i * realStep + leftPadding;
             int tmpHeight = value.getY() * graphHeight / yCount / this.barChart.getStepY();
 
             graphics.setColor(COLOR);
-            graphics.fillRect(x, graphHeight - tmpHeight, (i == 0 ? -leftPadding : 0) + realStep , tmpHeight);
+            graphics.fillRect(x, graphHeight - tmpHeight, realStep , tmpHeight);
             graphics.setColor(Color.WHITE);
             graphics.drawLine(x, graphHeight - tmpHeight, x, graphHeight);
 
@@ -92,7 +92,7 @@ public class BarChartComponent extends JComponent {
         graphics.setFont(graphics.getFont().deriveFont(10f));
 
         for (int i = 0; i < yCount; i++) {
-            graphics.drawLine(x0, height - i * yStep, xStep * xCount, height - i * yStep);
+            graphics.drawLine(x0, height - i * yStep, x0 + xStep * xCount, height - i * yStep);
 
             String tmp = String.valueOf(this.barChart.getStepY() * i + this.barChart.getMinY());
             graphics.setColor(Color.BLACK);
@@ -101,7 +101,7 @@ public class BarChartComponent extends JComponent {
         }
 
         for (int i = 0; i < xCount; i++) {
-            graphics.drawLine(width - i * xStep, height, width - i * xStep, height - yStep * yCount);
+            graphics.drawLine(x0 + width - i * xStep, height, x0 + width - i * xStep, height - yStep * yCount);
         }
 
         graphics.setColor(Color.BLACK);
