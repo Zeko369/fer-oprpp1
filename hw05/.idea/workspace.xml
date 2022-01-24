@@ -5,9 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="73582f10-00da-4c42-9535-266fa0fddb62" name="Changes" comment="[HW05] - Fixes on shell">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hw07/src/main/java/hr/fer/zemris/java/gui/Charts/BarChart.java" beforeDir="false" afterPath="$PROJECT_DIR$/../hw07/src/main/java/hr/fer/zemris/java/gui/Charts/BarChart.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hw07/src/main/java/hr/fer/zemris/java/gui/Charts/BarChartComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/../hw07/src/main/java/hr/fer/zemris/java/gui/Charts/BarChartComponent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../hw04/.idea/git_toolbox_prj.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../final/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../final/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../final/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../final/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../final/diffHW04.diff" beforeDir="false" afterPath="$PROJECT_DIR$/../final/diffHW04.diff" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../final/rjesenja.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../final/rjesenja.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -252,7 +254,7 @@
       <workItem from="1640185004610" duration="192000" />
       <workItem from="1640185245382" duration="881000" />
       <workItem from="1642945855996" duration="2707000" />
-      <workItem from="1643013801187" duration="1533000" />
+      <workItem from="1643013801187" duration="1535000" />
     </task>
     <task id="LOCAL-00001" summary="[HW04] - .idea files">
       <created>1638805705922</created>

@@ -52,7 +52,7 @@ index 0ca4721..e60615a 100644
                  return this.setToken(QueryTokenType.OPTION, option);
              }
 diff --git a/hw04/src/main/java/hr/fer/oprpp1/hw04/db/QueryParser/QueryParser.java b/hw04/src/main/java/hr/fer/oprpp1/hw04/db/QueryParser/QueryParser.java
-index 19450ff..d01e2d1 100644
+index 19450ff..de4eaa9 100644
 --- a/hw04/src/main/java/hr/fer/oprpp1/hw04/db/QueryParser/QueryParser.java
 +++ b/hw04/src/main/java/hr/fer/oprpp1/hw04/db/QueryParser/QueryParser.java
 @@ -16,11 +16,17 @@ import java.util.stream.Collectors;
@@ -73,14 +73,7 @@ index 19450ff..d01e2d1 100644
      /**
       * ConditionalExpression with JMBAG=value if found, or null
       */
-@@ -36,6 +42,7 @@ public class QueryParser {
-         try {
-             this.parse(query);
-         } catch (RuntimeException e) {
-             throw new QueryParserException("Error parsing query");
-         }
- 
-@@ -71,13 +78,23 @@ public class QueryParser {
+@@ -71,13 +77,23 @@ public class QueryParser {
                  this.withStatistic = true;
  
                  token = lexer.getNextToken();
@@ -105,7 +98,7 @@ index 19450ff..d01e2d1 100644
              if (token.getType() == QueryTokenType.LOGICAL_OPERATOR) {
                  if (this.query.size() == 0) {
                      throw new QueryParserException("Unexpected logical operator");
-@@ -91,7 +108,6 @@ public class QueryParser {
+@@ -91,7 +107,6 @@ public class QueryParser {
                  throw new QueryParserException("Unexpected type");
              }
  
@@ -113,7 +106,7 @@ index 19450ff..d01e2d1 100644
              QueryToken operator = lexer.getNextToken();
              if (operator.getType() != QueryTokenType.OPERATOR) {
                  throw new QueryParserException("Wrong order, OPERATOR expected");
-@@ -177,4 +193,13 @@ public class QueryParser {
+@@ -177,4 +192,13 @@ public class QueryParser {
      public boolean getWithStatistic() {
          return this.withStatistic;
      }
@@ -171,3 +164,29 @@ index 16e29b4..b56e519 100644
 +                });
 +            }
 +
+             StudentRecordFormatter.format(filtered).forEach(System.out::println);
+ 
+             if (parser.getWithStatistic()) {
+@@ -124,7 +142,7 @@ public class StudentDB {
+ 
+                 System.out.printf("Average grade is %.2f\n", average / filtered.size());
+                 System.out.println("Grades:");
+-                for(int i = 0; i < grades.length; i++) {
++                for (int i = 0; i < grades.length; i++) {
+                     System.out.printf("%d: %d%n", i + 1, grades[i]);
+                 }
+             }
+diff --git a/hw04/src/main/resources/database.txt b/hw04/src/main/resources/database.txt
+index 2d743d8..442d7be 100644
+--- a/hw04/src/main/resources/database.txt
++++ b/hw04/src/main/resources/database.txt
+@@ -3,7 +3,8 @@
+ 0000000003	Bosnić	Andrea	4
+ 0000000004	Božić	Marin	5
+ 0000000005	Brezović	Jusufadis	2
+-0000000006	Cvrlje	Ivan	3
++0000009999	Cvrlje	Ivan	3
++0000009998	Cvrlje	Ivan	3
+ 0000000007	Čima	Sanjin	4
+ 0000000008	Ćurić	Marko	5
+ 0000000009	Dean	Nataša	2

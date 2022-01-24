@@ -1,0 +1,442 @@
+// Rijesenja najbolje otvoriti u vscode i promijeniti syntax u diff (ili gledati pojedinacne diffoeve)
+// ------------------------------ ZADACA 4 ---------------------------------------------------------
+
+diff --git a/hw04/src/main/java/hr/fer/oprpp1/hw04/db/QueryParser/QueryLexer.java b/hw04/src/main/java/hr/fer/oprpp1/hw04/db/QueryParser/QueryLexer.java
+index 0ca4721..e60615a 100644
+--- a/hw04/src/main/java/hr/fer/oprpp1/hw04/db/QueryParser/QueryLexer.java
++++ b/hw04/src/main/java/hr/fer/oprpp1/hw04/db/QueryParser/QueryLexer.java
+@@ -1,5 +1,6 @@
+ package hr.fer.oprpp1.hw04.db.QueryParser;
+ 
++import java.util.Arrays;
+ import java.util.List;
+ 
+ /**
+@@ -40,10 +41,13 @@ public class QueryLexer {
+             "AND"
+     });
+ 
++    // TODO: remove stuff from exam
+     private static final List<String> optionKeywords = List.of(new String[]{
+             "with-statistics"
+     });
+ 
++    private static final String ORDER_BY_KEYWORD = "orderby";
++
+     private QueryToken setToken(QueryTokenType type, String value) {
+         this.token = new QueryToken(type, value);
+         return this.token;
+@@ -105,9 +109,25 @@ public class QueryLexer {
+             return this.setToken(QueryTokenType.EOF, null);
+         }
+ 
++        if (this.getToken() != null && this.getToken().getType() == QueryTokenType.ORDER_BY) {
++            StringBuilder sb = new StringBuilder();
++            for (int i = this.index; i < this.query.length; i++) {
++                sb.append(this.query[i]);
++            }
++
++            this.index = this.query.length;
++
++            return this.setToken(QueryTokenType.ORDER_BY_LIST, sb.toString());
++        }
++
++        if (this.checkSequence(ORDER_BY_KEYWORD)) {
++            this.index += ORDER_BY_KEYWORD.length();
++            return this.setToken(QueryTokenType.ORDER_BY, "orderBy");
++        }
++
+         // OPTION
+-        for(String option : optionKeywords) {
+-            if(this.checkSequence(option)) {
++        for (String option : optionKeywords) {
++            if (this.checkSequence(option)) {
+                 this.index += option.length();
+                 return this.setToken(QueryTokenType.OPTION, option);
+             }
+diff --git a/hw04/src/main/java/hr/fer/oprpp1/hw04/db/QueryParser/QueryParser.java b/hw04/src/main/java/hr/fer/oprpp1/hw04/db/QueryParser/QueryParser.java
+index 19450ff..de4eaa9 100644
+--- a/hw04/src/main/java/hr/fer/oprpp1/hw04/db/QueryParser/QueryParser.java
++++ b/hw04/src/main/java/hr/fer/oprpp1/hw04/db/QueryParser/QueryParser.java
+@@ -16,11 +16,17 @@ import java.util.stream.Collectors;
+  * @author franzekan
+  */
+ public class QueryParser {
++    public static void main(String[] args) {
++        QueryParser parser = new QueryParser("lastName LIKE \"B*\" orderby lastName, firstName, jmbag");
++    }
++
+     private List<ConditionalExpression> query = new ArrayList<>();
+ 
+     // should be a list or a class/record
+     private boolean withStatistic = false;
+ 
++    private final List<String> orderBy = new ArrayList<>();
++
+     /**
+      * ConditionalExpression with JMBAG=value if found, or null
+      */
+@@ -71,13 +77,23 @@ public class QueryParser {
+                 this.withStatistic = true;
+ 
+                 token = lexer.getNextToken();
+-                if(token.getType() != QueryTokenType.EOF) {
++                if (token.getType() != QueryTokenType.EOF) {
+                     throw new QueryParserException("Unexpected option");
+                 }
+ 
+                 continue;
+             }
+ 
++            if (token.getType() == QueryTokenType.ORDER_BY) {
++                String tmp = lexer.getNextToken().getValue();
++                for (String field : tmp.split(",")) {
++                    this.orderBy.add(field.trim());
++                }
++
++                token = lexer.getNextToken();
++                continue;
++            }
++
+             if (token.getType() == QueryTokenType.LOGICAL_OPERATOR) {
+                 if (this.query.size() == 0) {
+                     throw new QueryParserException("Unexpected logical operator");
+@@ -91,7 +107,6 @@ public class QueryParser {
+                 throw new QueryParserException("Unexpected type");
+             }
+ 
+-
+             QueryToken operator = lexer.getNextToken();
+             if (operator.getType() != QueryTokenType.OPERATOR) {
+                 throw new QueryParserException("Wrong order, OPERATOR expected");
+@@ -177,4 +192,13 @@ public class QueryParser {
+     public boolean getWithStatistic() {
+         return this.withStatistic;
+     }
++
++    /**
++     * Gets order by.
++     *
++     * @return the order by
++     */
++    public List<String> getOrderBy() {
++        return this.orderBy;
++    }
+ }
+diff --git a/hw04/src/main/java/hr/fer/oprpp1/hw04/db/QueryParser/QueryTokenType.java b/hw04/src/main/java/hr/fer/oprpp1/hw04/db/QueryParser/QueryTokenType.java
+index 8030295..54836cc 100644
+--- a/hw04/src/main/java/hr/fer/oprpp1/hw04/db/QueryParser/QueryTokenType.java
++++ b/hw04/src/main/java/hr/fer/oprpp1/hw04/db/QueryParser/QueryTokenType.java
+@@ -38,4 +38,13 @@ public enum QueryTokenType {
+ 
+     // TODO: Maybe add later for finalGrade
+     // INTEGER, and convert VALUE into STRING
++
++    /**
++     * Order by query token type.
++     */
++    ORDER_BY,
++    /**
++     * Order by list query token type.
++     */
++    ORDER_BY_LIST
+ }
+diff --git a/hw04/src/main/java/hr/fer/oprpp1/hw04/db/StudentDB.java b/hw04/src/main/java/hr/fer/oprpp1/hw04/db/StudentDB.java
+index 16e29b4..b56e519 100644
+--- a/hw04/src/main/java/hr/fer/oprpp1/hw04/db/StudentDB.java
++++ b/hw04/src/main/java/hr/fer/oprpp1/hw04/db/StudentDB.java
+@@ -111,6 +111,24 @@ public class StudentDB {
+                 filtered = sdb.filter(parser.getFilter());
+             }
+ 
++            if (parser.getOrderBy().size() > 0) {
++                List<String> orderBy = parser.getOrderBy();
++                filtered.sort((o1, o2) -> {
++                    for (String s : orderBy) {
++                        String s1 = FieldValueGetters.getByName(s).get(o1);
++                        String s2 = FieldValueGetters.getByName(s).get(o2);
++
++                        if (s1.equals(s2)) {
++                            continue;
++                        }
++
++                        return s1.compareTo(s2);
++                    }
++
++                    return 0;
++                });
++            }
++
+             StudentRecordFormatter.format(filtered).forEach(System.out::println);
+ 
+             if (parser.getWithStatistic()) {
+diff --git a/hw04/src/main/resources/database.txt b/hw04/src/main/resources/database.txt
+index 2d743d8..442d7be 100644
+--- a/hw04/src/main/resources/database.txt
++++ b/hw04/src/main/resources/database.txt
+@@ -3,7 +3,8 @@
+ 0000000003	Bosnić	Andrea	4
+ 0000000004	Božić	Marin	5
+ 0000000005	Brezović	Jusufadis	2
+-0000000006	Cvrlje	Ivan	3
++0000009999	Cvrlje	Ivan	3
++0000009998	Cvrlje	Ivan	3
+ 0000000007	Čima	Sanjin	4
+ 0000000008	Ćurić	Marko	5
+ 0000000009	Dean	Nataša	2
+
+
+// ------------------------------ ZADACA 7 ---------------------------------------------------------
+
+public class BarChart {
+  private final List<XYValue> values;
+
+-    private final String xDescription;
+-
+-    private final String yDescription;
++    private String xDescription;
++    private String yDescription;
+
+  private final int minY;
+  private final int maxY;
+@@ -41,6 +43,22 @@ public class BarChart {
+      });
+  }
+
++    public void randomise() {
++        for (XYValue value : this.values) {
++            value.randomise(this.getMinY(), this.getMaxY());
++        }
++
++        StringBuilder newX = new StringBuilder();
++        StringBuilder newY = new StringBuilder();
++        for (int i = 0; i < 10; i++) {
++            newX.append((char) (Math.random() * 26 + 'a'));
++            newY.append((char) (Math.random() * 26 + 'a'));
++        }
++
++        this.xDescription = newX.toString();
++        this.yDescription = newY.toString();
++    }
++
+  public List<XYValue> getValues() {
+      return values;
+  }
+diff --git a/hw07/src/main/java/hr/fer/zemris/java/gui/Charts/Demo.java b/hw07/src/main/java/hr/fer/zemris/java/gui/Charts/Demo.java
+index 4bb351a..c03fdc2 100644
+--- a/hw07/src/main/java/hr/fer/zemris/java/gui/Charts/Demo.java
++++ b/hw07/src/main/java/hr/fer/zemris/java/gui/Charts/Demo.java
+@@ -1,5 +1,7 @@
+package hr.fer.zemris.java.gui.Charts;
+
++import hr.fer.zemris.java.gui.Charts.shared.LoadData;
++
+import javax.swing.*;
+import java.awt.*;
+import java.io.IOException;
+@@ -17,32 +19,15 @@ public class Demo extends JFrame {
+          System.exit(1);
+      }
+
+-        List<String> lines = Files.readAllLines(Paths.get(args[0]));
+-
+-        if (lines.size() < 5) {
+-            System.err.println("Expected at least 5 lines in data file");
+-            System.exit(1);
+-        }
+-
+-        String xDescription = lines.get(0);
+-        String yDescription = lines.get(1);
+-
+-        List<XYValue> values = Arrays.stream(lines.get(2).split(" "))
+-                .map(s -> s.split(","))
+-                .map(arr -> new XYValue(Integer.parseInt(arr[0]), Integer.parseInt(arr[1])))
+-                .toList();
+-
+-        int minY = Integer.parseInt(lines.get(3));
+-        int maxY = Integer.parseInt(lines.get(4));
+-        int step = Integer.parseInt(lines.get(5));
+-
++        LoadData loader = new LoadData();
+      try {
+-            BarChart chart = new BarChart(values, xDescription, yDescription, minY, maxY, step);
+-            SwingUtilities.invokeLater(() -> new Demo(chart).setVisible(true));
+-        } catch (IllegalArgumentException e) {
+-            System.err.println("Error loading data from file");
++            loader.getInitialData(args[0]);
++        } catch (LoadData.LoadDataException e) {
+          System.err.println(e.getMessage());
++            System.exit(1);
+      }
++
++        SwingUtilities.invokeLater(() -> new Demo(loader.getChart()).setVisible(true));
+  }
+
+  public Demo(BarChart barChart) {
+diff --git a/hw07/src/main/java/hr/fer/zemris/java/gui/Charts/Grafovi.java b/hw07/src/main/java/hr/fer/zemris/java/gui/Charts/Grafovi.java
+new file mode 100644
+index 0000000..b750dbc
+--- /dev/null
++++ b/hw07/src/main/java/hr/fer/zemris/java/gui/Charts/Grafovi.java
+@@ -0,0 +1,64 @@
++package hr.fer.zemris.java.gui.Charts;
++
++import hr.fer.zemris.java.gui.Charts.shared.LoadData;
++
++import javax.swing.*;
++import java.awt.*;
++
++public class Grafovi extends JFrame {
++    private final LoadData[] loaders;
++    private final BarChartComponent[] barChartGraphs;
++
++    public static void main(String[] args) {
++        if (args.length != 1) {
++            System.err.println("Usage: java Demo <path to data file>");
++            System.exit(1);
++        }
++
++        SwingUtilities.invokeLater(() -> new Grafovi(args[0]).setVisible(true));
++    }
++
++    public Grafovi(String path) {
++        this.loaders = new LoadData[4];
++        for (int i = 0; i < 4; i++) {
++            this.loaders[i] = new LoadData();
++            this.loaders[i].getInitialData(path);
++        }
++
++        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
++        this.setTitle("Bar chart");
++        this.setSize(800, 600);
++
++        this.barChartGraphs = new BarChartComponent[4];
++
++        this.initGUI();
++    }
++
++    private void initGUI() {
++        this.getContentPane().setLayout(new BorderLayout());
++
++        JPanel graphs = new JPanel(new GridLayout(2, 2));
++        graphs.setLayout(new GridLayout(2, 2));
++        for (int i = 0; i < 4; i++) {
++            this.barChartGraphs[i] = new BarChartComponent(this.loaders[i].getChart());
++            graphs.add(this.barChartGraphs[i]);
++        }
++        this.getContentPane().add(graphs, BorderLayout.CENTER);
++
++        JPanel buttons = new JPanel();
++        buttons.setLayout(new GridLayout(1, 4));
++        for (int i = 0; i < 4; i++) {
++            JButton btn = new JButton("Graph " + (i + 1));
++
++            int finalI = i;
++            btn.addActionListener((e) -> {
++                this.loaders[finalI].randomise();
++                this.barChartGraphs[finalI].setData(this.loaders[finalI].getChart());
++            });
++
++            buttons.add(btn);
++        }
++
++        this.getContentPane().add(buttons, BorderLayout.PAGE_END);
++    }
++}
+diff --git a/hw07/src/main/java/hr/fer/zemris/java/gui/Charts/XYValue.java b/hw07/src/main/java/hr/fer/zemris/java/gui/Charts/XYValue.java
+index 202644c..43108d0 100644
+--- a/hw07/src/main/java/hr/fer/zemris/java/gui/Charts/XYValue.java
++++ b/hw07/src/main/java/hr/fer/zemris/java/gui/Charts/XYValue.java
+@@ -6,8 +6,8 @@ package hr.fer.zemris.java.gui.Charts;
+* @author franzekan
+*/
+public class XYValue {
+-    private final int x;
+-    private final int y;
++    private int x;
++    private int y;
+
+  /**
+   * Instantiates a new Xy value.
+@@ -37,4 +37,14 @@ public class XYValue {
+  public int getY() {
+      return y;
+  }
++
++    public void randomise(int minY, int maxY) {
++        this.x = (int) (Math.random() * 100);
++        this.y = (int) (Math.random() * (maxY - minY)) + minY;
++    }
++
++    @Override
++    public String toString() {
++        return "(" + x + ", " + y + ")";
++    }
+}
+diff --git a/hw07/src/main/java/hr/fer/zemris/java/gui/Charts/shared/LoadData.java b/hw07/src/main/java/hr/fer/zemris/java/gui/Charts/shared/LoadData.java
+new file mode 100644
+index 0000000..201ca87
+--- /dev/null
++++ b/hw07/src/main/java/hr/fer/zemris/java/gui/Charts/shared/LoadData.java
+@@ -0,0 +1,61 @@
++package hr.fer.zemris.java.gui.Charts.shared;
++
++import hr.fer.zemris.java.gui.Charts.BarChart;
++import hr.fer.zemris.java.gui.Charts.Demo;
++import hr.fer.zemris.java.gui.Charts.XYValue;
++
++import javax.swing.*;
++import java.io.IOException;
++import java.nio.file.Files;
++import java.nio.file.Paths;
++import java.util.Arrays;
++import java.util.List;
++
++public class LoadData {
++    private BarChart chart;
++
++    public static class LoadDataException extends RuntimeException {
++        public LoadDataException(String message) {
++            super(message);
++        }
++    }
++
++    public BarChart getChart() {
++        return chart;
++    }
++
++    public void getInitialData(String path) {
++        List<String> lines = null;
++        try {
++            lines = Files.readAllLines(Paths.get(path));
++        } catch (IOException e) {
++            throw new LoadDataException("Error opening file");
++        }
++
++        if (lines.size() < 5) {
++            throw new LoadDataException("Not enough lines");
++        }
++
++        String xDescription = lines.get(0);
++        String yDescription = lines.get(1);
++
++        List<XYValue> values = Arrays.stream(lines.get(2).split(" "))
++                .map(s -> s.split(","))
++                .map(arr -> new XYValue(Integer.parseInt(arr[0]), Integer.parseInt(arr[1])))
++                .toList();
++
++        int minY = Integer.parseInt(lines.get(3));
++        int maxY = Integer.parseInt(lines.get(4));
++        int step = Integer.parseInt(lines.get(5));
++
++        try {
++            this.chart = new BarChart(values, xDescription, yDescription, minY, maxY, step);
++        } catch (IllegalArgumentException e) {
++            throw new LoadDataException("Invalid data");
++        }
++    }
++
++    public void randomise() {
++        this.chart.randomise();
++    }
++}
