@@ -6,6 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="73582f10-00da-4c42-9535-266fa0fddb62" name="Changes" comment="[HW05] - Fixes on shell">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hw07/src/main/java/hr/fer/zemris/java/gui/Charts/BarChartComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/../hw07/src/main/java/hr/fer/zemris/java/gui/Charts/BarChartComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hw07/src/main/java/hr/fer/zemris/java/gui/Charts/Demo.java" beforeDir="false" afterPath="$PROJECT_DIR$/../hw07/src/main/java/hr/fer/zemris/java/gui/Charts/Demo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hw07/src/main/java/hr/fer/zemris/java/gui/layouts/CalcLayout.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hw07/src/main/java/hr/fer/zemris/java/gui/layouts/CalcLayoutException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hw07/src/main/java/hr/fer/zemris/java/gui/layouts/RCPosition.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../hw07/src/main/java/hr/fer/zemris/java/gui/layouts/RCPositionParseException.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -249,6 +255,8 @@
       <workItem from="1640028345571" duration="1558000" />
       <workItem from="1640185004610" duration="192000" />
       <workItem from="1640185245382" duration="881000" />
+      <workItem from="1642945855996" duration="2707000" />
+      <workItem from="1643013801187" duration="601000" />
     </task>
     <task id="LOCAL-00001" summary="[HW04] - .idea files">
       <created>1638805705922</created>
