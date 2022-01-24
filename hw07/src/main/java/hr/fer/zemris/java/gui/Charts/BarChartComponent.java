@@ -44,13 +44,18 @@ public class BarChartComponent extends JComponent {
         this.drawGrid(graphics, leftPadding, graphHeight, realWidth, yCount, xCount);
 
         for (int i = 0; i < this.barChart.getValues().size(); i++) {
+            XYValue value = this.barChart.getValues().get(i);
             int x = (i == 0 ? leftPadding : 0) + i * realStep;
-            int tmpHeight = this.barChart.getValues().get(i).getY() * graphHeight / yCount / this.barChart.getStepY();
+            int tmpHeight = value.getY() * graphHeight / yCount / this.barChart.getStepY();
 
             graphics.setColor(COLOR);
             graphics.fillRect(x, graphHeight - tmpHeight, realStep , tmpHeight);
             graphics.setColor(Color.WHITE);
             graphics.drawLine(x, graphHeight - tmpHeight, x, graphHeight);
+
+            graphics.setColor(Color.BLACK);
+            graphics.setFont(graphics.getFont().deriveFont(10f));
+            graphics.drawString(String.valueOf(value.getX()), x + realStep / 2, graphHeight + GAP);
         }
 
         graphics.setColor(Color.GRAY);
@@ -79,12 +84,19 @@ public class BarChartComponent extends JComponent {
         int xStep = width / xCount;
         int yStep = height / yCount;
 
+        graphics.setFont(graphics.getFont().deriveFont(10f));
+
         for (int i = 0; i < yCount; i++) {
-            graphics.drawLine(x0, height - i * (height / yCount), xStep * xCount, height - i * (height / yCount));
+            graphics.drawLine(x0, height - i * yStep, xStep * xCount, height - i * yStep);
+
+            String tmp = String.valueOf(this.barChart.getStepY() * i + this.barChart.getMinY());
+            graphics.setColor(Color.BLACK);
+            graphics.drawString(tmp, GAP, height - i * yStep + yStep);
+            graphics.setColor(Color.YELLOW);
         }
 
         for (int i = 0; i < xCount; i++) {
-            graphics.drawLine(width - i * (width / xCount), height, width - i * (width / xCount), height - yStep * yCount);
+            graphics.drawLine(width - i * xStep, height, width - i * xStep, height - yStep * yCount);
         }
 
         graphics.setColor(Color.BLACK);
