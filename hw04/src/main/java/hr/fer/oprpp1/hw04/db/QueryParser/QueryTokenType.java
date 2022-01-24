@@ -38,4 +38,13 @@ public enum QueryTokenType {
 
     // TODO: Maybe add later for finalGrade
     // INTEGER, and convert VALUE into STRING
+
+    /**
+     * Order by query token type.
+     */
+    ORDER_BY,
+    /**
+     * Order by list query token type.
+     */
+    ORDER_BY_LIST
 }

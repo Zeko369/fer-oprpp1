@@ -1,5 +1,6 @@
 package hr.fer.oprpp1.hw04.db.QueryParser;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -40,9 +41,12 @@ public class QueryLexer {
             "AND"
     });
 
+    // TODO: remove stuff from exam
     private static final List<String> optionKeywords = List.of(new String[]{
             "with-statistics"
     });
+
+    private static final String ORDER_BY_KEYWORD = "orderby";
 
     private QueryToken setToken(QueryTokenType type, String value) {
         this.token = new QueryToken(type, value);
@@ -105,9 +109,25 @@ public class QueryLexer {
             return this.setToken(QueryTokenType.EOF, null);
         }
 
+        if (this.getToken() != null && this.getToken().getType() == QueryTokenType.ORDER_BY) {
+            StringBuilder sb = new StringBuilder();
+            for (int i = this.index; i < this.query.length; i++) {
+                sb.append(this.query[i]);
+            }
+
+            this.index = this.query.length;
+
+            return this.setToken(QueryTokenType.ORDER_BY_LIST, sb.toString());
+        }
+
+        if (this.checkSequence(ORDER_BY_KEYWORD)) {
+            this.index += ORDER_BY_KEYWORD.length();
+            return this.setToken(QueryTokenType.ORDER_BY, "orderBy");
+        }
+
         // OPTION
-        for(String option : optionKeywords) {
-            if(this.checkSequence(option)) {
+        for (String option : optionKeywords) {
+            if (this.checkSequence(option)) {
                 this.index += option.length();
                 return this.setToken(QueryTokenType.OPTION, option);
             }

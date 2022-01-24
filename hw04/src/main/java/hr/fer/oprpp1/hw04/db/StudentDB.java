@@ -111,6 +111,24 @@ public class StudentDB {
                 filtered = sdb.filter(parser.getFilter());
             }
 
+            if (parser.getOrderBy().size() > 0) {
+                List<String> orderBy = parser.getOrderBy();
+                filtered.sort((o1, o2) -> {
+                    for (String s : orderBy) {
+                        String s1 = FieldValueGetters.getByName(s).get(o1);
+                        String s2 = FieldValueGetters.getByName(s).get(o2);
+
+                        if (s1.equals(s2)) {
+                            continue;
+                        }
+
+                        return s1.compareTo(s2);
+                    }
+
+                    return 0;
+                });
+            }
+
             StudentRecordFormatter.format(filtered).forEach(System.out::println);
 
             if (parser.getWithStatistic()) {
@@ -124,7 +142,7 @@ public class StudentDB {
 
                 System.out.printf("Average grade is %.2f\n", average / filtered.size());
                 System.out.println("Grades:");
-                for(int i = 0; i < grades.length; i++) {
+                for (int i = 0; i < grades.length; i++) {
                     System.out.printf("%d: %d%n", i + 1, grades[i]);
                 }
             }

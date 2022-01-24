@@ -16,10 +16,16 @@ import java.util.stream.Collectors;
  * @author franzekan
  */
 public class QueryParser {
+    public static void main(String[] args) {
+        QueryParser parser = new QueryParser("lastName LIKE \"B*\" orderby lastName, firstName, jmbag");
+    }
+
     private List<ConditionalExpression> query = new ArrayList<>();
 
     // should be a list or a class/record
     private boolean withStatistic = false;
+
+    private final List<String> orderBy = new ArrayList<>();
 
     /**
      * ConditionalExpression with JMBAG=value if found, or null
@@ -36,6 +42,7 @@ public class QueryParser {
         try {
             this.parse(query);
         } catch (RuntimeException e) {
+            e.printStackTrace();
             throw new QueryParserException("Error parsing query");
         }
 
@@ -71,10 +78,20 @@ public class QueryParser {
                 this.withStatistic = true;
 
                 token = lexer.getNextToken();
-                if(token.getType() != QueryTokenType.EOF) {
+                if (token.getType() != QueryTokenType.EOF) {
                     throw new QueryParserException("Unexpected option");
                 }
 
+                continue;
+            }
+
+            if (token.getType() == QueryTokenType.ORDER_BY) {
+                String tmp = lexer.getNextToken().getValue();
+                for (String field : tmp.split(",")) {
+                    this.orderBy.add(field.trim());
+                }
+
+                token = lexer.getNextToken();
                 continue;
             }
 
@@ -90,7 +107,6 @@ public class QueryParser {
             if (token.getType() != QueryTokenType.COLUMN) {
                 throw new QueryParserException("Unexpected type");
             }
-
 
             QueryToken operator = lexer.getNextToken();
             if (operator.getType() != QueryTokenType.OPERATOR) {
@@ -176,5 +192,14 @@ public class QueryParser {
      */
     public boolean getWithStatistic() {
         return this.withStatistic;
+    }
+
+    /**
+     * Gets order by.
+     *
+     * @return the order by
+     */
+    public List<String> getOrderBy() {
+        return this.orderBy;
     }
 }
