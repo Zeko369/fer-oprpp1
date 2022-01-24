@@ -87,6 +87,8 @@ public class DefaultMultipleDocumentModel extends JTabbedPane implements Multipl
             }
         });
 
+        this.setSelectedIndex(this.currentIndex);
+
         return doc;
     }
 
